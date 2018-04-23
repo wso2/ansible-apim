@@ -1,0 +1,83 @@
+---
+- name: download the AM
+  get_url:  url=https://github.com/wso2/product-apim/releases/download/v2.2.0/wso2am-2.2.0.zip dest=/opt/wso2am-2.2.0.zip headers="Referer:http://wso2.com/legacy-products"
+  register: get_apim
+- debug:
+    msg: "AM was downloaded"
+  when:  get_apim|changed
+
+- name: Copy files
+  shell: cp -r /opt/wso2am-2.2.0.zip /etc/ansible/roles/apim/files
+
+- name: unpack the AM
+  stat:
+    path: "{{directory_path}}"
+  register: st
+
+- unarchive:
+    src: /etc/ansible/roles/apim/files/wso2am-2.2.0.zip
+    remote_src: True
+    dest: /opt
+  when: not st.stat.exists
+
+
+- name: create a user and password
+  shell: echo "addprinc -pw {{ item.password }} {{ item.username }}"
+  with_items: "{{ users }}"
+
+
+- name: set permissions on a components dir
+  file: state=directory recurse=yes dest="{{directory_path}}"
+
+- name: download the MySQL driver
+  get_url: url=https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.30.zip dest=/etc/ansible/roles/apim/files
+
+- name: unpack the mysql jar
+  stat:
+    path: /etc/ansible/roles/apim/files/mysql-connector-java-5.1.30 
+  register: sql
+
+- unarchive:
+    src: /etc/ansible/roles/apim/files/mysql-connector-java-5.1.30.zip 
+    remote_src: True
+    dest: /etc/ansible/roles/apim/files
+  when: not sql.stat.exists
+
+- import_tasks: support.yml
+
+- name: Restart the wso2am-2.2.0
+  shell: "sh {{directory_path}}/bin/wso2server.sh start restart"
+  state: restarted
+  when: 
+    - result_gateway.changed or result_key_manager.changed or result_api_store.changed or result_api_publisher.changed
+    - profile!='traffic_manager'
+
+- name: Restart the wso2am-2.2.0
+  shell: "sh {{directory_path}}/bin/wso2server.sh -Dprofile=traffic-manager restart"
+  state: restarted
+  when: 
+    - result.changed or result_jaggery.changed or result_traffic_war.changed
+    - profile =='traffic_manager'
+
+- name: Start wso2am-2.2.0
+  shell: "sh {{directory_path}}/bin/wso2server.sh start"
+  become: yes
+  become_method: sudo
+  register: wso2am-2.2.0
+  ignore_errors: True
+  when: 
+    - profile!='traffic_manager'
+    - not (result.changed or result_jaggery.changed or result_traffic_war.changed)
+- name: Start wso2am-2.2.0
+  shell: "sh {{directory_path}}/bin/wso2server.sh -Dprofile=traffic-manager start"
+  become: yes
+  become_method: sudo
+  register: wso2am-2.2.0
+  ignore_errors: True
+  when: 
+    - profile == 'traffic_manager'
+    - not (result.changed or result_jaggery.changed or result_traffic_war.changed)
+- debug: var=wso2am-2.2.0.stdout_lines
+
+
+

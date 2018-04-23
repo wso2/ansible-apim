@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<datasources-configuration xmlns:svns="http://org.wso2.securevault/configuration">
+
+    <providers>
+        <provider>org.wso2.carbon.ndatasource.rdbms.RDBMSDataSourceReader</provider>
+    </providers>
+
+    <datasources>
+         <datasource>
+            <name>WSO2_CARBON_DB</name>
+            <description>The datasource used for registry and user manager</description>
+            <jndiConfig>
+                <name>jdbc/WSO2CarbonDB</name>
+            </jndiConfig>
+            <definition type="RDBMS">
+                <configuration>
+                    <url>jdbc:h2:repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE</url>
+                    <username>wso2carbon</username>
+                    <password>wso2carbon</password>
+                    <driverClassName>org.h2.Driver</driverClassName>
+                    <maxActive>50</maxActive>
+                    <maxWait>60000</maxWait>
+                    <testOnBorrow>true</testOnBorrow>
+                    <validationQuery>SELECT 1</validationQuery>
+                    <validationInterval>30000</validationInterval>
+                </configuration>
+            </definition>
+        </datasource>
+
+      {% for datasource in master_datasources %}
+        <datasource>
+           <name>{{ master_datasources[datasource]['name'] }}</name>
+           <description>{{ master_datasources[datasource]['description'] }}</description>
+           <jndiConfig><name>{{ master_datasources[datasource]['jndi_config'] }}</name></jndiConfig>
+           <definition type="RDBMS">
+             <configuration>
+               <url>{{ master_datasources[datasource]['url'] }}</url>
+               <username>{{ master_datasources[datasource]['username'] }}</username>
+               <password>{{ master_datasources[datasource]['password'] }}</password>
+               <driverClassName>{{ master_datasources[datasource]['driver_class_name'] }}</driverClassName>
+               <maxActive>{{ master_datasources[datasource]['max_active'] }}</maxActive>
+               <maxWait>{{ master_datasources[datasource]['max_wait'] }}</maxWait>
+               <testOnBorrow>{{ master_datasources[datasource]['test_on_borrow'] }}</testOnBorrow>
+               <validationQuery>{{ master_datasources[datasource]['validation_query'] }}</validationQuery>
+               <validationInterval>{{ master_datasources[datasource]['validation_interval'] }}</validationInterval>
+               <defaultAutoCommit>{{ master_datasources[datasource]['default_auto_commit'] }}</defaultAutoCommit>
+              </configuration>
+            </definition>
+        </datasource>
+
+
+
+
+
+{% endfor %}        
+
+    </datasources>
+
+</datasources-configuration>
