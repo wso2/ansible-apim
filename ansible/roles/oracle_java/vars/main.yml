@@ -1,0 +1,17 @@
+---
+jdk_dir: 8u131-b11
+jdk_archive: jdk-8u131-linux-x64.tar.gz
+jdk_local_dir: jdk1.8.0_131
+download_folder: /opt
+bin_dir: /usr/bin
+profile_path: /etc/profile.d
+java_path: "{{ download_folder }}/{{ jdk_local_dir }}/jre"
+java_archive: "{{ download_folder }}/{{ jdk_archive }}"
+download_url: http://download.oracle.com/otn-pub/java/jdk/{{jdk_dir}}/{{jdk_archive}}
+java_version: 8
+java_subversion: 131
+java_build_custom: 11
+jdk_version_detail_custom: "{{ java_version }}u{{ java_subversion }}-b{{ java_build_custom }}"
+jdk_tarball_hash: d54c1d3a095b4ff2b6607d096fa80163
+jdk_tarball_url: "http://download.oracle.com/otn-pub/java/jdk/{{ jdk_version_detail_custom }}/{{ jdk_tarball_hash }}/{{ jdk_archive }}"
+

@@ -1,0 +1,234 @@
+---
+sudo: yes
+common:
+  include_file: /etc/systemd/system/wso2am.service
+
+url: https://github.com/wso2/product-apim/releases/download/v2.1.0-update14/wso2am-2.1.0-update14.zip
+directory_path: /opt/wso2am-2.2.0  
+db_server_1: "10.100.4.205"
+users:
+  - username: wso2_am_user
+    password: wso2amuser
+profile: traffic_manager
+profile_of_webapp: gateway_manager
+
+carbon: 
+  host_name: "www.wso2.org"
+  mgt_host_name: "mgt.wso2.org"
+  offset: 1
+  location: "/repository/resources/security/wso2carbon.jks"
+  type: "JKS"
+  password: "wso2carbon"
+  key_alias: "wso2carbon"
+  key_password: "wso2carbon"
+  trust_location: "/repository/resources/security/wso2carbon.jks"
+  trust_type: "JKS"
+  trust_password: "wso2carbon"
+  enabled: false
+  auto_commit: false
+  auto_checkout: true
+  repository_type: "svn"
+  svn_url: "http://svnrepo.example.com/repos/"
+  svn_user: "username"
+  svn_password:  "password"
+  svn_url_append_tenant_id: true 
+
+
+
+xmlns_svns: "http://org.wso2.securevault/configuration"
+admin_role: "admin"
+user_mgt:
+  user_name: "admin"
+  user_password: "admin"
+  property_dataSource: "jdbc/WSO2UM_DB"
+registry:
+  data_source_g: "jdbc/WSO2REG_DB"
+  data_source_c: "jdbc/WSOCONF_DB"
+  product_profile: "traffic-manager"
+  db_config_g: "govregistry"
+  db_config_c: "confregistry"
+  db_config_data_source: "jdbc/WSO2REG_DB"
+  remote_instance_url: "https://{{ db_server_1 }}:9443/registry"
+  remote_instance_id_g: "gov"
+  remote_instance_id_c: "config"
+  remote_instance_cache_id: "root@jdbc:mysql://db.mysql-wso2.com:3306/regdb"
+  remote_instance_read_only: 'false'
+  remote_instance_enable_cache: 'true'
+  remote_instance_registry_root: "/"
+  mount_path_g: "/_system/governance"
+  mount_path_c: "/_system/config"
+  mount_overwrite_g: 'true'
+  mount_overwrite_c: 'true'
+  mount_instance_id_g: "gov"
+  mount_instance_id_c: "config"
+  mount_target_path_g: "/_system/governance"
+  mount_target_path_c: "/_system/config"
+
+
+wso2_am_db_username: "root"
+wso2_am_db_password: 'hammerW@1'
+wso2_um_db_username: "root"
+wso2_um_db_password: 'hammerW@1'
+wso2_reg_db_username: "root"
+wso2_reg_db_password: 'hammerW@1'
+wso2_conf_db_username: "root"
+wso2_conf_db_password: 'hammerW@1'
+wso2_stats_db_username: "root"
+wso2_stats_db_password: 'hammerW@1'
+wso2_store_db_username: "root"
+wso2_store_db_password: 'hammerW@1'
+master_datasources:
+  wso2am_db: 
+    name: WSO2AM_DB
+    description: The datasource used for the API Manager database
+    driver_class_name: 'com.mysql.jdbc.Driver'
+    url: "jdbc:mysql://{{ db_server_1 }}:3306/apimgtdb?autoReconnect=true"
+    username: "{{ wso2_am_db_username }}"
+    password: "{{ wso2_am_db_password }}"
+    jndi_config: jdbc/WSO2AM_DB
+    max_active: 50
+    max_wait: 60000
+    test_on_borrow: 'true'
+    default_auto_commit: 'false'
+    validation_query: 'SELECT 1'
+    validation_interval: 30000
+  wso2um_db:
+    name: WSO2UM_DB
+    description: The datasource used by user manager
+    driver_class_name: 'com.mysql.jdbc.Driver'
+    url: "jdbc:mysql://{{ db_server_1 }}:3306/userdb?autoReconnect=true"
+    username: "{{ wso2_um_db_username }}"
+    password: "{{ wso2_um_db_password }}"
+    jndi_config: jdbc/WSO2UM_DB
+    max_active: 50
+    max_wait: 60000
+    test_on_borrow: 'true'
+    default_auto_commit: 'false'
+    validation_query: 'SELECT 1'
+    validation_interval: 30000
+  wso2reg_db:
+    name: WSO2REG_DB
+    description: The datasource used for the API Manager database
+    driver_class_name: 'com.mysql.jdbc.Driver'
+    url: "jdbc:mysql://{{ db_server_1 }}:3306/regdb??autoReconnect=true"
+    username: "{{ wso2_reg_db_username }}"
+    password: "{{ wso2_reg_db_password }}"
+    jndi_config: jdbc/WSO2REG_DB
+    max_active: 50
+    max_wait: 60000
+    test_on_borrow: 'true'
+    default_auto_commit: 'false'
+    validation_query: 'SELECT 1'
+    validation_interval: 30000
+  wso2conf_db:
+    name: WSO2CONF_DB
+    description: The datasource used for the API Manager database
+    driver_class_name: 'com.mysql.jdbc.Driver'
+    url: "jdbc:mysql://{{ db_server_1 }}:3306/configdb?autoReconnect=true"
+    username: "{{ wso2_conf_db_username }}"
+    password: "{{ wso2_conf_db_password }}"
+    jndi_config: jdbc/WSO2CONF_DB
+    max_active: 50
+    max_wait: 60000
+    test_on_borrow: 'true'
+    default_auto_commit: 'false'
+    validation_query: 'SELECT 1'
+    validation_interval: 30000
+  wso2am_stats_db:
+    name: WSO2AM_STATS_DB
+    description: The datasource used for the API Manager database
+    driver_class_name: 'com.mysql.jdbc.Driver'
+    url: "jdbc:mysql://{{ db_server_1 }}:3306/statdb?autoReconnect=true"
+    username: "{{ wso2_stats_db_username }}"
+    password: "{{ wso2_stats_db_password }}"
+    jndi_config: jdbc/WSO2AM_STATS_DB
+    max_active: 50
+    max_wait: 60000
+    test_on_borrow: 'true'
+    default_auto_commit: 'false'
+    validation_query: 'SELECT 1'
+    validation_interval: 30000
+  wso2am_mb_store_db:
+    name: WSO2_MB_STORE_DB
+    description: The datasource used for the API Manager database
+    driver_class_name: 'com.mysql.jdbc.Driver'
+    url: "jdbc:mysql://{{ db_server_1 }}:3306/mbstoredb?autoReconnect=true"
+    username: "{{ wso2_store_db_username }}"
+    password: "{{ wso2_store_db_password }}"
+    jndi_config: WSO2MBStoreDB
+    max_active: 50
+    max_wait: 60000
+    test_on_borrow: 'true'
+    default_auto_commit: 'false'
+    validation_query: 'SELECT 1'
+    validation_interval: 30000
+
+axis:
+  clustering:
+    enable: 'true'
+    parameter_name_mss: "wka"
+    parameter_name_dom: "wso2.am.domain"
+    parameter_name_host: "10.100.4.205"
+    parameter_name_port: 4000
+
+axis_host_name:
+  clustering_s:
+    host_name: "10.100.4.205"
+    port: 4000
+  clustering_c:
+    host_name: "192.168.122.201"
+    port: 4001
+
+
+api_manager:
+  api_store_display_url: 'true'
+  key_validator_client_type: "ThriftClient"
+  enable_thrift_server: 'true'
+  thrift_server_host: "localhost"
+  thrift_server_port: 10397
+  data_publisher_enabled: 'false'
+  port: 10397 
+  username: "admin"
+  password: "admin"
+  api_gateway_environment_type: "hybrid"
+  api_gateway_api_console: 'true'
+  api_gateway_environment_type_name: "Production and Sandbox"
+  api_gateway_environment_type_description: "This is a hybrid gateway that handles both production and sandbox token traffic."
+  gateway_server_host: "{{ db_server_1 }}"
+  gateway_server_port: 9443
+  api_gateway_environment_type_username: "admin"
+  api_gateway_environment_type_password: "admin"
+  api_gateway_host: "{{ db_server_1  }}"
+  api_gateway_http_port: 8280
+  api_gateway_https_port: 8243
+  store_host_name: "{{ db_server_1  }}"
+  store_host_port: 9443
+  enable_advance_throttling: 'true'
+  policy_deployer_service_host: "{{ db_server_1 }}"
+  policy_deployer_service_port: 9443
+  policy_deployer_username: "admin"
+  policy_deployer_password: "admin"
+  block_condition_enabled: 'false'
+  jms_connectionJMSEventPublisherParameters_details_enabled: 'false'
+  java_naming_factory_initial: "org.wso2.andes.jndi.PropertiesFileInitialContextFactory"
+  java_naming_provider_url: "repository/conf/jndi.properties"
+  transport_jms_destination_type: "topic"
+  transport_jms_destination: "throttleData"
+  transport_jms_concurrent_publishers: "allow"
+  transport_jms_connection_factoryjndiname: "TopicConnectionFactory"
+  api_key_validator_server_url: "{{ db_server_1  }}"
+  api_key_validator_server_url_port: 9443
+  api_key_validator_username: "admin"
+  api_key_validator_password: "admin"
+  thrift_client_time_out: 10000
+  thrift_client_port: 10397
+  key_manager_host: "{{ db_server_1  }}"
+  key_manager_port: 9443
+  revoke_api_url: "{{ db_server_1  }}"
+  revoke_api_port: 9443
+apply_publisher_specific_configurations: 'false'
+jndi_properties:
+  host: "{{ db_server_1 }}"
+  jms_url_port: 5672
+  topic_throttle_data: "throttleData"
+
