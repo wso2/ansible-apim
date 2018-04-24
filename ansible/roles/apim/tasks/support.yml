@@ -5,7 +5,6 @@
     state: absent
   with_items: "{{delete_files}}"
   when: profile == "traffic_manager"
-  register: result
 
 - name: Backup files with configuration and profile as Traffic Manager 
   template: 
