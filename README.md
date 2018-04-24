@@ -11,7 +11,7 @@ The  Ansible playbook includes the installation and some  configurations such as
 
 
 **An Overview of Ansible Components**
-These are term definitions used elsewhere in the Ansible.
+The following are some of term definitions used elsewhere in the Ansible
 - **Inventory**:A file (by default, Ansible uses a simple INI format) that describes Hosts and Groups in Ansible. Inventory can also be provided via an Inventory Script (sometimes called an “External Inventory Script”).
 - **Playbook**:Playbooks are the language by which Ansible orchestrates, configures, administers, or deploys systems.
 - **Module**:    Modules are the units of work that Ansible ships out to remote machines. Modules are kicked off by either /usr/bin/ansible or /usr/bin/ansible-playbook (where multiple tasks use lots of different modules in conjunction). Modules can be implemented in any language, including Perl, Bash, or Ruby – but can leverage some useful communal library code if written in Python. Modules just have to return JSON. Once modules are executed on remote machines, they are removed, so no long running daemons are used. Ansible refers to the collection of available modules as a library.
@@ -28,13 +28,14 @@ Ansible 2.4.3.0
 ### Instructions
 
 **Install & Start Ansible**
-The easiest way to install Ansible on a Debian or Ubuntu system is to use the official
-apt package.
+The easiest way to install Ansible on a Debian or Ubuntu system is to use the official apt package.
+        
         sudo apt-add-repository -y ppa:ansible/ansible
         sudo apt-get update
         sudo apt-get install -y ansible
 
 Once Ansible is installed, make sure it’s working properly by entering ansible --version on the command line.
+       
         ansible --version
 
 **Generate SSH Public Key**
@@ -48,22 +49,23 @@ Do not type anything. Just press enter to continue.
         chmod 644 authorized_keys
 
 Exit from the terminal and if you want to check again is SSH key is available or not then you 
+
         cd ~/.ssh
-id_rsa is avialable in your terminal then you successfully set the 
-SSH key
+
+id_rsa is avialable in your terminal then you successfully set the SSH key.
 
 **SSH Connection**
 Ansible communicates with remote machines over SSH. It uses SSH to connect to servers and run the configured Tasks. While it certainly has the ability to handle password-based SSH authentication, SSH keys help keep things simple. 
 By default, Ansible 1.3 and later will try to use native OpenSSH  for remote communication  when possible. Ansible , by default  assuming we’re using SSH keys. 
 Ansible has a default inventory file (etc/ansible/hosts) are used to define which remote servers will be managing. Our public SSH key should be located in authorized_keys on remote systems.
+![ssh connection](images/ssh_connection.png)
 
 **Inventory**
-![ssh connection](images/ssh_connection.png)
 By default, Ansible looks for the inventory file at /etc/ansible/hosts. Inside the inventory file, name of group is enclosed in square brackets. Server names can be their DNS name or IP addresses.
 
-[webservers]
-10.100.4.205
-192.168.122.201
+		[webservers]
+		10.100.4.205
+		192.168.122.201
 
 Once inventory hosts are listed, variables can be assigned to them in simple text files (in a subdirectory called ‘group_vars/’ or ‘host_vars/’ or directly in the inventory file.)
 
@@ -85,17 +87,21 @@ Ansible templates directory is very useful for configuring the WSO2 API MANAGER 
 
 When we want to make any changes in the wso2am-2.2.0 , in Ansible the customer go into /etc/ansible/roles/apim/vars and open the main.yml file via vim main.yml in the vim editor and make any changes which they want for their profile. The profiles of wso2am are mentioned in the Ansible script as  “api_store, api_publisher, traffic_manager, key_manager,  gateway” 
 
-#Connect the database
+
+# Connect the database
 Here we used the mysql database. That database was created in a machine and linked to the other machines.
 Original machine had the database and it gave the permission to the other machine through this command
+       
         Mysql -u root -p;
         ALTER USER ‘username’@’%’ IDENTIFIED BY ‘password’;
         Flush privileges;
         grant all on *.* to 'root'@'%';
         flush privileges;
 The client accessed through the 
+        
         mysql -h <IP_ADDRESS_OF_REMOTE_HOST> -u <USERNAME> -p
         Eg: mysql -h 10.100.4.205 -u root -p
-Here the client also wanted to know the password of the mysql.
+
+Here the client also wanted to know the password of the mysql of the original.
 
 
