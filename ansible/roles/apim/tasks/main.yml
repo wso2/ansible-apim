@@ -32,13 +32,16 @@
 - name: download the MySQL driver
   get_url: url=https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-5.1.30.zip dest=/etc/ansible/roles/apim/files
 
+- name: copy the mysql jar files into wso2am
+  shell: cp -r /etc/ansible/roles/apim/files/mysql-connector-java-5.1.30/mysql-connector-java-5.1.30-bin.jar /opt/wso2am-2.2.0/repository/components/lib/
+
 - name: unpack the mysql jar
   stat:
-    path: /etc/ansible/roles/apim/files/mysql-connector-java-5.1.30 
+    path: /etc/ansible/roles/apim/files/mysql-connector-java-5.1.30
   register: sql
 
 - unarchive:
-    src: /etc/ansible/roles/apim/files/mysql-connector-java-5.1.30.zip 
+    src: /etc/ansible/roles/apim/files/mysql-connector-java-5.1.30.zip
     remote_src: True
     dest: /etc/ansible/roles/apim/files
   when: not sql.stat.exists
@@ -48,14 +51,14 @@
 - name: Restart the wso2am-2.2.0
   shell: "sh {{directory_path}}/bin/wso2server.sh start restart"
   state: restarted
-  when: 
+  when:
     - result_gateway.changed or result_key_manager.changed or result_api_store.changed or result_api_publisher.changed
     - profile!='traffic_manager'
 
 - name: Restart the wso2am-2.2.0
   shell: "sh {{directory_path}}/bin/wso2server.sh -Dprofile=traffic-manager restart"
   state: restarted
-  when: 
+  when:
     - result.changed or result_jaggery.changed or result_traffic_war.changed
     - profile =='traffic_manager'
 
@@ -65,7 +68,7 @@
   become_method: sudo
   register: wso2am-2.2.0
   ignore_errors: True
-  when: 
+  when:
     - profile!='traffic_manager'
     - not (result.changed or result_jaggery.changed or result_traffic_war.changed)
 - name: Start wso2am-2.2.0
@@ -74,10 +77,9 @@
   become_method: sudo
   register: wso2am-2.2.0
   ignore_errors: True
-  when: 
+  when:
     - profile == 'traffic_manager'
     - not (result.changed or result_jaggery.changed or result_traffic_war.changed)
 - debug: var=wso2am-2.2.0.stdout_lines
-
 
 
