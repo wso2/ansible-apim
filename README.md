@@ -28,7 +28,7 @@ Ansible 2.4.3.0
 ### Instructions
 
 **Install & Start Ansible**
-The easiest way to install Ansible on a Debian or Ubuntu system is to use the official apt package.
+Before install Ansible, we want to check python is available or not. If it is not available then install the python.The easiest way to install Ansible on a Debian or Ubuntu system is to use the official apt package.
         
         sudo apt-add-repository -y ppa:ansible/ansible
         sudo apt-get update
@@ -79,6 +79,7 @@ This is what they are all for:
 - **Templates**: You can place all files that use variables to substitute information during creation in this directory.
 - **Tasks**: This directory contains all of the tasks that would normally be in a playbook. These can reference files and templates contained in their respective directories without using a path.
 - **Vars**: Variables for the roles can be specified in this directory and used in your configuration files.
+
 Within all of the directories but the "files" and "templates", if a file called main.yml exists, its contents will be automatically added to the playbook that calls the role.
 
 ### Configuration management with Ansible
@@ -88,7 +89,7 @@ Ansible templates directory is very useful for configuring the WSO2 API MANAGER 
 When we want to make any changes in the wso2am-2.2.0 , in Ansible the customer go into /etc/ansible/roles/apim/vars and open the main.yml file via vim main.yml in the vim editor and make any changes which they want for their profile. The profiles of wso2am are mentioned in the Ansible script as  “api_store, api_publisher, traffic_manager, key_manager,  gateway” 
 
 
-# Connect the database
+### Connect the database
 Here we used the mysql database. That database was created in a machine and linked to the other machines.
 Original machine had the database and it gave the permission to the other machine through this command
        
