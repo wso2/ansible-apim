@@ -1,0 +1,8 @@
+---
+- hosts: webservers
+  become: yes
+  become_method: sudo
+  environment:
+    JAVA_HOME: "{{java_path}}"
+  roles: 
+    - apim
