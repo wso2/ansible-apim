@@ -1,0 +1,8 @@
+[am]
+# Example
+am_1 ansible_host=172.28.128.4 ansible_user=[ssh_user]
+
+# am_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+
+# Add a new API Manager node
+# am_2 ansible_host=[ip_address] ansible_user=[ssh_user]
