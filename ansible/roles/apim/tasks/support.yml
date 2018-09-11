@@ -1,0 +1,114 @@
+---
+- name: Delete the registry and axis2 xml files from the original folder
+  file:
+    path: "{{item.path}}"
+    state: absent
+  with_items: "{{delete_files}}"
+  when: profile == "traffic_manager"
+
+- name: Backup files with configuration and profile as Traffic Manager 
+  template: 
+    src="{{item.directory}}" 
+    dest="{{item.dest}}" 
+    backup=yes
+  with_items: "{{ traffic_manager_looping }}"
+  when: profile == 'traffic_manager'
+  register: result
+
+- name: Backup files with configuration and profile as Gateway
+  template:
+    src="{{item.directory}}"
+    dest="{{item.dest}}"
+    backup=yes
+  with_items: "{{ gateway_looping }}"
+  when: profile == 'gateway'
+  register: result_gateway
+
+- name: Backup files with configuration and profile as Key Manager
+  template:
+    src="{{item.directory}}"
+    dest="{{item.dest}}"
+    backup=yes
+  with_items: "{{ key_manager_looping }}"
+  when: profile == 'key_manager'
+  register: result_key_manager
+
+- name: Backup files with configuration and profile as Store
+  template:
+    src="{{item.directory}}"
+    dest="{{item.dest}}"
+    backup=yes
+  with_items: "{{ store_looping }}"
+  when: profile == 'api_store'
+  register: result_api_store
+
+- name: Backup files with configuration and profile as Publisher
+  template:
+    src="{{item.directory}}"
+    dest="{{item.dest}}"
+    backup=yes
+  with_items: "{{ publisher_looping }}"
+  when: profile == 'api_publisher'
+  register: result_api_publisher
+  
+- name: Delete the WebSocketInboundEndpoint xml file
+  file:
+    path: "{{directory_path}}/repository/deployment/server/synapse-configs/default/inbound-endpoints/WebSocketInboundEndpoint.xml"
+    state: absent
+  when: profile!='gateway'
+  register: result_gateway_web
+
+- name: Delete the jaggeryapps directory
+  file:
+    path: "{{directory_path}}/repository/deployment/server/jaggeryapps" 
+    state: absent
+  when: profile == "traffic_manager"
+  register: result_jaggery
+
+- name: Require war files for gateway manager
+  file:
+    path: "{{item.path}}"
+    state: absent
+  with_items: "{{gateway_manager}}"
+  when: profile =='gateway_manager'
+  register: result_gateway_manager
+
+- name: Require war files for gateway worker
+  file:
+    path: "{{item.path}}"
+    state: absent
+  with_items: "{{gateway_worker}}"
+  when: profile =='gateway_worker'
+  register: result_gateway_worker
+
+- name: Require war files for traffic_manager
+  file:
+    path: "{{item.path}}"
+    state: absent
+  with_items: "{{traffic_manager}}"
+  when: profile =='traffic_manager'
+  register: result_traffic_war
+
+- name: Require war files for key manager
+  file:
+    path: "{{item.path}}"
+    state: absent
+  with_items: "{{key_manager}}"
+  when: profile =='key_manager'
+  register: result_key_manager_war
+
+- name: Require war files for api publisher
+  file:
+    path: "{{item.path}}"
+    state: absent
+  with_items: "{{api_publisher}}"
+  when: profile =='api_publisher'
+  register: result_api_publisher_war
+
+- name: Require war files for api store
+  file:
+    path: "{{item.path}}"
+    state: absent
+  with_items: "{{api_store}}"
+  when: profile =='api_store'
+  register: result_api_store_war
