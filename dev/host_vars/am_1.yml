@@ -33,7 +33,7 @@ carbon:
 # Changes applied to catalina_server.xml file.
 catalina_server:
   secure_vault:
-    # Enable securevault configurations by giving the the appripriate namespace.
+    # Enable securevault configurations by giving the the appropriate namespace.
     # enable:  xmlns:svns="http://org.wso2.securevault/configuration"
     port: "8005"
     shutdown: "SHUTDOWN"
@@ -41,7 +41,7 @@ catalina_server:
   connector:
     # Add HTTPS proxy port by uncommenting the following line.
     # proxy_port_https: proxyPort="443"
-    
+
     # Add HTTP proxy port by uncommenting the following line.
     # proxy_port_http: proxyPort="80"
     max_threads: "250"

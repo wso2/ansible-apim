@@ -73,7 +73,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 Copy the following files to `files` directory.
 
 1. [WSO2 API Manager 2.5.0 package](https://wso2.com/api-management/install/)
-2. [mysql-connector-java-5.1.45-bin.jar](https://dev.mysql.com/downloads/connector/j/5.1.html)
+2. [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
 
 ## Running WSO2 API Manager Ansible scripts
 
