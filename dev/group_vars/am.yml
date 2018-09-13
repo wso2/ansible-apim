@@ -25,7 +25,7 @@ product_archive_rpm: wso2am-linux-installer-x64-2.5.0.rpm
 product_package_location: files
 jdbc_driver: mysql-connector-java-5.1.45-bin.jar
 systemd_path: /etc/systemd/system
-java_home: /usr/lib/wso2/wso2am/2.5.0/jre/jre1.8.0_172
+java_home: '"/usr/lib/wso2/wso2am/2.5.0/jre/jre1.8.0_172"'
 
 jvm:
   xms: 1024
