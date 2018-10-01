@@ -1,8 +1,18 @@
-[am]
+[apim]
+apim_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 # Example
-# am_1 ansible_host=172.28.128.4 ansible_user=vagrant
+# apim_1 ansible_host=172.28.128.4 ansible_user=vagrant
 
-am_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+[apim-analytics]
+apim-analytics-dashboard_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+# Example
+# apim-analytics-dashboard_1 ansible_host=172.28.128.4 ansible_user=vagrant
 
-# Add a new API Manager node
-# am_2 ansible_host=[ip_address] ansible_user=[ssh_user]
+apim-analytics-worker_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+# Example
+# apim-analytics-worker_1 ansible_host=172.28.128.4 ansible_user=vagrant
+
+[apim-is-as-km]
+apim-is-as-km_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+# Example
+# apim_is_as_km_1 ansible_host=172.28.128.4 ansible_user=vagrant
