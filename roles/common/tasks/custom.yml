@@ -14,7 +14,8 @@
 #  limitations under the License.
 #----------------------------------------------------------------------------
 
-# Add configs for the custom files that are needed to be copied/replaced here.
+# Add configs for the custom files that are needed to be copied/replaced here. These files will be copied to all the
+# nodes unless you have not changed the initial configuration in site.yml.
 # An example is provided below.
 # - name: "Copy custom file"
 #   template:

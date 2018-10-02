@@ -9,7 +9,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 
 ## Supported Ansible Versions
 
-- Ansible 2.6.2
+- Ansible 2.6.4
 
 ## Directory Structure
 ```

@@ -26,17 +26,18 @@
         proxyPort="80"
         -->
         <Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
+                   {{ http_proxy_port | default() }}
                    port="9763"
                    redirectPort="9443"
                    bindOnInit="false"
                    maxHttpHeaderSize="8192"
                    acceptorThreadCount="2"
-                   maxThreads="250"
+                   maxThreads="{{ http_max_threads }}"
                    minSpareThreads="50"
                    disableUploadTimeout="false"
                    connectionUploadTimeout="120000"
                    maxKeepAliveRequests="200"
-                   acceptCount="200"
+                   acceptCount="{{ http_accept_count }}"
                    server="WSO2 Carbon Server"
                    compression="on"
                    compressionMinSize="2048"
@@ -51,19 +52,20 @@
         Added sslEnabledProtocols="TLSv1,TLSv1.1,TLSv1.2" for poodle vulnerability fix
         -->
         <Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
+                   {{ https_proxy_port | default() }}
                    port="9443"
                    bindOnInit="false"
                    sslProtocol="TLS"
                    sslEnabledProtocols="TLSv1,TLSv1.1,TLSv1.2"
                    maxHttpHeaderSize="8192"
                    acceptorThreadCount="2"
-                   maxThreads="250"
+                   maxThreads="{{ https_max_threads }}"
                    minSpareThreads="50"
                    disableUploadTimeout="false"
                    enableLookups="false"
                    connectionUploadTimeout="120000"
                    maxKeepAliveRequests="200"
-                   acceptCount="200"
+                   acceptCount="{{ https_accept_count }}"
                    server="WSO2 Carbon Server"
                    clientAuth="false"
                    compression="on"
@@ -101,4 +103,3 @@
         </Engine>
     </Service>
 </Server>
-

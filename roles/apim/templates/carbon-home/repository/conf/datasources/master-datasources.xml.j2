@@ -36,11 +36,11 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:h2:repository/database/WSO2AM_DB;DB_CLOSE_ON_EXIT=FALSE</url>
-                    <username>wso2carbon</username>
-                    <password>wso2carbon</password>
+                    <url>{{ wso2am_db_url }}</url>
+                    <username>{{ wso2am_db_username }}</username>
+                    <password>{{ wso2am_db_password }}</password>
                     <defaultAutoCommit>true</defaultAutoCommit>
-                    <driverClassName>org.h2.Driver</driverClassName>
+                    <driverClassName>{{ wso2am_db_driver_class_name }}</driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
@@ -58,11 +58,11 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:h2:../tmpStatDB/WSO2AM_STATS_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE</url>
-                    <username>wso2carbon</username>
-                    <password>wso2carbon</password>
+                    <url>{{ wso2am_stats_db_url }}</url>
+                    <username>{{ wso2am_stats_db_password }}</username>
+                    <password>{{ wso2am_stats_db_password }}</password>
                     <defaultAutoCommit>true</defaultAutoCommit>
-                    <driverClassName>org.h2.Driver</driverClassName>
+                    <driverClassName>{{ wso2am_stats_db_driver_class_name }}</driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
@@ -80,10 +80,10 @@
             </jndiConfig>
             <definition type="RDBMS">
                 <configuration>
-                    <url>jdbc:h2:repository/database/WSO2MB_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000</url>
-                    <username>wso2carbon</username>
-                    <password>wso2carbon</password>
-                    <driverClassName>org.h2.Driver</driverClassName>
+                    <url>{{ wso2_mb_store_db_url }}</url>
+                    <username>{{ wso2_mb_store_db_username }}</username>
+                    <password>{{ wso2_mb_store_db_password }}</password>
+                    <driverClassName>{{ wso2_mb_store_db_driver_class_name }}</driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>

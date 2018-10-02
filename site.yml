@@ -22,9 +22,15 @@
   roles:
     - common
 
-- name: Apply API Management default configuration to an apim node
+- name: Apply API Manager Analytics worker configuration to an apim-analytics-worker node
   hosts:
-    - am_1
+    - apim-analytics-worker_1
+  roles:
+    - apim-analytics-worker
+
+- name: Apply API Manager default configuration to an apim node
+  hosts:
+    - apim_1
   roles:
     - apim
 

@@ -24,3 +24,11 @@ product_archive_deb: wso2am-linux-installer-x64-2.6.0.deb
 product_archive_rpm: wso2am-linux-installer-x64-2.6.0.rpm
 product_package_location: files
 jdbc_driver: mysql-connector-java-5.1.45-bin.jar
+
+# HTTP proxy port configurations
+# http_proxy_port: 80
+http_max_threads: 250
+http_accept_count: 200
+# https_proxy_port: 443
+https_max_threads: 250
+https_accept_count: 200

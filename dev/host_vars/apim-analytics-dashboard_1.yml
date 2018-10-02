@@ -13,3 +13,33 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 # ----------------------------------------------------------------------------
+
+hostname: 0.0.0.0
+ports_offset: 3
+
+worker_node_ip: localhost
+worker_node_port: 9444
+
+listener_configurations_default_port: 9643
+listener_configurations_keystore_file: ${carbon.home}/resources/security/wso2carbon.jks
+listener_configurations_keystore_password: wso2carbon
+listener_configurations_keystore_cert_password: wso2carbon
+
+databridge_config_keystore_location: ${sys:carbon.home}/resources/security/wso2carbon.jks
+databridge_config_keystore_password: wso2carbon
+
+thrift_data_receiver_tcp_port: 7611
+thrift_data_receiver_ssl_port: 7711
+
+binary_data_receiver_tcp_port: 9611
+bianry_data_receiver_ssl_port: 9711
+
+truststore_path: ${sys:carbon.home}/resources/security/client-truststore.jks
+truststore_password: wso2carbon
+
+securevault_privatekey_alias: wso2carbon
+securevault_keystore_location: ${sys:carbon.home}/resources/security/securevault.jks
+securevault_secret_properties_file: ${sys:carbon.home}/conf/${sys:wso2.runtime}/secrets.properties
+securevault_masterkeyreader_file: ${sys:carbon.home}/conf/${sys:wso2.runtime}/master-keys.yaml
+
+cluster_config_enabled: false
