@@ -25,29 +25,30 @@ product_archive_deb: wso2am-analytics-linux-installer-x64-2.6.0.deb
 product_archive_rpm: wso2am-analytics-linux-installer-x64-2.6.0.rpm
 product_package_location: files
 jdbc_driver: mysql-connector-java-5.1.45-bin.jar
+java_version: jdk1.8.0_192
 
 # Database configurations
 wso2_metrics_db_url: jdbc:h2:${sys:carbon.home}/wso2/dashboard/database/metrics;AUTO_SERVER=TRUE
 wso2_metrics_db_username: wso2carbon
 wso2_metrics_db_password: wso2carbon
-wso2_metrics_db_driver_class_name: org.h2.Driver
+wso2_metrics_db_driver: org.h2.Driver
 
 wso2_permissions_db_url: jdbc:h2:${sys:carbon.home}/wso2/${sys:wso2.runtime}/database/PERMISSION_DB;IFEXISTS=TRUE;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;MVCC=TRUE
 wso2_permissions_db_username: wso2carbon
 wso2_permissions_db_password: wso2carbon
-wso2_permissions_db_driver_class_name: org.h2.Driver
+wso2_permissions_db_driver: org.h2.Driver
 
 message_tracing_db_url: jdbc:h2:${sys:carbon.home}/wso2/dashboard/database/MESSAGE_TRACING_DB;AUTO_SERVER=TRUE
 message_tracing_db_username: wso2carbon
 message_tracing_db_password: wso2carbon
-message_tracing_db_driver_class_name: org.h2.Driver
+message_tracing_db_driver: org.h2.Driver
 
 apim_analytics_db_url: jdbc:h2:${sys:carbon.home}/wso2/worker/database/WSO2AM_STATS_DB;AUTO_SERVER=TRUE
 apim_analytics_db_username: wso2carbon
 apim_analytics_db_password: wso2carbon
-apim_analytics_db_driver_class_name: org.h2.Driver
+apim_analytics_db_driver: org.h2.Driver
 
 wso2am_mgw_analytics_db_url: jdbc:h2:${sys:carbon.home}/wso2/worker/database/WSO2AM_MGW_ANALYTICS_DB;AUTO_SERVER=TRUE
 wso2am_mgw_analytics_db_username: wso2carbon
 wso2am_mgw_analytics_db_password: wso2carbon
-wso2am_mgw_analytics_db_driver_class_name: org.h2.Driver
+wso2am_mgw_analytics_db_driver: org.h2.Driver

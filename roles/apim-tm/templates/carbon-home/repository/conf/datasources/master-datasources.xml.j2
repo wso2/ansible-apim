@@ -40,7 +40,7 @@
                     <username>{{ wso2am_db_username }}</username>
                     <password>{{ wso2am_db_password }}</password>
                     <defaultAutoCommit>true</defaultAutoCommit>
-                    <driverClassName>{{ wso2am_db_driver_class_name }}</driverClassName>
+                    <driverClassName>{{ wso2am_db_driver }}</driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
@@ -59,10 +59,10 @@
             <definition type="RDBMS">
                 <configuration>
                     <url>{{ wso2am_stats_db_url }}</url>
-                    <username>{{ wso2am_stats_db_password }}</username>
+                    <username>{{ wso2am_stats_db_username }}</username>
                     <password>{{ wso2am_stats_db_password }}</password>
                     <defaultAutoCommit>true</defaultAutoCommit>
-                    <driverClassName>{{ wso2am_stats_db_driver_class_name }}</driverClassName>
+                    <driverClassName>{{ wso2am_stats_db_driver }}</driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
@@ -83,7 +83,7 @@
                     <url>{{ wso2_mb_store_db_url }}</url>
                     <username>{{ wso2_mb_store_db_username }}</username>
                     <password>{{ wso2_mb_store_db_password }}</password>
-                    <driverClassName>{{ wso2_mb_store_db_driver_class_name }}</driverClassName>
+                    <driverClassName>{{ wso2_mb_store_db_driver }}</driverClassName>
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>

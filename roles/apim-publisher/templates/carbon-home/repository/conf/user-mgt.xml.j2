@@ -20,8 +20,8 @@
             <AddAdmin>true</AddAdmin>
             <AdminRole>admin</AdminRole>
             <AdminUser>
-                <UserName>admin</UserName>
-                <Password>admin</Password>
+                <UserName>{{ admin_username }}</UserName>
+                <Password>{{ admin_password }}</Password>
             </AdminUser>
             <EveryOneRoleName>everyone</EveryOneRoleName>
             <!-- By default users in this role sees the registry root -->
@@ -111,7 +111,7 @@
 	    -->
         <!--UserStoreManager class="org.wso2.carbon.user.core.ldap.ActiveDirectoryUserStoreManager">
             <Property name="TenantManager">org.wso2.carbon.user.core.tenant.CommonHybridLDAPTenantManager</Property>
-            <Property name="ConnectionURL">ldaps://10.100.1.100:636</Property> 
+            <Property name="ConnectionURL">ldaps://10.100.1.100:636</Property>
             <Property name="ConnectionName">CN=admin,CN=Users,DC=WSO2,DC=Com</Property>
             <Property name="ConnectionPassword">A1b2c3d4</Property>
             <Property name="AnonymousBind">false</Property>
@@ -147,8 +147,8 @@
             <Property name="MultiAttributeSeparator">,</Property>
             <Property name="isADLDSRole">false</Property>
             <Property name="userAccountControl">512</Property>
-            <Property name="MaxUserNameListLength">100</Property>     
-            <Property name="MaxRoleNameListLength">100</Property>                     
+            <Property name="MaxUserNameListLength">100</Property>
+            <Property name="MaxRoleNameListLength">100</Property>
             <Property name="MembershipAttributeRange">1500</Property>
             <Property name="kdcEnabled">false</Property>
             <Property name="defaultRealmName">WSO2.ORG</Property>

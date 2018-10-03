@@ -349,7 +349,7 @@ wso2.datasources:
           jdbcUrl: '{{ wso2_metrics_db_url }}'
           username: {{ wso2_metrics_db_username }}
           password: {{ wso2_metrics_db_password }}
-          driverClassName: {{ wso2_metrics_db_driver_class_name }}
+          driverClassName: {{ wso2_metrics_db_driver }}
           maxPoolSize: 30
           idleTimeout: 60000
           connectionTestQuery: SELECT 1
@@ -367,7 +367,7 @@ wso2.datasources:
           jdbcUrl: '{{ wso2_permissions_db_url }}'
           username: {{ wso2_permissions_db_username }}
           password: {{ wso2_permissions_db_password }}
-          driverClassName: {{ wso2_permissions_db_driver_class_name }}
+          driverClassName: {{ wso2_permissions_db_driver }}
           maxPoolSize: 10
           idleTimeout: 60000
           connectionTestQuery: SELECT 1
@@ -384,7 +384,7 @@ wso2.datasources:
           jdbcUrl: '{{ message_tracing_db_url }}'
           username: {{ message_tracing_db_username }}
           password: {{ message_tracing_db_password }}
-          driverClassName: { message_tracing_db_driver_class_name{ }}
+          driverClassName: { message_tracing_db_driver{ }}
           maxPoolSize: 30
           idleTimeout: 60000
           connectionTestQuery: SELECT 1
@@ -417,7 +417,7 @@ wso2.datasources:
           jdbcUrl: '{{ apim_analytics_db_url }}'
           username: {{ apim_analytics_db_username }}
           password: {{ apim_analytics_db_password }}
-          driverClassName: {{ apim_analytics_db_driver_class_name }}
+          driverClassName: {{ apim_analytics_db_driver }}
           maxPoolSize: 50
           idleTimeout: 60000
           connectionTestQuery: SELECT 1
@@ -434,7 +434,7 @@ wso2.datasources:
           jdbcUrl: '{{ wso2am_mgw_analytics_db_url }}'
           username: {{ wso2am_mgw_analytics_db_username }}
           password: {{ wso2am_mgw_analytics_db_password }}
-          driverClassName: {{ wso2am_mgw_analytics_db_driver_class_name }}
+          driverClassName: {{ wso2am_mgw_analytics_db_driver }}
           maxPoolSize: 50
           idleTimeout: 60000
           connectionTestQuery: SELECT 1

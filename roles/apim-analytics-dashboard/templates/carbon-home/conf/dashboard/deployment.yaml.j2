@@ -292,7 +292,7 @@ wso2.datasources:
         jdbcUrl: '{{ wso2_metrics_db_url }}'
         username: {{ wso2_metrics_db_username }}
         password: {{ wso2_metrics_db_password }}
-        driverClassName: {{ wso2_metrics_db_driver_class_name }}
+        driverClassName: {{ wso2_metrics_db_driver }}
         maxPoolSize: 20
         idleTimeout: 60000
         connectionTestQuery: SELECT 1
@@ -310,7 +310,7 @@ wso2.datasources:
         jdbcUrl: '{{ wso2_permissions_db_url }}'
         username: {{ wso2_permissions_db_username }}
         password: {{ wso2_permissions_db_password }}
-        driverClassName: {{ wso2_permissions_db_driver_class_name }}
+        driverClassName: {{ wso2_permissions_db_driver }}
         maxPoolSize: 10
         idleTimeout: 60000
         connectionTestQuery: SELECT 1
@@ -328,7 +328,7 @@ wso2.datasources:
         jdbcUrl: '{{ apim_analytics_db_url }}'
         username: {{ apim_analytics_db_username }}
         password: {{ apim_analytics_db_password }}
-        driverClassName: {{ apim_analytics_db_driver_class_name }}
+        driverClassName: {{ apim_analytics_db_driver }}
         maxPoolSize: 50
         idleTimeout: 60000
         connectionTestQuery: SELECT 1
@@ -353,16 +353,16 @@ wso2.business.rules.manager:
        - message-tracing-source-template
        - message-tracing-app-template
   # credentials for worker nodes
-  username: admin
-  password: admin
+  username: {{ worker_node_username }}
+  password: {{ worker_node_password }}
 
 wso2.status.dashboard:
   pollingInterval: 5
   metricsDatasourceName: 'WSO2_METRICS_DB'
   dashboardDatasourceName: 'WSO2_STATUS_DASHBOARD_DB'
   workerAccessCredentials:
-    username: 'admin'
-    password: 'admin'
+    username: '{{ worker_node_username }}'
+    password: '{{ worker_node_password }}'
 
 wso2.transport.http:
   transportProperties:

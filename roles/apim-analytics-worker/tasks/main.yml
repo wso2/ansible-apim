@@ -17,13 +17,13 @@
   - name: Set rpm_setup_path
     set_fact:
       setup_path: "{{ rpm_setup_path }}"
-      java_home: '"/usr/lib64/wso2/wso2am-analytics/2.6.0/jdk/jdk1.8.0_192"'
+      java_home: '"{{ rpm_setup_path }}/{{ product_name }}/{{ product_version }}/jdk/{{ java_version }}"'
     when: ansible_os_family == "RedHat"
 
   - name: Set deb_setup_path
     set_fact:
       setup_path: "{{ deb_setup_path }}"
-      java_home: '"/usr/lib/wso2/wso2am-analytics/2.6.0/jdk/jdk1.8.0_192"'
+      java_home: '"{{ deb_setup_path }}/{{ product_name }}/{{ product_version }}/jdk/{{ java_version }}"'
     when: ansible_os_family == "Debian"
 
   - block:

@@ -19,6 +19,8 @@ ports_offset: 3
 
 worker_node_ip: localhost
 worker_node_port: 9444
+worker_node_username: admin
+worker_node_password: admin
 
 listener_configurations_default_port: 9643
 listener_configurations_keystore_file: ${carbon.home}/resources/security/wso2carbon.jks

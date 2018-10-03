@@ -40,3 +40,7 @@ internal_keystore_key_password: wso2carbon
 truststore_location: ${carbon.home}/repository/resources/security/client-truststore.jks
 truststore_type: JKS
 truststore_password: wso2carbon
+
+# User manager configurations
+admin_username: admin
+admin_password: admin
