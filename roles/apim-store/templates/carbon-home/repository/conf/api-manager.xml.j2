@@ -16,11 +16,11 @@
          logic relies on this. -->
     <AuthManager>
         <!-- Server URL of the Authentication service -->
-        <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
+        <ServerURL>https://{{ key_manager_hostname }}:{{ key_manager_port }}${carbon.context}services/</ServerURL>
         <!-- Admin username for the Authentication manager. -->
-        <Username>${admin.username}</Username>
+        <Username>{{ key_manager_username }}</Username>
         <!-- Admin password for the Authentication manager. -->
-        <Password>${admin.password}</Password>
+        <Password>{{ key_manager_password }}</Password>
         <!-- Indicates whether the permissions checking of the user (on the Publisher and Store) should be done
            via a remote service. The check will be done on the local server when false. -->
         <CheckPermissionsRemotely>false</CheckPermissionsRemotely>
@@ -85,11 +85,11 @@
                 <Name>Production and Sandbox</Name>
                 <Description>This is a hybrid gateway that handles both production and sandbox token traffic.</Description>
                 <!-- Server URL of the API gateway -->
-                <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
+                <ServerURL>https://{{ api_gateway_hostname }}:{{ api_gateway_port }}${carbon.context}services/</ServerURL>
 		        <!-- Admin username for the API gateway. -->
-                <Username>${admin.username}</Username>
+                <Username>{{ api_gateway_username }}</Username>
                 <!-- Admin password for the API gateway.-->
-                <Password>${admin.password}</Password>
+                <Password>{{ api_gateway_password }}</Password>
                 <!-- Endpoint URLs for the APIs hosted in this API gateway.-->
                 <GatewayEndpoint>http://${carbon.local.ip}:${http.nio.port},https://${carbon.local.ip}:${https.nio.port}</GatewayEndpoint>
                 <!-- Endpoint of the Websocket APIs hosted in this API Gateway -->
@@ -139,7 +139,7 @@
     -->
     <Analytics>
         <!-- Enable Analytics for API Manager -->
-        <Enabled>false</Enabled>
+        <Enabled>{{ analytics_enabled }}</Enabled>
 
         <!-- Server URL of the remote StreamProcessor server used to collect statistics. Must
              be specified in protocol://hostname:port/ format.
@@ -151,20 +151,20 @@
 
              Ex - Multiple Receiver Groups with two receivers each
              {tcp://localhost:7612/,tcp://localhost:7613},{tcp://localhost:7712/,tcp://localhost:7713/} -->
-        <StreamProcessorServerURL>{tcp://localhost:7612}</StreamProcessorServerURL>
+        <StreamProcessorServerURL>{{ stream_processor_url }}</StreamProcessorServerURL>
         <!--StreamProcessorAuthServerURL>{ssl://localhost:7712}</StreamProcessorAuthServerURL-->
         <!-- Administrator username to login to the remote StreamProcessor server. -->
-        <StreamProcessorUsername>${admin.username}</StreamProcessorUsername>
+        <StreamProcessorUsername>{{ stream_processor_username }}</StreamProcessorUsername>
         <!-- Administrator password to login to the remote StreamProcessor server. -->
-        <StreamProcessorPassword>${admin.password}</StreamProcessorPassword>
+        <StreamProcessorPassword>{{ stream_processor_password }}</StreamProcessorPassword>
 
         <!-- For APIM implemented Statistic client for RDBMS -->
         <StatsProviderImpl>org.wso2.carbon.apimgt.usage.client.impl.APIUsageStatisticsRestClientImpl</StatsProviderImpl>
 
         <!-- StreamProcessor REST API configuration -->
-        <StreamProcessorRestApiURL>https://localhost:7444</StreamProcessorRestApiURL>
-        <StreamProcessorRestApiUsername>${admin.username}</StreamProcessorRestApiUsername>
-        <StreamProcessorRestApiPassword>${admin.password}</StreamProcessorRestApiPassword>
+        <StreamProcessorRestApiURL>{{ stream_processor_rest_api_url }}</StreamProcessorRestApiURL>
+        <StreamProcessorRestApiUsername>{{ stream_processor_rest_api_username }}</StreamProcessorRestApiUsername>
+        <StreamProcessorRestApiPassword>{{ stream_processor_rest_api_password }}</StreamProcessorRestApiPassword>
 
         <!-- Below property is used to skip trying to connect to event receiver nodes when publishing events even if
             the stats enabled flag is set to true. -->
@@ -212,12 +212,12 @@
     -->
     <APIKeyValidator>
         <!-- Server URL of the API key manager -->
-        <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
+        <ServerURL>https://{{ key_manager_hostname }}:{{ key_manager_port }}${carbon.context}services/</ServerURL>
 
         <!-- Admin username for API key manager. -->
-        <Username>${admin.username}</Username>
+        <Username>{{ key_manager_username }}</Username>
         <!-- Admin password for API key manager. -->
-        <Password>${admin.password}</Password>
+        <Password>{{ key_manager_password }}</Password>
 
         <!-- Configurations related to enable thrift support for key-management related communication.
              If you want to switch back to Web Service Client, change the value of "KeyValidatorClientType" to "WSClient".
@@ -226,19 +226,19 @@
              -If you need to start two API Manager instances in the same machine, you need to give different ports to "ThriftServerPort" value in two nodes.
              -ThriftServerHost - Allows to configure a hostname for the thrift server. It uses the carbon hostname by default.
 	         -The Gateway uses this parameter to connect to the key validation thrift service. -->
-        <KeyValidatorClientType>ThriftClient</KeyValidatorClientType>
+        <KeyValidatorClientType>{{ key_validator_client_type }}</KeyValidatorClientType>
         <ThriftClientConnectionTimeOut>10000</ThriftClientConnectionTimeOut>
         <!--ThriftClientPort>10397</ThriftClientPort-->
 
-        <EnableThriftServer>true</EnableThriftServer>
-        <ThriftServerHost>localhost</ThriftServerHost>
+        <EnableThriftServer>{{ enable_thrift_server }}</EnableThriftServer>
+        <ThriftServerHost>{{ thrift_server_host }}</ThriftServerHost>
         <!--ThriftServerPort>10397</ThriftServerPort-->
 
         <!--ConnectionPool>
             <MaxIdle>100</MaxIdle>
             <InitIdleCapacity>50</InitIdleCapacity>
         </ConnectionPool-->
-        <!-- Specifies the implementation to be used for KeyValidationHandler. Steps for validating a token can be controlled by plugging in a 
+        <!-- Specifies the implementation to be used for KeyValidationHandler. Steps for validating a token can be controlled by plugging in a
              custom KeyValidation Handler -->
         <KeyValidationHandlerClassName>org.wso2.carbon.apimgt.keymgt.handlers.DefaultKeyValidationHandler</KeyValidationHandlerClassName>
     </APIKeyValidator>
@@ -301,15 +301,15 @@
         <!--This property is used to indicate how we do user name comparision for token generation https://wso2.org/jira/browse/APIMANAGER-2225-->
         <CompareCaseInsensitively>true</CompareCaseInsensitively>
         <DisplayURL>false</DisplayURL>
-        <URL>https://localhost:${mgt.transport.https.port}/store</URL>
+        <URL>https://{{ api_store_hostname }}:{{ api_store_port }}/store</URL>
 
         <!-- Server URL of the API Store. -->
-        <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
+        <ServerURL>https://{{ api_store_hostname }}:{{ api_store_port }}${carbon.context}services/</ServerURL>
         <!-- Admin username for API Store. -->
-        <Username>${admin.username}</Username>
+        <Username>{{ api_store_username }}</Username>
 
         <!-- Admin password for API Store. -->
-        <Password>${admin.password}</Password>
+        <Password>{{ api_store_password }}</Password>
         <!-- This parameter specifies whether to display multiple versions of same
              API or only showing the latest version of an API. -->
         <DisplayMultipleVersions>false</DisplayMultipleVersions>
@@ -340,7 +340,7 @@
 
     <APIPublisher>
         <DisplayURL>false</DisplayURL>
-        <URL>https://localhost:${mgt.transport.https.port}/publisher</URL>
+        <URL>https://{{ api_publisher_hostname }}:{{ api_publisher_port }}/publisher</URL>
         <!-- This parameter specifies enabling the capability of setting API documentation level granular visibility levels.
              By default any document associate with an API will have the same permissions set as the API.With enabling below
              property,it will show two additional permission levels as visible only to all registered users in a particular
@@ -355,7 +355,7 @@
     <!-- Status observers can be registered against the API Publisher to listen for
          API status update events. Each observer must implement the APIStatusObserver
          interface. Multiple observers can be engaged if necessary and in such situations
-         they will be notified in the order they are defined here. 
+         they will be notified in the order they are defined here.
          This configuration is unused from API Manager version 1.10.0 -->
     <!--StatusObservers>
         <Observer>org.wso2.carbon.apimgt.impl.observers.SimpleLoggingObserver</Observer>
@@ -382,7 +382,7 @@
              It is false by default and if you set it to true then make sure that the Access-Control-Allow-Origin header does not contain the wildcard (*) -->
         <Access-Control-Allow-Credentials>false</Access-Control-Allow-Credentials>
     </CORSConfiguration>
-    
+
     <!-- This property is there to configure velocity log output into existing Log4j carbon Logger.
          You can enable this and set preferable Logger name. -->
     <!-- VelocityLogger>VELOCITY</VelocityLogger -->
@@ -621,10 +621,10 @@
         <EnableJWTClaimConditions>false</EnableJWTClaimConditions>
         <EnableQueryParamConditions>false</EnableQueryParamConditions>
     </ThrottlingConfigurations>
-    
+
     <WorkflowConfigurations>
         <Enabled>false</Enabled>
-    	<ServerUrl>https://localhost:9445/bpmn</ServerUrl>   		
+    	<ServerUrl>https://localhost:9445/bpmn</ServerUrl>
     	<ServerUser>${admin.username}</ServerUser>
     	<ServerPassword>${admin.password}</ServerPassword>
     	<WorkflowCallbackAPI>https://localhost:${mgt.transport.https.port}/api/am/publisher/v0.14/workflows/update-workflow-status</WorkflowCallbackAPI>

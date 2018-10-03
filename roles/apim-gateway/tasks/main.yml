@@ -14,23 +14,19 @@
 #  limitations under the License.
 #----------------------------------------------------------------------------
 ---
+  - name: Set rpm_setup_path
+    set_fact:
+      setup_path: "{{ rpm_setup_path }}"
+      java_home: '"/usr/lib64/wso2/wso2am/2.6.0/jdk/jdk1.8.0_192"'
+    when: ansible_os_family == "RedHat"
+
+  - name: Set deb_setup_path
+    set_fact:
+      setup_path: "{{ deb_setup_path }}"
+      java_home: '"/usr/lib/wso2/wso2am/2.6.0/jdk/jdk1.8.0_192"'
+    when: ansible_os_family == "Debian"
+
   - block:
-    - name: Create group
-      group: name=wso2 state=present
-      become: true
-      become_method: sudo
-
-    - name: Add wso2carbon user
-      user: name={{ wso2_user }} shell=/bin/bash group=wso2
-      become: true
-      become_method: sudo
-
-    - name: Create WSO2 directory
-      file:
-        path: /opt/wso2
-        state: directory
-        mode: 0755
-
     - name: Copy the Debian package of WSO2 API Manager
       copy:
         src: "{{ product_package_location }}/{{ product_archive_deb }}"
@@ -51,23 +47,10 @@
       when: ansible_os_family == "Debian"
 
     - name: Install a .rpm package
-      apt:
-        deb: "{{ product_path  }}/{{ product_archive_rpm  }}"
+      yum:
+        name: "{{ product_path  }}/{{ product_archive_rpm  }}"
       when: ansible_os_family == "RedHat"
 
-    - name: Change the owner of WSO2 directory
-      file:
-        path: "{{ setup_path }}"
-        state: directory
-        recurse: true
-        owner: "{{ wso2_user }}"
-        group: "{{ wso2_group }}"
-        mode: 0755
-
-    become: true
-    become_user: root
-
-  - block:
     - name: "Copy JDBC Driver"
       copy:
        src: "files/{{ jdbc_driver }}"
@@ -87,6 +70,11 @@
       template:
         src: "carbon-home/repository/conf/carbon.xml.j2"
         dest: "{{ setup_path }}/{{ product_name }}/{{ product_version }}/repository/conf/carbon.xml"
+
+    - name: "Copy api-manager.xml"
+      template:
+        src: "carbon-home/repository/conf/api-manager.xml.j2"
+        dest: "{{ setup_path }}/{{ product_name }}/{{ product_version }}/repository/conf/api-manager.xml"
 
     - name: "Copy registry.xml"
       template:
@@ -113,25 +101,34 @@
         src: "carbon-home/bin/wso2server.sh.j2"
         dest: "{{ setup_path }}/{{ product_name }}/{{ product_version }}/bin/wso2server.sh"
 
-    when: "(inventory_hostname in groups['am'])"
+# Enable customization by uncommenting the following and adding the changes to the custom.yml
+    # - import_tasks: custom.yml
+
+    - name: Change the owner of WSO2 directory
+      file:
+        path: "{{ setup_path }}"
+        state: directory
+        recurse: true
+        owner: "{{ wso2_user }}"
+        group: "{{ wso2_group }}"
+        mode: 0755
+
+    when: "(inventory_hostname in groups['apim'])"
     become: true
     become_method: sudo
-    become_user: "{{ wso2_user }}"
-
-# Enable customization by uncommenting the following and adding the changes to the customize.yml
-      # - import_tasks: customize.yml
+    become_user: root
 
   - block:
     - name: "Copy WSO2AM service file"
       template:
-        src: "wso2am.service.j2"
-        dest: "{{ systemd_path }}/wso2am.service"
+        src: wso2apim.service.j2
+        dest: /etc/systemd/system/wso2apim.service
 
     - name: "Reload systemctl daemon"
       command: systemctl daemon-reload
 
-    - name: "Start wso2-am as a service"
-      command: systemctl start wso2am.service
+    - name: "Start wso2apim as a service"
+      command: systemctl start wso2apim.service
 
     become: true
     become_user: root

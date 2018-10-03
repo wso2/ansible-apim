@@ -13,14 +13,29 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 # ----------------------------------------------------------------------------
+---
+# NOTE: The parameterized values has the default values from the original pack. Please change them according to your
+# requirements. If you need to add additional configurations, please use the custom.yml under each role.
 
-wso2_group: wso2
-wso2_user: wso2carbon
-setup_path: /usr/lib/wso2
-product_name: wso2am
-product_version: 2.6.0
-product_path: /opt/wso2
-product_archive_deb: wso2am-linux-installer-x64-2.6.0.deb
-product_archive_rpm: wso2am-linux-installer-x64-2.6.0.rpm
-product_package_location: files
-jdbc_driver: mysql-connector-java-5.1.45-bin.jar
+hostname: localhost
+mgt_hostname: localhost
+ports_offset: 0
+
+# KeyStore which will be used for encrypting/decrypting passwords and other sensitive information.
+keystore_location: ${carbon.home}/repository/resources/security/wso2carbon.jks
+keystore_type: JKS
+keystore_password: wso2carbon
+keystore_key_alias: wso2carbon
+keystore_key_password: wso2carbon
+
+# The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
+internal_keystore_location: ${carbon.home}/repository/resources/security/wso2carbon.jks
+internal_keystore_type: JKS
+internal_keystore_password: wso2carbon
+internal_keystore_key_alias: wso2carbon
+internal_keystore_key_password: wso2carbon
+
+# System wide trust-store which is used to maintain the certificates of all the trusted parties.
+truststore_location: ${carbon.home}/repository/resources/security/client-truststore.jks
+truststore_type: JKS
+truststore_password: wso2carbon

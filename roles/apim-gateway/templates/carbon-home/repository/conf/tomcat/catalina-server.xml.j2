@@ -26,6 +26,7 @@
         proxyPort="80"
         -->
         <Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
+                   {{ http_proxy_port | default() }}
                    port="9763"
                    redirectPort="9443"
                    bindOnInit="false"
@@ -51,6 +52,7 @@
         Added sslEnabledProtocols="TLSv1,TLSv1.1,TLSv1.2" for poodle vulnerability fix
         -->
         <Connector protocol="org.apache.coyote.http11.Http11NioProtocol"
+                   {{ https_proxy_port | default() }}
                    port="9443"
                    bindOnInit="false"
                    sslProtocol="TLS"
@@ -101,4 +103,3 @@
         </Engine>
     </Service>
 </Server>
-
