@@ -1,0 +1,54 @@
+# ----------------------------------------------------------------------------
+#  Copyright (c) 2018 WSO2, Inc. http://www.wso2.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+# ----------------------------------------------------------------------------
+
+wso2_group: wso2
+wso2_user: wso2carbon
+deb_setup_path: /usr/lib/wso2
+rpm_setup_path: /usr/lib64/wso2
+product_name: wso2am-analytics
+product_version: 2.6.0
+product_path: /opt/wso2
+product_archive_deb: wso2am-analytics-linux-installer-x64-2.6.0.deb
+product_archive_rpm: wso2am-analytics-linux-installer-x64-2.6.0.rpm
+product_package_location: files
+jdbc_driver: mysql-connector-java-5.1.45-bin.jar
+java_version: jdk1.8.0_192
+
+# Database configurations
+wso2_metrics_db_url: jdbc:h2:${sys:carbon.home}/wso2/dashboard/database/metrics;AUTO_SERVER=TRUE
+wso2_metrics_db_username: wso2carbon
+wso2_metrics_db_password: wso2carbon
+wso2_metrics_db_driver: org.h2.Driver
+
+wso2_permissions_db_url: jdbc:h2:${sys:carbon.home}/wso2/${sys:wso2.runtime}/database/PERMISSION_DB;IFEXISTS=TRUE;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;MVCC=TRUE
+wso2_permissions_db_username: wso2carbon
+wso2_permissions_db_password: wso2carbon
+wso2_permissions_db_driver: org.h2.Driver
+
+message_tracing_db_url: jdbc:h2:${sys:carbon.home}/wso2/dashboard/database/MESSAGE_TRACING_DB;AUTO_SERVER=TRUE
+message_tracing_db_username: wso2carbon
+message_tracing_db_password: wso2carbon
+message_tracing_db_driver: org.h2.Driver
+
+apim_analytics_db_url: jdbc:h2:${sys:carbon.home}/wso2/worker/database/WSO2AM_STATS_DB;AUTO_SERVER=TRUE
+apim_analytics_db_username: wso2carbon
+apim_analytics_db_password: wso2carbon
+apim_analytics_db_driver: org.h2.Driver
+
+wso2am_mgw_analytics_db_url: jdbc:h2:${sys:carbon.home}/wso2/worker/database/WSO2AM_MGW_ANALYTICS_DB;AUTO_SERVER=TRUE
+wso2am_mgw_analytics_db_username: wso2carbon
+wso2am_mgw_analytics_db_password: wso2carbon
+wso2am_mgw_analytics_db_driver: org.h2.Driver
