@@ -1,108 +1,296 @@
-## WSO2 API Manager 2.2.0 
-## Ansible Playbook
+# WSO2 API Management Ansible scripts
 
-Ansible is a modern IT automation tool which makes our life easier by managing our servers for us . We just need to define the configuration in which we are interested and Ansible will go ahead and do it for us , be it installing a package or configuring a server application or even restarting a service . Ansible is always ready to manage our servers .
-Read more information about ansible and its documentation  here.
-Ansible manages machines in an agent-less manner . Ansible doesn’t have an additional security infrastructure, so it’s easy to deploy. And also we don't need to install anything on the client's end . However both push and pull mode are supported . It is a security focus tool . It uses OpenSSH as transport- protocol.
-Ansible scripts commonly known as playbooks , are written in YAML and that allow you to describe your automation jobs in a way that approaches in plain English . 
+This repository contains the Ansible scripts for installing and configuring WSO2 API Management.
 
-The  Ansible playbook includes the installation and some  configurations such as  distributed database configuration, enable clustering, standalone h2 database configurations, API manager configuration, axis2 configuration, broker, user_manager configurations, Deploying WSO2 API-M  in a distributed setup  for WSO2 API manager.
-![architecture of ansible](images/architecture.jpg)
+## Supported Operating Systems
 
+- Ubuntu 16.04 or higher
+- CentOS 7
 
-**An Overview of Ansible Components**
-The following are some of term definitions used elsewhere in the Ansible
-- **Inventory**:A file (by default, Ansible uses a simple INI format) that describes Hosts and Groups in Ansible. Inventory can also be provided via an Inventory Script (sometimes called an “External Inventory Script”).
-- **Playbook**:Playbooks are the language by which Ansible orchestrates, configures, administers, or deploys systems.
-- **Module**:    Modules are the units of work that Ansible ships out to remote machines. Modules are kicked off by either /usr/bin/ansible or /usr/bin/ansible-playbook (where multiple tasks use lots of different modules in conjunction). Modules can be implemented in any language, including Perl, Bash, or Ruby – but can leverage some useful communal library code if written in Python. Modules just have to return JSON. Once modules are executed on remote machines, they are removed, so no long running daemons are used. Ansible refers to the collection of available modules as a library.
+## Supported Ansible Versions
 
+- Ansible 2.6.4
 
-### How to Contribute
-Supporting Operating System 
-Ubuntu 16.04
+## Directory Structure
+```
+.
+├── dev
+│   ├── group_vars
+│   │   ├── apim-analytics.yml
+│   │   ├── apim-is-as-km.yml
+│   │   └── apim.yml
+│   ├── host_vars
+│   │   ├── apim_1.yml
+│   │   ├── apim-analytics-dashboard_1.yml
+│   │   ├── apim-analytics-worker_1.yml
+│   │   ├── apim-gateway_1.yml
+│   │   ├── apim-is-as-km_1.yml
+│   │   ├── apim-km_1.yml
+│   │   ├── apim-publisher_1.yml
+│   │   ├── apim-store_1.yml
+│   │   └── apim-tm_1.yml
+│   └── inventory
+├── docs
+│   ├── images
+│   │   ├── API-M-single-node-deployment.png
+│   │   ├── P-H-1.png
+│   │   ├── P-H-2.png
+│   │   ├── P-H-3.png
+│   │   ├── P-M-1.png
+│   │   └── P-S-1.png
+│   ├── Pattern_1.md
+│   ├── Pattern_2.md
+│   ├── Pattern_3.md
+│   ├── Pattern_4.md
+│   └── Pattern_5.md
+├── files
+│   ├── mysql-connector-java-5.1.45-bin.jar
+│   ├── wso2am-analytics-linux-installer-x64-2.6.0.deb
+│   ├── wso2am-analytics-linux-installer-x64-2.6.0.rpm
+│   ├── wso2am-linux-installer-x64-2.6.0.deb
+│   ├── wso2am-linux-installer-x64-2.6.0.rpm
+│   ├── wso2is-km-linux-installer-x64-5.7.0.deb
+│   └── wso2is-km-linux-installer-x64-5.7.0.rpm
+├── issue_template.md
+├── LICENSE
+├── pull_request_template.md
+├── README.md
+├── roles
+│   ├── apim
+│   │   ├── tasks
+│   │   │   ├── custom.yml
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       ├── carbon-home
+│   │       │   ├── bin
+│   │       │   │   └── wso2server.sh.j2
+│   │       │   └── repository
+│   │       │       └── conf
+│   │       │           ├── api-manager.xml.j2
+│   │       │           ├── axis2
+│   │       │           │   └── axis2.xml.j2
+│   │       │           ├── carbon.xml.j2
+│   │       │           ├── datasources
+│   │       │           │   └── master-datasources.xml.j2
+│   │       │           ├── identity
+│   │       │           │   └── identity.xml.j2
+│   │       │           ├── registry.xml.j2
+│   │       │           ├── tomcat
+│   │       │           │   └── catalina-server.xml.j2
+│   │       │           └── user-mgt.xml.j2
+│   │       └── wso2apim.service.j2
+│   ├── apim-analytics-dashboard
+│   │   ├── tasks
+│   │   │   ├── custom.yml
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       ├── carbon-home
+│   │       │   ├── conf
+│   │       │   │   └── dashboard
+│   │       │   │       └── deployment.yaml.j2
+│   │       │   └── wso2
+│   │       │       └── dashboard
+│   │       │           └── bin
+│   │       │               └── carbon.sh.j2
+│   │       └── wso2am-analytics-dashboard.service.j2
+│   ├── apim-analytics-worker
+│   │   ├── tasks
+│   │   │   ├── custom.yml
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       ├── carbon-home
+│   │       │   ├── conf
+│   │       │   │   └── worker
+│   │       │   │       └── deployment.yaml.j2
+│   │       │   └── wso2
+│   │       │       └── worker
+│   │       │           └── bin
+│   │       │               └── carbon.sh.j2
+│   │       └── wso2am-analytics-worker.service.j2
+│   ├── apim-gateway
+│   │   ├── tasks
+│   │   │   ├── custom.yml
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       ├── carbon-home
+│   │       │   ├── bin
+│   │       │   │   └── wso2server.sh.j2
+│   │       │   └── repository
+│   │       │       └── conf
+│   │       │           ├── api-manager.xml.j2
+│   │       │           ├── axis2
+│   │       │           │   └── axis2.xml.j2
+│   │       │           ├── carbon.xml.j2
+│   │       │           ├── datasources
+│   │       │           │   └── master-datasources.xml.j2
+│   │       │           ├── identity
+│   │       │           │   └── identity.xml.j2
+│   │       │           ├── registry.xml.j2
+│   │       │           ├── tomcat
+│   │       │           │   └── catalina-server.xml.j2
+│   │       │           └── user-mgt.xml.j2
+│   │       └── wso2apim-gateway.service.j2
+│   ├── apim-is-as-km
+│   │   ├── tasks
+│   │   │   ├── custom.yml
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       ├── carbon-home
+│   │       │   ├── bin
+│   │       │   │   └── wso2server.sh.j2
+│   │       │   └── repository
+│   │       │       └── conf
+│   │       │           ├── api-manager.xml.j2
+│   │       │           ├── datasources
+│   │       │           │   └── master-datasources.xml.j2
+│   │       │           ├── registry.xml.j2
+│   │       │           └── user-mgt.xml.j2
+│   │       └── wso2is-km.service.j2
+│   ├── apim-km
+│   │   ├── tasks
+│   │   │   ├── custom.yml
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       ├── carbon-home
+│   │       │   ├── bin
+│   │       │   │   └── wso2server.sh.j2
+│   │       │   └── repository
+│   │       │       └── conf
+│   │       │           ├── api-manager.xml.j2
+│   │       │           ├── axis2
+│   │       │           │   └── axis2.xml.j2
+│   │       │           ├── carbon.xml.j2
+│   │       │           ├── datasources
+│   │       │           │   └── master-datasources.xml.j2
+│   │       │           ├── identity
+│   │       │           │   └── identity.xml.j2
+│   │       │           ├── registry.xml.j2
+│   │       │           ├── tomcat
+│   │       │           │   └── catalina-server.xml.j2
+│   │       │           └── user-mgt.xml.j2
+│   │       └── wso2apim-km.service.j2
+│   ├── apim-publisher
+│   │   ├── tasks
+│   │   │   ├── custom.yml
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       ├── carbon-home
+│   │       │   ├── bin
+│   │       │   │   └── wso2server.sh.j2
+│   │       │   └── repository
+│   │       │       └── conf
+│   │       │           ├── api-manager.xml.j2
+│   │       │           ├── axis2
+│   │       │           │   └── axis2.xml.j2
+│   │       │           ├── carbon.xml.j2
+│   │       │           ├── datasources
+│   │       │           │   └── master-datasources.xml.j2
+│   │       │           ├── identity
+│   │       │           │   └── identity.xml.j2
+│   │       │           ├── registry.xml.j2
+│   │       │           ├── tomcat
+│   │       │           │   └── catalina-server.xml.j2
+│   │       │           └── user-mgt.xml.j2
+│   │       └── wso2apim-publisher.service.j2
+│   ├── apim-store
+│   │   ├── tasks
+│   │   │   ├── custom.yml
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       ├── carbon-home
+│   │       │   ├── bin
+│   │       │   │   └── wso2server.sh.j2
+│   │       │   └── repository
+│   │       │       └── conf
+│   │       │           ├── api-manager.xml.j2
+│   │       │           ├── axis2
+│   │       │           │   └── axis2.xml.j2
+│   │       │           ├── carbon.xml.j2
+│   │       │           ├── datasources
+│   │       │           │   └── master-datasources.xml.j2
+│   │       │           ├── identity
+│   │       │           │   └── identity.xml.j2
+│   │       │           ├── registry.xml.j2
+│   │       │           ├── tomcat
+│   │       │           │   └── catalina-server.xml.j2
+│   │       │           └── user-mgt.xml.j2
+│   │       └── wso2apim-store.service.j2
+│   ├── apim-tm
+│   │   ├── tasks
+│   │   │   ├── custom.yml
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       ├── carbon-home
+│   │       │   ├── bin
+│   │       │   │   └── wso2server.sh.j2
+│   │       │   └── repository
+│   │       │       └── conf
+│   │       │           ├── api-manager.xml.j2
+│   │       │           ├── axis2
+│   │       │           │   └── axis2.xml.j2
+│   │       │           ├── carbon.xml.j2
+│   │       │           ├── datasources
+│   │       │           │   └── master-datasources.xml.j2
+│   │       │           ├── identity
+│   │       │           │   └── identity.xml.j2
+│   │       │           ├── registry.xml.j2
+│   │       │           ├── tomcat
+│   │       │           │   └── catalina-server.xml.j2
+│   │       │           └── user-mgt.xml.j2
+│   │       └── wso2apim-tm.service.j2
+│   └── common
+│       └── tasks
+│           ├── custom.yml
+│           └── main.yml
+└── site.yml
 
-Supporting Ansible Version
-Ansible 2.4.3.0
+```
 
+## Packs to be Copied
 
-### Instructions
+Copy the following files to `files` directory.
 
-**Install & Start Ansible**
-Before install Ansible, we want to check python is available or not. If it is not available then install the python.The easiest way to install Ansible on a Debian or Ubuntu system is to use the official apt package.
-        
-        sudo apt-add-repository -y ppa:ansible/ansible
-        sudo apt-get update
-        sudo apt-get install -y ansible
+1. [WSO2 API Manager 2.6.0 package](https://wso2.com/api-management/install/)
+2. [WSO2 API Manager Analytics 2.6.0 package](https://wso2.com/api-management/install/analytics/)
+3. [WSO2 API Manager Identity Server as Key Manager 5.7.0 package](https://wso2.com/api-management/install/key-manager/)
+4. [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
 
-Once Ansible is installed, make sure it’s working properly by entering ansible --version on the command line.
-       
-        ansible --version
+## Running WSO2 API Management Ansible scripts
 
-**Generate SSH Public Key**
-f you do not already have an SSH key pair that you would like to use for Ansible administration, we can create one now on your Ansible VPS.
-        ssh-keygen
-Do not type anything. Just press enter to continue.
+### 1. Run the existing scripts without customization
+The existing Ansible scripts contain the configurations to set-up a single node WSO2 API Manager pattern. In order to deploy the pattern, you need to replace the `[ip_address]` and `[ssh_user]` given in the `inventory` file under `dev` folder by the IP of the location where you need to host the API Manager. An example is given below.
+```
+[is]
+wso2am ansible_host=172.28.128.4 ansible_user=vagrant
+```
 
-        ssh-add ~/.ssh/id_rsa
-        cd ~/.ssh/
-        cp id_rsa.pub authorized_keys
-        chmod 644 authorized_keys
+Run the following command to run the scripts.
 
-Exit from the terminal and if you want to check again is SSH key is available or not then you 
+`ansible-playbook -i dev site.yml`
 
-        cd ~/.ssh
+If you need to alter the configurations given, please change the parameterized values in the yaml files under `group_vars` and `host_vars`.
 
-id_rsa is avialable in your terminal then you successfully set the SSH key.
+### 2. Customize the WSO2 Ansible scripts
 
-**SSH Connection**
-Ansible communicates with remote machines over SSH. It uses SSH to connect to servers and run the configured Tasks. While it certainly has the ability to handle password-based SSH authentication, SSH keys help keep things simple. 
-By default, Ansible 1.3 and later will try to use native OpenSSH  for remote communication  when possible. Ansible , by default  assuming we’re using SSH keys. 
-Ansible has a default inventory file (etc/ansible/hosts) are used to define which remote servers will be managing. Our public SSH key should be located in authorized_keys on remote systems.
-![ssh connection](images/ssh_connection.png)
+The templates that are used by the Ansible scripts are in j2 format in-order to enable parameterization.
 
-**Inventory**
-By default, Ansible looks for the inventory file at /etc/ansible/hosts. Inside the inventory file, name of group is enclosed in square brackets. Server names can be their DNS name or IP addresses.
+The `axis2.xml.j2` file is added under `roles/wso2am/templates/carbon-home/repositoy/conf/axis2/`, in order to enable customizations. You can add any other customizations to `custom.yml` under tasks of each role as well.
 
-		[webservers]
-		10.100.4.205
-		192.168.122.201
+#### Step 1
+Uncomment the following line in `main.yml` under the role you want to customize.
+```
+- import_tasks: custom.yml
+```
 
-Once inventory hosts are listed, variables can be assigned to them in simple text files (in a subdirectory called ‘group_vars/’ or ‘host_vars/’ or directly in the inventory file.)
+#### Step 2
+Add the configurations to the `custom.yml`. A sample is given below.
 
-### Create the role Framework
-Ansible roles are an optional feature to take advantage of, but if we plan on using Ansible extensively, it is highly recommended that you explore this functionality. Not only will it keep your host-level configuration clean and readable, it will also allow you to easily reuse code and implement your changes in a modular fashion.
-Files Handlers Meta Templates Tasks Vars are the directories that will contain all of the code to implement our configuration. We don’t use all of the directories, so in real practice, we don’t need to create all of these directories.
-This is what they are all for:
-- **Files**:This directory contains regular files that need to be transferred to the hosts you are configuring for this role. This may also include script files to run.
-- **Handlers**: All handlers that were in your playbook previously can now be added into this directory.
-- **Meta**: This directory can contain files that establish role dependencies. You can list roles that must be applied before the current role can work correctly.
-- **Templates**: You can place all files that use variables to substitute information during creation in this directory.
-- **Tasks**: This directory contains all of the tasks that would normally be in a playbook. These can reference files and templates contained in their respective directories without using a path.
-- **Vars**: Variables for the roles can be specified in this directory and used in your configuration files.
+```
+- name: "Copy custom file"
+  template:
+    src: path/to/example/file/example.xml.j2
+    dest: destination/example.xml.j2
+  when: "(inventory_hostname in groups['am'])"
+```
 
-Within all of the directories but the "files" and "templates", if a file called main.yml exists, its contents will be automatically added to the playbook that calls the role.
-
-### Configuration management with Ansible
-Ansible templates directory is very useful for configuring the WSO2 API MANAGER with lots of changes per configuration files. It can also helpful when trying to build out a big extent configurations automatically by using dynamic / static variables inside  the vars directory.
-![configuration management of wso2am](images/cofiguration.png)
-
-When we want to make any changes in the wso2am-2.2.0 , in Ansible the customer go into /etc/ansible/roles/apim/vars and open the main.yml file via vim main.yml in the vim editor and make any changes which they want for their profile. The profiles of wso2am are mentioned in the Ansible script as  “api_store, api_publisher, traffic_manager, key_manager,  gateway” 
-
-
-### Connect the database
-Here we used the mysql database. That database was created in a machine and linked to the other machines.
-Original machine had the database and it gave the permission to the other machine through this command
-       
-        Mysql -u root -p;
-        ALTER USER ‘username’@’%’ IDENTIFIED BY ‘password’;
-        Flush privileges;
-        grant all on *.* to 'root'@'%';
-        flush privileges;
-The client accessed through the 
-        
-        mysql -h <IP_ADDRESS_OF_REMOTE_HOST> -u <USERNAME> -p
-        Eg: mysql -h 10.100.4.205 -u root -p
-
-Here the client also wanted to know the password of the mysql of the original.
-
-
+Follow the steps mentioned under `docs` directory to customize/create new Ansible scripts and deploy the recommended patterns.

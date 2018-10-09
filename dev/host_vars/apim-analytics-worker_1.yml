@@ -1,0 +1,46 @@
+# ----------------------------------------------------------------------------
+#  Copyright (c) 2018 WSO2, Inc. http://www.wso2.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+# ----------------------------------------------------------------------------
+
+hostname: 0.0.0.0
+ports_offset: 1
+
+wso2_transport_default_port: 9091
+wso2_transport_msf4j_https_port: 9444
+
+siddhi_api_default_port: 7071
+siddhi_api_msf4j_https_port: 7444
+siddhi_api_keystore_file: ${carbon.home}/resources/security/wso2carbon.jks
+siddhi_api_keystore_password: wso2carbon
+siddhi_api_keystore_cert_password: wso2carbon
+
+databridge_config_keystore_location: ${sys:carbon.home}/resources/security/wso2carbon.jks
+databridge_config_keystore_password: wso2carbon
+
+thrift_data_receiver_tcp_port: 7611
+thrift_data_receiver_ssl_port: 7711
+
+binary_data_receiver_tcp_port: 9611
+bianry_data_receiver_ssl_port: 9711
+
+truststore_path: ${sys:carbon.home}/resources/security/client-truststore.jks
+truststore_password: wso2carbon
+
+securevault_privatekey_alias: wso2carbon
+securevault_keystore_location: ${sys:carbon.home}/resources/security/securevault.jks
+securevault_secret_properties_file: ${sys:carbon.home}/conf/${sys:wso2.runtime}/secrets.properties
+securevault_masterkeyreader_file: ${sys:carbon.home}/conf/${sys:wso2.runtime}/master-keys.yaml
+
+cluster_config_enabled: false

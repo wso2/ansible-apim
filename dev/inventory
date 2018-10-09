@@ -1,0 +1,18 @@
+[apim]
+apim_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+# Example
+# apim_1 ansible_host=172.28.128.4 ansible_user=vagrant
+
+[apim-analytics]
+apim-analytics-dashboard_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+# Example
+# apim-analytics-dashboard_1 ansible_host=172.28.128.4 ansible_user=vagrant
+
+apim-analytics-worker_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+# Example
+# apim-analytics-worker_1 ansible_host=172.28.128.4 ansible_user=vagrant
+
+[apim-is-as-km]
+apim-is-as-km_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+# Example
+# apim_is_as_km_1 ansible_host=172.28.128.4 ansible_user=vagrant

@@ -1,0 +1,45 @@
+# ----------------------------------------------------------------------------
+#  Copyright (c) 2018 WSO2, Inc. http://www.wso2.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+# ----------------------------------------------------------------------------
+---
+# NOTE: The parameterized values has the default values from the original pack. Please change them according to your
+# requirements. If you need to add additional configurations, please use the custom.yml under each role.
+
+hostname: localhost
+mgt_hostname: localhost
+ports_offset: 0
+
+# KeyStore which will be used for encrypting/decrypting passwords and other sensitive information.
+keystore_location: ${carbon.home}/repository/resources/security/wso2carbon.jks
+keystore_type: JKS
+keystore_password: wso2carbon
+keystore_key_alias: wso2carbon
+keystore_key_password: wso2carbon
+
+# The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
+internal_keystore_location: ${carbon.home}/repository/resources/security/wso2carbon.jks
+internal_keystore_type: JKS
+internal_keystore_password: wso2carbon
+internal_keystore_key_alias: wso2carbon
+internal_keystore_key_password: wso2carbon
+
+# System wide trust-store which is used to maintain the certificates of all the trusted parties.
+truststore_location: ${carbon.home}/repository/resources/security/client-truststore.jks
+truststore_type: JKS
+truststore_password: wso2carbon
+
+# User manager configurations
+admin_username: admin
+admin_password: admin

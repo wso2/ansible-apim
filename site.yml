@@ -1,0 +1,63 @@
+#----------------------------------------------------------------------------
+#  Copyright (c) 2018 WSO2, Inc. http://www.wso2.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#----------------------------------------------------------------------------
+
+---
+# This playbook deploys the whole application stack in this site.
+
+- name: Apply common configuration to all nodes
+  hosts: all
+  roles:
+    - common
+
+- name: Apply API Manager Analytics worker configuration to an apim-analytics-worker node
+  hosts:
+    - apim-analytics-worker_1
+  roles:
+    - apim-analytics-worker
+
+- name: Apply API Manager default configuration to an apim node
+  hosts:
+    - apim_1
+  roles:
+    - apim
+
+# NOTE: There are multiple profiles for API Management. You can deploy any profile you prefer by deploying the role in
+# any host as follows.
+#
+# - name: Apply API Management <profile> configuration to an apim node
+#   hosts:
+#     - apim_1
+#   roles:
+#     - apim-<profile>
+#
+# An example is given below. This will deploy API Manager store profile in apim_1 node.
+#
+# - name: Apply API Management store configuration to an apim node
+#   hosts:
+#     - apim_1
+#   roles:
+#     - apim-store
+#
+# If you like to start two roles of APIM at a single node, you can achieve that by adding both roles under roles:. An
+# example is give below. This will start both API Manager default profile and Identity Server as Key Manager in the same
+# apim_1 node.
+#
+# - name: Apply API Management store configuration to an apim node
+#   hosts:
+#     - apim_1
+#   roles:
+#     - apim
+#     - apim-is-as-km
