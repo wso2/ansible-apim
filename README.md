@@ -17,12 +17,14 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 ├── dev
 │   ├── group_vars
 │   │   ├── apim-analytics.yml
+│   │   ├── apim-is-as-km.yml
 │   │   └── apim.yml
 │   ├── host_vars
 │   │   ├── apim_1.yml
 │   │   ├── apim-analytics-dashboard_1.yml
 │   │   ├── apim-analytics-worker_1.yml
 │   │   ├── apim-gateway_1.yml
+│   │   ├── apim-is-as-km_1.yml
 │   │   ├── apim-km_1.yml
 │   │   ├── apim-publisher_1.yml
 │   │   ├── apim-store_1.yml
@@ -46,7 +48,9 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   ├── wso2am-analytics-linux-installer-x64-2.6.0.deb
 │   ├── wso2am-analytics-linux-installer-x64-2.6.0.rpm
 │   ├── wso2am-linux-installer-x64-2.6.0.deb
-│   └── wso2am-linux-installer-x64-2.6.0.rpm
+│   ├── wso2am-linux-installer-x64-2.6.0.rpm
+│   ├── wso2is-km-linux-installer-x64-5.7.0.deb
+│   └── wso2is-km-linux-installer-x64-5.7.0.rpm
 ├── issue_template.md
 ├── LICENSE
 ├── pull_request_template.md
@@ -126,6 +130,22 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   │       │           │   └── catalina-server.xml.j2
 │   │       │           └── user-mgt.xml.j2
 │   │       └── wso2apim-gateway.service.j2
+│   ├── apim-is-as-km
+│   │   ├── tasks
+│   │   │   ├── custom.yml
+│   │   │   └── main.yml
+│   │   └── templates
+│   │       ├── carbon-home
+│   │       │   ├── bin
+│   │       │   │   └── wso2server.sh.j2
+│   │       │   └── repository
+│   │       │       └── conf
+│   │       │           ├── api-manager.xml.j2
+│   │       │           ├── datasources
+│   │       │           │   └── master-datasources.xml.j2
+│   │       │           ├── registry.xml.j2
+│   │       │           └── user-mgt.xml.j2
+│   │       └── wso2is-km.service.j2
 │   ├── apim-km
 │   │   ├── tasks
 │   │   │   ├── custom.yml
