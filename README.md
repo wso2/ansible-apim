@@ -23,6 +23,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   │   ├── apim_1.yml
 │   │   ├── apim-analytics-dashboard_1.yml
 │   │   ├── apim-analytics-worker_1.yml
+│   │   ├── apim-ex-gateway_1.yml
 │   │   ├── apim-gateway_1.yml
 │   │   ├── apim-is-as-km_1.yml
 │   │   ├── apim-km_1.yml
@@ -58,190 +59,36 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 ├── roles
 │   ├── apim
 │   │   ├── tasks
-│   │   │   ├── custom.yml
-│   │   │   └── main.yml
 │   │   └── templates
-│   │       ├── carbon-home
-│   │       │   ├── bin
-│   │       │   │   └── wso2server.sh.j2
-│   │       │   └── repository
-│   │       │       └── conf
-│   │       │           ├── api-manager.xml.j2
-│   │       │           ├── axis2
-│   │       │           │   └── axis2.xml.j2
-│   │       │           ├── carbon.xml.j2
-│   │       │           ├── datasources
-│   │       │           │   └── master-datasources.xml.j2
-│   │       │           ├── identity
-│   │       │           │   └── identity.xml.j2
-│   │       │           ├── registry.xml.j2
-│   │       │           ├── tomcat
-│   │       │           │   └── catalina-server.xml.j2
-│   │       │           └── user-mgt.xml.j2
-│   │       └── wso2apim.service.j2
 │   ├── apim-analytics-dashboard
 │   │   ├── tasks
-│   │   │   ├── custom.yml
-│   │   │   └── main.yml
 │   │   └── templates
-│   │       ├── carbon-home
-│   │       │   ├── conf
-│   │       │   │   └── dashboard
-│   │       │   │       └── deployment.yaml.j2
-│   │       │   └── wso2
-│   │       │       └── dashboard
-│   │       │           └── bin
-│   │       │               └── carbon.sh.j2
-│   │       └── wso2am-analytics-dashboard.service.j2
 │   ├── apim-analytics-worker
 │   │   ├── tasks
-│   │   │   ├── custom.yml
-│   │   │   └── main.yml
 │   │   └── templates
-│   │       ├── carbon-home
-│   │       │   ├── conf
-│   │       │   │   └── worker
-│   │       │   │       └── deployment.yaml.j2
-│   │       │   └── wso2
-│   │       │       └── worker
-│   │       │           └── bin
-│   │       │               └── carbon.sh.j2
-│   │       └── wso2am-analytics-worker.service.j2
+│   ├── apim-ex-gateway
+│   │   ├── tasks
+│   │   └── templates
 │   ├── apim-gateway
 │   │   ├── tasks
-│   │   │   ├── custom.yml
-│   │   │   └── main.yml
 │   │   └── templates
-│   │       ├── carbon-home
-│   │       │   ├── bin
-│   │       │   │   └── wso2server.sh.j2
-│   │       │   └── repository
-│   │       │       └── conf
-│   │       │           ├── api-manager.xml.j2
-│   │       │           ├── axis2
-│   │       │           │   └── axis2.xml.j2
-│   │       │           ├── carbon.xml.j2
-│   │       │           ├── datasources
-│   │       │           │   └── master-datasources.xml.j2
-│   │       │           ├── identity
-│   │       │           │   └── identity.xml.j2
-│   │       │           ├── registry.xml.j2
-│   │       │           ├── tomcat
-│   │       │           │   └── catalina-server.xml.j2
-│   │       │           └── user-mgt.xml.j2
-│   │       └── wso2apim-gateway.service.j2
 │   ├── apim-is-as-km
 │   │   ├── tasks
-│   │   │   ├── custom.yml
-│   │   │   └── main.yml
 │   │   └── templates
-│   │       ├── carbon-home
-│   │       │   ├── bin
-│   │       │   │   └── wso2server.sh.j2
-│   │       │   └── repository
-│   │       │       └── conf
-│   │       │           ├── api-manager.xml.j2
-│   │       │           ├── datasources
-│   │       │           │   └── master-datasources.xml.j2
-│   │       │           ├── registry.xml.j2
-│   │       │           └── user-mgt.xml.j2
-│   │       └── wso2is-km.service.j2
 │   ├── apim-km
 │   │   ├── tasks
-│   │   │   ├── custom.yml
-│   │   │   └── main.yml
 │   │   └── templates
-│   │       ├── carbon-home
-│   │       │   ├── bin
-│   │       │   │   └── wso2server.sh.j2
-│   │       │   └── repository
-│   │       │       └── conf
-│   │       │           ├── api-manager.xml.j2
-│   │       │           ├── axis2
-│   │       │           │   └── axis2.xml.j2
-│   │       │           ├── carbon.xml.j2
-│   │       │           ├── datasources
-│   │       │           │   └── master-datasources.xml.j2
-│   │       │           ├── identity
-│   │       │           │   └── identity.xml.j2
-│   │       │           ├── registry.xml.j2
-│   │       │           ├── tomcat
-│   │       │           │   └── catalina-server.xml.j2
-│   │       │           └── user-mgt.xml.j2
-│   │       └── wso2apim-km.service.j2
 │   ├── apim-publisher
 │   │   ├── tasks
-│   │   │   ├── custom.yml
-│   │   │   └── main.yml
 │   │   └── templates
-│   │       ├── carbon-home
-│   │       │   ├── bin
-│   │       │   │   └── wso2server.sh.j2
-│   │       │   └── repository
-│   │       │       └── conf
-│   │       │           ├── api-manager.xml.j2
-│   │       │           ├── axis2
-│   │       │           │   └── axis2.xml.j2
-│   │       │           ├── carbon.xml.j2
-│   │       │           ├── datasources
-│   │       │           │   └── master-datasources.xml.j2
-│   │       │           ├── identity
-│   │       │           │   └── identity.xml.j2
-│   │       │           ├── registry.xml.j2
-│   │       │           ├── tomcat
-│   │       │           │   └── catalina-server.xml.j2
-│   │       │           └── user-mgt.xml.j2
-│   │       └── wso2apim-publisher.service.j2
 │   ├── apim-store
 │   │   ├── tasks
-│   │   │   ├── custom.yml
-│   │   │   └── main.yml
 │   │   └── templates
-│   │       ├── carbon-home
-│   │       │   ├── bin
-│   │       │   │   └── wso2server.sh.j2
-│   │       │   └── repository
-│   │       │       └── conf
-│   │       │           ├── api-manager.xml.j2
-│   │       │           ├── axis2
-│   │       │           │   └── axis2.xml.j2
-│   │       │           ├── carbon.xml.j2
-│   │       │           ├── datasources
-│   │       │           │   └── master-datasources.xml.j2
-│   │       │           ├── identity
-│   │       │           │   └── identity.xml.j2
-│   │       │           ├── registry.xml.j2
-│   │       │           ├── tomcat
-│   │       │           │   └── catalina-server.xml.j2
-│   │       │           └── user-mgt.xml.j2
-│   │       └── wso2apim-store.service.j2
 │   ├── apim-tm
 │   │   ├── tasks
-│   │   │   ├── custom.yml
-│   │   │   └── main.yml
 │   │   └── templates
-│   │       ├── carbon-home
-│   │       │   ├── bin
-│   │       │   │   └── wso2server.sh.j2
-│   │       │   └── repository
-│   │       │       └── conf
-│   │       │           ├── api-manager.xml.j2
-│   │       │           ├── axis2
-│   │       │           │   └── axis2.xml.j2
-│   │       │           ├── carbon.xml.j2
-│   │       │           ├── datasources
-│   │       │           │   └── master-datasources.xml.j2
-│   │       │           ├── identity
-│   │       │           │   └── identity.xml.j2
-│   │       │           ├── registry.xml.j2
-│   │       │           ├── tomcat
-│   │       │           │   └── catalina-server.xml.j2
-│   │       │           └── user-mgt.xml.j2
-│   │       └── wso2apim-tm.service.j2
 │   └── common
 │       └── tasks
-│           ├── custom.yml
-│           └── main.yml
 └── site.yml
 
 ```
