@@ -22,7 +22,7 @@ The followings are the roles needed to deploy API Manager pattern 4.
 - apim-km
 - apim-analytics-worker
 
-### 1. Customize the [inventory](dev/inventory) file
+### 1. Customize the [inventory](../dev/inventory) file
 
 #### Replace the inventory file content with the followings.
 
@@ -49,7 +49,7 @@ apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
 ```
 > NOTE: Replace `[ip_address]` and `[ssh_user]` appropriately.
 
-### 2. Modify the [site.yml](site.yml) file
+### 2. Modify the [site.yml](../site.yml) file
 
 ```
 ---
@@ -121,30 +121,30 @@ apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
     └── inventory
 
 ```
-API Manager pattern 4 contains 5 groups and the configurations specific for each group should be in the respective yaml file under [group_vars](dev/group_vars) folder. Configurations specific to each host should be added to the corresponding yaml file under [host_vars](dev/host_vars) folder.
+API Manager pattern 4 contains 5 groups and the configurations specific for each group should be in the respective yaml file under [group_vars](../dev/group_vars) folder. Configurations specific to each host should be added to the corresponding yaml file under [host_vars](../dev/host_vars) folder.
 
 Most commonly changed values are parameterized in the above files. If further changes are required, the values should be parameterized and added to the files accordingly.
 
 #### i. Customize `apim` role
 
-Navigate to [carbon-home](roles/apim/templates/carbon-home) of the `apim` role. All the files required to deploy the API Manager Pub-Store-TM combination are here. Follow the instructions in the following files to modify the files.
+Navigate to [carbon-home](../roles/apim/templates/carbon-home) of the `apim` role. All the files required to deploy the API Manager Pub-Store-TM combination are here. Follow the instructions in the following files to modify the files.
 - [Publisher](https://docs.wso2.com/display/AM260/Deploying+WSO2+API-M+in+a+Distributed+Setup#DeployingWSO2API-MinaDistributedSetup-Step6.2-ConfigureandstarttheAPIPublisher)
 - [Store](https://docs.wso2.com/display/AM260/Deploying+WSO2+API-M+in+a+Distributed+Setup#DeployingWSO2API-MinaDistributedSetup-Step6.3-ConfigureandstarttheAPIStore)
 - [Traffic Manager](https://docs.wso2.com/display/AM260/Deploying+WSO2+API-M+in+a+Distributed+Setup#DeployingWSO2API-MinaDistributedSetup-Step6.4-ConfigureandstarttheTrafficManager)
 
 #### ii. Customize `apim-gateway` role
 
-Navigate to [carbon-home](roles/apim-gateway/templates/carbon-home) of the `apim-gateway` role. Follow the instructions in the [document](https://docs.wso2.com/display/AM260/Deploying+WSO2+API-M+in+a+Distributed+Setup#DeployingWSO2API-MinaDistributedSetup-Step6.5-ConfigureandstarttheGateway) and modify the files.
+Navigate to [carbon-home](../roles/apim-gateway/templates/carbon-home) of the `apim-gateway` role. Follow the instructions in the [document](https://docs.wso2.com/display/AM260/Deploying+WSO2+API-M+in+a+Distributed+Setup#DeployingWSO2API-MinaDistributedSetup-Step6.5-ConfigureandstarttheGateway) and modify the files.
 
 #### iii. Customize `apim-ex-gateway` role
 
-Navigate to [carbon-home](roles/apim-ex-gateway/templates/carbon-homel) of the `apim-ex-gateway` role. Follow the instructions in the [document](https://docs.wso2.com/display/AM260/Deploying+WSO2+API-M+in+a+Distributed+Setup#DeployingWSO2API-MinaDistributedSetup-Step6.5-ConfigureandstarttheGateway) and modify the files.
+Navigate to [carbon-home](../roles/apim-ex-gateway/templates/carbon-homel) of the `apim-ex-gateway` role. Follow the instructions in the [document](https://docs.wso2.com/display/AM260/Deploying+WSO2+API-M+in+a+Distributed+Setup#DeployingWSO2API-MinaDistributedSetup-Step6.5-ConfigureandstarttheGateway) and modify the files.
 
 > NOTE: The guideline to configure both internal and external gateways are the same. But as these gateways are in different networks and have different configurations.
 
 #### iv. Customize `apim-km` role
 
-Navigate to [carbon-home](roles/apim-km/templates/carbon-home) of the `apim-km` role. Follow the instructions in the [document](https://docs.wso2.com/display/AM260/Deploying+WSO2+API-M+in+a+Distributed+Setup#DeployingWSO2API-MinaDistributedSetup-Step6.1-ConfigureandstarttheKeyManager) and modify the files.
+Navigate to [carbon-home](../roles/apim-km/templates/carbon-home) of the `apim-km` role. Follow the instructions in the [document](https://docs.wso2.com/display/AM260/Deploying+WSO2+API-M+in+a+Distributed+Setup#DeployingWSO2API-MinaDistributedSetup-Step6.1-ConfigureandstarttheKeyManager) and modify the files.
 
 #### v. Customize `apim-analytics-worker` role
 
