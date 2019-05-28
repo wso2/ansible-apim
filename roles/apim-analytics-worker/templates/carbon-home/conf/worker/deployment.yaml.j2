@@ -384,7 +384,7 @@ wso2.datasources:
           jdbcUrl: '{{ message_tracing_db_url }}'
           username: {{ message_tracing_db_username }}
           password: {{ message_tracing_db_password }}
-          driverClassName: { message_tracing_db_driver{ }}
+          driverClassName: {{ message_tracing_db_driver }}
           maxPoolSize: 30
           idleTimeout: 60000
           connectionTestQuery: SELECT 1
