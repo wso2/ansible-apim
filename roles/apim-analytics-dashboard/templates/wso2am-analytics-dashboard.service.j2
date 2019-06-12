@@ -3,10 +3,10 @@ Description=WSO2 API Manager Analytics - Dashboard
 After=network.target
 
 [Service]
-ExecStart={{ install_path }}/wso2/dashboard/bin/carbon.sh start
-ExecStop={{ install_path }}/wso2/dashboard/bin/carbon.sh stop
-ExecRestart={{ install_path }}/wso2/dashboard/bin/carbon.sh restart
-PIDFile={{ install_path }}/wso2/dashboard/runtime.pid
+ExecStart={{ carbon_home }}/wso2/dashboard/bin/carbon.sh start
+ExecStop={{ carbon_home }}/wso2/dashboard/bin/carbon.sh stop
+ExecRestart={{ carbon_home }}/wso2/dashboard/bin/carbon.sh restart
+PIDFile={{ carbon_home }}/wso2/dashboard/runtime.pid
 User={{ wso2_user }}
 Group={{ wso2_group }}
 Type=forking
