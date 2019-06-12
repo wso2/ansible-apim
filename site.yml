@@ -34,12 +34,6 @@
   roles:
     - apim
 
-- name: Apply API Management store configuration to an apim node
-  hosts:
-   - apim-is-as-km_1
-  roles:
-   - apim-is-as-km
-
 # NOTE: There are multiple profiles for API Management. You can deploy any profile you prefer by deploying the role in
 # any host as follows.
 #
