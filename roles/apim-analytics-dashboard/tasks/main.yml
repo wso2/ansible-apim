@@ -57,15 +57,11 @@
         src: "files/{{ jdbc_driver }}"
         dest: "{{ install_path }}/lib"
 
-    - name: "Copy deployment.yaml"
+    - name: Copy configuration templates
       template:
-        src: "carbon-home/conf/dashboard/deployment.yaml.j2"
-        dest: "{{ install_path }}/conf/dashboard/deployment.yaml"
-
-    - name: Copy carbon.sh
-      template:
-        src: carbon-home/wso2/dashboard/bin/carbon.sh.j2
-        dest: "{{ install_path }}/wso2/dashboard/bin/carbon.sh"
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop: "{{ dashboard_config_files }}"
 
 # Enable customization by uncommenting the following and adding the changes to the custom.yml
     # - import_tasks: custom.yml

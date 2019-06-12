@@ -57,30 +57,11 @@
         src: "files/{{ jdbc_driver }}"
         dest: "{{ install_path }}/repository/components/lib"
 
-    - name: "Copy master-datasource.xml"
+    - name: Copy configuration templates
       template:
-        src: "carbon-home/repository/conf/datasources/master-datasources.xml.j2"
-        dest: "{{ install_path }}/repository/conf/datasources/master-datasources.xml"
-
-    - name: "Copy api-manager.xml"
-      template:
-        src: "carbon-home/repository/conf/api-manager.xml.j2"
-        dest: "{{ install_path }}/repository/conf/api-manager.xml"
-
-    - name: "Copy registry.xml"
-      template:
-        src: "carbon-home/repository/conf/registry.xml.j2"
-        dest: "{{ install_path }}/repository/conf/registry.xml"
-
-    - name: "Copy user-mgt.xml"
-      template:
-        src: "carbon-home/repository/conf/user-mgt.xml.j2"
-        dest: "{{ install_path }}/repository/conf/user-mgt.xml"
-
-    - name: "Copy wso2server.sh"
-      template:
-        src: "carbon-home/bin/wso2server.sh.j2"
-        dest: "{{ install_path }}/bin/wso2server.sh"
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop: "{{ config_files }}"
 
 # Enable customization by uncommenting the following and adding the changes to the custom.yml
     # - import_tasks: custom.yml
