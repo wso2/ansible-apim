@@ -14,64 +14,65 @@
 #  limitations under the License.
 #----------------------------------------------------------------------------
 ---
-  - name: Set rpm_setup_path
-    set_fact:
-      setup_path: "{{ rpm_setup_path }}"
-      java_home: '"{{ rpm_setup_path }}/{{ product_name }}/{{ product_version }}/jdk/{{ java_version }}"'
-    when: ansible_os_family == "RedHat"
-
-  - name: Set deb_setup_path
-    set_fact:
-      setup_path: "{{ deb_setup_path }}"
-      java_home: '"{{ deb_setup_path }}/{{ product_name }}/{{ product_version }}/jdk/{{ java_version }}"'
-    when: ansible_os_family == "Debian"
-
   - block:
-    - name: Copy the Debian package of WSO2 API Manager Analytics
-      copy:
-        src: "{{ product_package_location }}/{{ product_archive_deb }}"
-        dest: "{{ product_path }}/{{product_archive_deb }}"
-        mode: 0755
-      when: ansible_os_family == "Debian"
-
-    - name: Copy the RPM package of WSO2 API Manager Analytics
-      copy:
-        src: "{{ product_package_location }}/{{ product_archive_rpm  }}"
-        dest: "{{ product_path  }}/{{ product_archive_rpm  }}"
-        mode: 0755
+    # JDK Distribution
+    - name: Set rpm_java_home
+      set_fact:
+        lib_dir: "{{ rpm_lib_dir }}"
+        java_home: "{{ rpm_lib_dir }}/{{ jdk_name }}"
       when: ansible_os_family == "RedHat"
 
-    - name: Install analytics .deb package
-      apt:
-        deb: "/opt/wso2/{{ product_archive_deb  }}"
+    - name: Set deb_java_home
+      set_fact:
+        lib_dir: "{{ deb_lib_dir }}"
+        java_home: "{{ deb_lib_dir }}/{{ jdk_name }}"
       when: ansible_os_family == "Debian"
 
-    - name: Install a .rpm package
-      yum:
-        name: "{{ product_path  }}/{{ product_archive_rpm  }}"
-      when: ansible_os_family == "RedHat"
+    - name: Create lib directory
+      file:
+        path: "{{ lib_dir }}"
+        state: directory
 
-    - name: "Copy JDBC Driver"
+    - name: Unarchive JDK distribution
+      unarchive:
+        src: "{{ product_package_location }}/{{ jdk_name }}.tar.gz"
+        dest: "{{ lib_dir }}"
+
+    # WSO2 Distribution
+
+    - name: Create distribution path
+      file:
+        path: "{{ distribution_path }}"
+        state: directory
+        mode: 0755
+
+    - name: Unzip WSO2 Identity Server Package
+      unarchive:
+        src: "{{ product_package_location }}/{{ product_name }}-{{ product_version }}.zip"
+        dest: "{{ distribution_path }}"
+        mode: u=rw,g=r,o=r
+
+    - name: Copy JDBC Driver
       copy:
-       src: "files/{{ jdbc_driver }}"
-       dest: "{{ setup_path }}/{{ product_name }}/{{ product_version }}/lib"
+        src: "files/{{ jdbc_driver }}"
+        dest: "{{ install_path }}/lib"
 
     - name: "Copy deployment.yaml"
       template:
         src: "carbon-home/conf/dashboard/deployment.yaml.j2"
-        dest: "{{ setup_path }}/{{ product_name }}/{{ product_version }}/conf/dashboard/deployment.yaml"
+        dest: "{{ install_path }}/conf/dashboard/deployment.yaml"
 
     - name: Copy carbon.sh
       template:
         src: carbon-home/wso2/dashboard/bin/carbon.sh.j2
-        dest: "{{ setup_path }}/{{ product_name }}/{{ product_version }}/wso2/dashboard/bin/carbon.sh"
+        dest: "{{ install_path }}/wso2/dashboard/bin/carbon.sh"
 
 # Enable customization by uncommenting the following and adding the changes to the custom.yml
     # - import_tasks: custom.yml
 
     - name: Change the owner of WSO2 directory
       file:
-        path: "{{ setup_path }}"
+        path: "{{ product_path }}"
         state: directory
         recurse: true
         owner: "{{ wso2_user }}"
@@ -88,11 +89,11 @@
         src: "wso2am-analytics-dashboard.service.j2"
         dest: /etc/systemd/system/wso2am-analytics-dashboard.service
 
-    - name: "Reload systemctl daemon"
-      command: systemctl daemon-reload
-
-    - name: "Start wso2am-analytics-dashboard as a service"
-      command: systemctl start wso2am-analytics-dashboard.service
+    - name: "Start Analytics Dashboard as a service"
+      systemd:
+        name: wso2am-analytics-dashboard
+        state: started
+        daemon_reload: yes
 
     become: true
     become_user: root
