@@ -18,18 +18,15 @@ wso2_group: wso2
 wso2_user: wso2carbon
 product_name: wso2am-analytics
 product_version: 2.6.0
-product_path: /usr/local/wso2
+target: /mnt
 product_package_location: files
 jdbc_driver: mysql-connector-java-5.1.47-bin.jar
 
 # JDK Distributions
 jdk_name: amazon-corretto-8.202.08.2-linux-x64
-deb_lib_dir: /usr/lib/wso2
-rpm_lib_dir: /usr/lib64/wso2
-
-# Installation directory information
-distribution_path: "{{ product_path }}/{{ product_name }}/{{ product_version }}"
-install_path: "{{distribution_path}}/{{product_name}}-{{product_version}}"
+java_dir: /opt
+java_symlink: "{{ java_dir }}/java"
+java_home: "{{ java_dir }}/{{ jdk_name }}"
 
 # Database configurations
 wso2_metrics_db_url: jdbc:h2:${sys:carbon.home}/wso2/dashboard/database/metrics;AUTO_SERVER=TRUE
@@ -60,11 +57,11 @@ wso2am_mgw_analytics_db_driver: org.h2.Driver
 # List of configuration file templates, and the paths they should be written to
 dashboard_config_files:
   - { src: 'carbon-home/conf/dashboard/deployment.yaml.j2',
-      dest: '{{ install_path }}/conf/dashboard/deployment.yaml' }
+      dest: '{{ carbon_home }}/conf/dashboard/deployment.yaml' }
   - { src: 'carbon-home/wso2/dashboard/bin/carbon.sh.j2',
-      dest: '{{ install_path }}/wso2/dashboard/bin/carbon.sh' }
+      dest: '{{ carbon_home }}/wso2/dashboard/bin/carbon.sh' }
 worker_config_files:
   - { src: 'carbon-home/conf/worker/deployment.yaml.j2',
-      dest: '{{ install_path }}/conf/worker/deployment.yaml' }
+      dest: '{{ carbon_home }}/conf/worker/deployment.yaml' }
   - { src: 'carbon-home/wso2/worker/bin/carbon.sh.j2',
-      dest: '{{ install_path }}/wso2/worker/bin/carbon.sh' }
+      dest: '{{ carbon_home }}/wso2/worker/bin/carbon.sh' }

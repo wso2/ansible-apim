@@ -18,18 +18,15 @@ wso2_group: wso2
 wso2_user: wso2carbon
 product_name: wso2is-km
 product_version: 5.7.0
-product_path: /usr/local/wso2
+target: /mnt
 product_package_location: files
 jdbc_driver: mysql-connector-java-5.1.47-bin.jar
 
 # JDK Distributions
 jdk_name: amazon-corretto-8.202.08.2-linux-x64
-deb_lib_dir: /usr/lib/wso2
-rpm_lib_dir: /usr/lib64/wso2
-
-# Installation directory information
-distribution_path: "{{ product_path }}/{{ product_name }}/{{ product_version }}"
-install_path: "{{distribution_path}}/{{product_name}}-{{product_version}}"
+java_dir: /opt
+java_symlink: "{{ java_dir }}/java"
+java_home: "{{ java_dir }}/{{ jdk_name }}"
 
 # Datasource configurations
 wso2am_db_driver: org.h2.Driver
@@ -50,12 +47,12 @@ wso2_mb_store_db_password: wso2carbon
 # List of configuration file templates, and the paths they should be written to
 config_files:
   - { src: 'carbon-home/repository/conf/datasources/master-datasources.xml.j2',
-      dest: '{{ install_path }}/repository/conf/datasources/master-datasources.xml' }
+      dest: '{{ carbon_home }}/repository/conf/datasources/master-datasources.xml' }
   - { src: 'carbon-home/repository/conf/api-manager.xml.j2',
-      dest: '{{ install_path }}/repository/conf/api-manager.xml' }
+      dest: '{{ carbon_home }}/repository/conf/api-manager.xml' }
   - { src: 'carbon-home/repository/conf/registry.xml.j2',
-      dest: '{{ install_path }}/repository/conf/registry.xml' }
+      dest: '{{ carbon_home }}/repository/conf/registry.xml' }
   - { src: 'carbon-home/repository/conf/user-mgt.xml.j2',
-      dest: '{{ install_path }}/repository/conf/user-mgt.xml' }
+      dest: '{{ carbon_home }}/repository/conf/user-mgt.xml' }
   - { src: 'carbon-home/bin/wso2server.sh.j2',
-      dest: '{{ install_path }}/bin/wso2server.sh' }
+      dest: '{{ carbon_home }}/bin/wso2server.sh' }

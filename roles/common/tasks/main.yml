@@ -25,6 +25,22 @@
       become: true
       become_method: sudo
 
+    - name: Create Java directory
+      file:
+        path: "{{ java_dir }}"
+        state: directory
+
+    - name: Unarchive JDK distribution
+      unarchive:
+        src: "{{ product_package_location }}/{{ jdk_name }}.tar.gz"
+        dest: "{{ java_dir }}"
+
+    - name: Create Java symbolic link
+      file:
+        src: "{{ java_home }}"
+        dest: "{{ java_symlink }}"
+        state: link
+
     - name: Install unzip package
       package:
         name: unzip

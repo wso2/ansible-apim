@@ -15,47 +15,30 @@
 #----------------------------------------------------------------------------
 ---
   - block:
-    # JDK Distribution
-    - name: Set rpm_java_home
+    # Set installation directory information
+    - name: Installation Information
       set_fact:
-        lib_dir: "{{ rpm_lib_dir }}"
-        java_home: "{{ rpm_lib_dir }}/{{ jdk_name }}"
-      when: ansible_os_family == "RedHat"
-
-    - name: Set deb_java_home
-      set_fact:
-        lib_dir: "{{ deb_lib_dir }}"
-        java_home: "{{ deb_lib_dir }}/{{ jdk_name }}"
-      when: ansible_os_family == "Debian"
-
-    - name: Create lib directory
-      file:
-        path: "{{ lib_dir }}"
-        state: directory
-
-    - name: Unarchive JDK distribution
-      unarchive:
-        src: "{{ product_package_location }}/{{ jdk_name }}.tar.gz"
-        dest: "{{ lib_dir }}"
+        product_dir: "{{ target }}/apim-publisher"
+        carbon_home: "{{ target }}/apim-publisher/{{ product_name }}-{{ product_version }}"
 
     # WSO2 Distribution
 
     - name: Create distribution path
       file:
-        path: "{{ distribution_path }}"
+        path: "{{ product_dir }}"
         state: directory
         mode: 0755
 
     - name: Unzip WSO2 API Manager Package
       unarchive:
         src: "{{ product_package_location }}/{{ product_name }}-{{ product_version }}.zip"
-        dest: "{{ distribution_path }}"
+        dest: "{{ product_dir }}"
         mode: u=rw,g=r,o=r
 
     - name: Copy JDBC Driver
       copy:
         src: "files/{{ jdbc_driver }}"
-        dest: "{{ install_path }}/repository/components/lib"
+        dest: "{{ carbon_home }}/repository/components/lib"
 
     - name: Copy configuration templates
       template:
@@ -68,7 +51,7 @@
 
     - name: Change the owner of WSO2 directory
       file:
-        path: "{{ setup_path }}"
+        path: "{{ target }}"
         state: directory
         recurse: true
         owner: "{{ wso2_user }}"
@@ -81,12 +64,12 @@
     become_user: root
 
   - block:
-    - name: "Copy WSO2AM service file"
+    - name: Copy WSO2AM service file
       template:
         src: wso2apim.service.j2
         dest: /etc/systemd/system/wso2apim.service
 
-    - name: "Start wso2apim as a service"
+    - name: Start wso2apim as a service
       systemd:
         name: wso2apim
         state: started
