@@ -18,7 +18,7 @@
         <!-- Server URL of the Authentication service -->
         <ServerURL>https://{{ hostname }}:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
         <!-- Admin username for the Authentication manager. -->
-        <Username>{{ admin_ username }}</Username>
+        <Username>{{ admin_username }}</Username>
         <!-- Admin password for the Authentication manager. -->
         <Password>{{ admin_password }}</Password>
         <!-- Indicates whether the permissions checking of the user (on the Publisher and Store) should be done
@@ -85,7 +85,7 @@
                 <Name>Production and Sandbox</Name>
                 <Description>This is a hybrid gateway that handles both production and sandbox token traffic.</Description>
                 <!-- Server URL of the API gateway -->
-                <ServerURL>https://{{ localhost }}:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
+                <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
 		        <!-- Admin username for the API gateway. -->
                 <Username>${admin.username}</Username>
                 <!-- Admin password for the API gateway.-->
