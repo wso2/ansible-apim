@@ -29,7 +29,7 @@ rpm_lib_dir: /usr/lib64/wso2
 
 # Installation directory information
 distribution_path: "{{ product_path }}/{{ product_name }}/{{ product_version }}"
-install_path: "{{distribution_path}}/{{product_name}}-{{product_version}}"
+install_path: "{{ distribution_path }}/{{ product_name }}-{{ product_version }}"
 
 # Server IP of the API gateway
 api_gateway_hostname: localhost
