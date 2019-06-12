@@ -25,13 +25,10 @@
       become: true
       become_method: sudo
 
-    - name: Create WSO2 directory
-      file:
-        path: /opt/wso2
-        state: directory
-        owner: "{{ wso2_user }}"
-        group: "{{ wso2_group }}"
-        mode: 0755
+    - name: Install unzip package
+      package:
+        name: unzip
+        state: present
 
     become: true
     become_user: root
