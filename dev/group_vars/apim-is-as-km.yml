@@ -46,3 +46,16 @@ wso2_mb_store_db_driver: org.h2.Driver
 wso2_mb_store_db_url: jdbc:h2:repository/database/WSO2MB_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
 wso2_mb_store_db_username: wso2carbon
 wso2_mb_store_db_password: wso2carbon
+
+# List of configuration file templates, and the paths they should be written to
+config_files:
+  - { src: 'carbon-home/repository/conf/datasources/master-datasources.xml.j2',
+      dest: '{{ install_path }}/repository/conf/datasources/master-datasources.xml' }
+  - { src: 'carbon-home/repository/conf/api-manager.xml.j2',
+      dest: '{{ install_path }}/repository/conf/api-manager.xml' }
+  - { src: 'carbon-home/repository/conf/registry.xml.j2',
+      dest: '{{ install_path }}/repository/conf/registry.xml' }
+  - { src: 'carbon-home/repository/conf/user-mgt.xml.j2',
+      dest: '{{ install_path }}/repository/conf/user-mgt.xml' }
+  - { src: 'carbon-home/bin/wso2server.sh.j2',
+      dest: '{{ install_path }}/bin/wso2server.sh' }

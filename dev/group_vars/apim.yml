@@ -97,6 +97,27 @@ wso2_mb_store_db_url: jdbc:h2:repository/database/WSO2MB_DB;DB_CLOSE_ON_EXIT=FAL
 wso2_mb_store_db_username: wso2carbon
 wso2_mb_store_db_password: wso2carbon
 
+# List of configuration file templates, and the paths they should be written to
+config_files:
+  - { src: 'carbon-home/repository/conf/datasources/master-datasources.xml.j2',
+      dest: '{{ install_path }}/repository/conf/datasources/master-datasources.xml' }
+  - { src: 'carbon-home/repository/conf/identity/identity.xml.j2',
+      dest: '{{ install_path }}/repository/conf/identity/identity.xml' }
+  - { src: 'carbon-home/repository/conf/carbon.xml.j2',
+      dest: '{{ install_path }}/repository/conf/carbon.xml' }
+  - { src: 'carbon-home/repository/conf/api-manager.xml.j2',
+      dest: '{{ install_path }}/repository/conf/api-manager.xml' }
+  - { src: 'carbon-home/repository/conf/registry.xml.j2',
+      dest: '{{ install_path }}/repository/conf/registry.xml' }
+  - { src: 'carbon-home/repository/conf/axis2/axis2.xml.j2',
+      dest: '{{ install_path }}/repository/conf/axis2/axis2.xml' }
+  - { src: 'carbon-home/repository/conf/tomcat/catalina-server.xml.j2',
+      dest: '{{ install_path }}/repository/conf/tomcat/catalina-server.xml' }
+  - { src: 'carbon-home/repository/conf/user-mgt.xml.j2',
+      dest: '{{ install_path }}/repository/conf/user-mgt.xml' }
+  - { src: 'carbon-home/bin/wso2server.sh.j2',
+      dest: '{{ install_path }}/bin/wso2server.sh' }
+
 # Add any new changes you want to add for the group/profile below.
 # If you add a new file under templates and parameterized the file, the values for those parameters should be added
 # below. An example is provided below.
