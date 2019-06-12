@@ -46,7 +46,7 @@
         state: directory
         mode: 0755
 
-    - name: Unzip WSO2 Identity Server Package
+    - name: Unzip WSO2AM Identity Server as Key Manager Package
       unarchive:
         src: "{{ product_package_location }}/{{ product_name }}-{{ product_version }}.zip"
         dest: "{{ distribution_path }}"
