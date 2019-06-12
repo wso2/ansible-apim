@@ -16,16 +16,20 @@
 
 wso2_group: wso2
 wso2_user: wso2carbon
-deb_setup_path: /usr/lib/wso2
-rpm_setup_path: /usr/lib64/wso2
 product_name: wso2am
 product_version: 2.6.0
-product_path: /opt/wso2
-product_archive_deb: wso2am-linux-installer-x64-2.6.0.deb
-product_archive_rpm: wso2am-linux-installer-x64-2.6.0.rpm
+product_path: /usr/local/wso2
 product_package_location: files
-jdbc_driver: mysql-connector-java-5.1.45-bin.jar
-java_version: jdk1.8.0_192
+jdbc_driver: mysql-connector-java-5.1.47-bin.jar
+
+# JDK Distributions
+jdk_name: amazon-corretto-8.202.08.2-linux-x64
+deb_lib_dir: /usr/lib/wso2
+rpm_lib_dir: /usr/lib64/wso2
+
+# Installation directory information
+distribution_path: "{{ product_path }}/{{ product_name }}/{{ product_version }}"
+install_path: "{{distribution_path}}/{{product_name}}-{{product_version}}"
 
 # Server IP of the API gateway
 api_gateway_hostname: localhost

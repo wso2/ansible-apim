@@ -3,10 +3,10 @@ Description=WSO2 API Manager - Default profile
 After=network.target
 
 [Service]
-ExecStart={{ setup_path }}/{{ product_name }}/{{ product_version }}/bin/wso2server.sh start
-ExecStop={{ setup_path }}/{{ product_name }}/{{ product_version }}/bin/wso2server.sh stop
-ExecRestart={{ setup_path }}/{{ product_name }}/{{ product_version }}/bin/wso2server.sh restart
-PIDFile={{ setup_path }}/{{ product_name }}/{{ product_version }}/wso2carbon.pid
+ExecStart={{ install_path }}/bin/wso2server.sh start
+ExecStop={{ install_path }}/bin/wso2server.sh stop
+ExecRestart={{ install_path }}/bin/wso2server.sh restart
+PIDFile={{ install_path }}/wso2carbon.pid
 User={{ wso2_user }}
 Group={{ wso2_group }}
 Type=forking
