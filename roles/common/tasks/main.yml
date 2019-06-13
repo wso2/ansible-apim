@@ -32,7 +32,7 @@
 
     - name: Unarchive JDK distribution
       unarchive:
-        src: "{{ product_package_location }}/{{ jdk_name }}.tar.gz"
+        src: "{{ product_package_location }}/lib/{{ jdk_name }}.tar.gz"
         dest: "{{ java_dir }}"
 
     - name: Create Java symbolic link

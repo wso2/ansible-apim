@@ -22,21 +22,26 @@
         carbon_home: "{{ target }}/apim-analytics-worker/{{ product_name }}-{{ product_version }}"
 
     # WSO2 Distribution
-    - name: Create distribution path
+    - name: Create product directory
       file:
         path: "{{ product_dir }}"
         state: directory
         mode: 0755
 
+    - name: Remove existing setup
+      file:
+        path: "{{ carbon_home }}"
+        state: absent
+
     - name: Unzip WSO2 API Manager Analytics Package
       unarchive:
-        src: "{{ product_package_location }}/{{ product_name }}-{{ product_version }}.zip"
+        src: "{{ product_package_location }}/packs/{{ product_name }}-{{ product_version }}.zip"
         dest: "{{ product_dir }}"
         mode: u=rw,g=r,o=r
 
     - name: Copy JDBC Driver
       copy:
-        src: "files/{{ jdbc_driver }}"
+        src: "{{ product_package_location }}/lib/{{ jdbc_driver }}"
         dest: "{{ carbon_home }}/lib"
 
     - name: Copy configuration templates
