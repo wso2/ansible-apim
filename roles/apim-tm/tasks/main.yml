@@ -28,6 +28,11 @@
         state: directory
         mode: 0755
 
+    - name: Stop wso2apim as a service
+      systemd:
+        name: wso2apim
+        state: stopped
+
     - name: Remove existing setup
       file:
         path: "{{ carbon_home }}"
