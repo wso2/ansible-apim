@@ -42,7 +42,7 @@
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
-                    <validationQuery>SELECT 1</validationQuery>
+                    <validationQuery>{{ wso2am_db_validation_query }}</validationQuery>
                     <validationInterval>30000</validationInterval>
                 </configuration>
             </definition>
@@ -63,7 +63,7 @@
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
-                    <validationQuery>SELECT 1</validationQuery>
+                    <validationQuery>{{ wso2am_stats_db_validation_query }}</validationQuery>
                     <validationInterval>30000</validationInterval>
                 </configuration>
             </definition>
@@ -84,7 +84,7 @@
                     <maxActive>50</maxActive>
                     <maxWait>60000</maxWait>
                     <testOnBorrow>true</testOnBorrow>
-                    <validationQuery>SELECT 1</validationQuery>
+                    <validationQuery>{{ wso2_mb_store_db_validation_query }}</validationQuery>
                     <validationInterval>30000</validationInterval>
                     <defaultAutoCommit>false</defaultAutoCommit>
                 </configuration>
