@@ -60,7 +60,7 @@ apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
     - apim
 ```
 
-### 3. Customize the roles for API Manager pattern 4
+### 3. Customize the roles for API Manager pattern 1
 
 ```
 .
