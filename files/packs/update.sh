@@ -36,12 +36,13 @@ unzip_pack() {
     unzip -q ${cwd}/${1}.zip
 }
 
-delete_pack() {
-    rm ${cwd}/${1}.zip
-}
-
 update_pack() {
-    delete_pack ${1}
+    if ! [ -x "$(command -v zip)" ]; then
+        echo 'Error: zip is not installed.' >&2
+        rm -rf ${cwd}/${1}
+        exit 1
+    fi
+    rm ${cwd}/${1}.zip
     cd ${cwd}
     echo "Repackaging ${1}..."
     zip -qr ${1}.zip ${1}
@@ -114,33 +115,6 @@ esac
 
 carbon_home=${cwd}/${pack}
 
-# Check if user has a WSO2 subscription
-while :
-do
-  read -p "Do you have a WSO2 subscription? (Y/n) "
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z "$REPLY" ]]
-  then
-    unzip_pack ${pack}
-    if [[ ! -f ${carbon_home}/bin/update_linux ]]
-    then
-      echo "Update executable not found. Please download package for subscription users from website."
-      echo "Don't have a subscription yet? Sign up for a free-trial subscription at https://wso2.com/subscription/free-trial"
-      delete_pack ${pack}
-      exit 1
-    else
-      break
-    fi
-  elif [[ $REPLY =~ ^[Nn]$ ]]
-  then
-    echo "Don't have a subscription yet? Sign up for a free-trial subscription at https://wso2.com/subscription/free-trial"
-    exit 0
-  else
-    echo "Invalid input provided."
-    sleep .5
-  fi
-done
-
 # Create updates directory if it doesn't exist
 updates_dir=${cwd}/updates/${pack}
 if [[ ! -d ${updates_dir} ]]
@@ -159,6 +133,38 @@ then
   status=$(cat ${updates_dir}/status)
 fi
 
+# Check if user has a WSO2 subscription
+while :
+do
+  read -p "Do you have a WSO2 subscription? (Y/n) "
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z "$REPLY" ]]
+  then
+    # The pack should not be unzipped if a conflict is being resolved
+    if [[ ${status} -ne 3 ]]
+    then
+        unzip_pack ${pack}
+    fi
+
+    if [[ ! -f ${carbon_home}/bin/update_linux ]]
+    then
+      echo "Update executable not found. Please download package for subscription users from website."
+      echo "Don't have a subscription yet? Sign up for a free-trial subscription at https://wso2.com/subscription/free-trial"
+      rm -rf ${cwd}/${pack}
+      exit 1
+    else
+      break
+    fi
+  elif [[ $REPLY =~ ^[Nn]$ ]]
+  then
+    echo "Don't have a subscription yet? Sign up for a free-trial subscription at https://wso2.com/subscription/free-trial"
+    exit 0
+  else
+    echo "Invalid input provided."
+    sleep .5
+  fi
+done
+
 # Move into binaries directory
 cd ${carbon_home}/bin
 
@@ -176,10 +182,12 @@ then
   if [[ ${update_status} -eq 1 ]]
   then
     echo "Error occurred while attempting to resolve conflicts."
+    rm -rf ${cwd}/${pack}
     exit 1
   fi
 else
   echo "status file is invalid. Please delete or clear file content."
+  rm -rf ${cwd}/${pack}
   exit 1
 fi
 
@@ -200,9 +208,10 @@ then
   update_pack ${pack}
 elif [[ ${update_status} -eq 3 ]]
 then
-  echo "Conflicts encountered. Please resolve conflicts and run the update script again."
+  echo "Conflicts encountered. Please resolve conflicts in ${cwd}/${pack} and run the update script again."
 else
   echo "Update error occurred. Stopped with exit code ${update_status}"
+  rm -rf ${cwd}/${pack}
   exit ${update_status}
 fi
 
@@ -222,10 +231,10 @@ then
 
   while read -r line; do
     filepath=${line##*${pack}/}
-    template_file=${cwd}/../roles/${profile}/templates/carbon-home/${filepath}.j2
+    template_file=${cwd}/../../roles/${profile}/templates/carbon-home/${filepath}.j2
     if [[ -f ${template_file} ]]
     then
-      updated_templates+=(${template_file##*${cwd}/..})
+      updated_templates+=(${template_file##*${cwd}/../../})
     fi
   done < ${updates_dir}/merged_files.txt
 
@@ -235,7 +244,7 @@ then
     DATE=`date +%Y-%m-%d`
     update_file_name="update_${DATE}.log"
     echo
-    echo "Update has made changes to the following files. Please update the templates accordingly before running the next update." | tee -a ${updates_dir}/${update_file_name}
+    echo "Update has made changes to the following files. Please update the templates accordingly before pushing." | tee -a ${updates_dir}/${update_file_name}
     printf '%s\n' "${updated_templates[@]}" | tee -a ${updates_dir}/${update_file_name}
   fi
 fi
