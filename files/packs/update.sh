@@ -67,9 +67,6 @@ fi
 
 # Set variables relevant to each profile
 case "${profile}" in
-    apim-analytics-dashboard)
-        pack="wso2am-analytics-"${version}
-        ;;
     apim-analytics-worker)
         pack="wso2am-analytics-"${version}
         ;;
@@ -106,7 +103,6 @@ case "${profile}" in
             apim-publisher
             apim-store
             apim-tm
-            apim-analytics-dashboard
             apim-analytics-worker
             apim-is-as-km"
         exit 1
