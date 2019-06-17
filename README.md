@@ -9,7 +9,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 
 ## Supported Ansible Versions
 
-- Ansible 2.6.4
+- Ansible 2.8.0
 
 ## Directory Structure
 ```
@@ -45,13 +45,14 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   ├── Pattern_4.md
 │   └── Pattern_5.md
 ├── files
-│   ├── mysql-connector-java-5.1.45-bin.jar
-│   ├── wso2am-analytics-linux-installer-x64-2.6.0.deb
-│   ├── wso2am-analytics-linux-installer-x64-2.6.0.rpm
-│   ├── wso2am-linux-installer-x64-2.6.0.deb
-│   ├── wso2am-linux-installer-x64-2.6.0.rpm
-│   ├── wso2is-km-linux-installer-x64-5.7.0.deb
-│   └── wso2is-km-linux-installer-x64-5.7.0.rpm
+│   ├── lib
+│   │   ├── amazon-corretto-8.202.08.2-linux-x64.tar.gz
+│   │   └── mysql-connector-java-5.1.47-bin.jar
+│   └── packs
+│       ├── update.sh
+│       ├── wso2am-2.6.0.zip
+│       ├── wso2am-analytics-2.6.0.zip
+│       └── wso2is-km-5.7.0.zip
 ├── issue_template.md
 ├── LICENSE
 ├── pull_request_template.md
@@ -95,12 +96,16 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 
 ## Packs to be Copied
 
-Copy the following files to `files` directory.
+Copy the following files to `files/packs` directory.
 
 1. [WSO2 API Manager 2.6.0 package](https://wso2.com/api-management/install/)
 2. [WSO2 API Manager Analytics 2.6.0 package](https://wso2.com/api-management/install/analytics/)
 3. [WSO2 API Manager Identity Server as Key Manager 5.7.0 package](https://wso2.com/api-management/install/key-manager/)
-4. [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
+
+Copy the following files to `files/lib` directory.
+
+1. [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
+2. [Amazon Coretto for Linux x64 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
 
 ## Running WSO2 API Management Ansible scripts
 
