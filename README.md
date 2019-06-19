@@ -49,7 +49,6 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   │   ├── amazon-corretto-8.202.08.2-linux-x64.tar.gz
 │   │   └── mysql-connector-java-5.1.47-bin.jar
 │   └── packs
-│       ├── update.sh
 │       ├── wso2am-2.6.0.zip
 │       ├── wso2am-analytics-2.6.0.zip
 │       └── wso2is-km-5.7.0.zip
@@ -90,6 +89,9 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   │   └── templates
 │   └── common
 │       └── tasks
+├── scripts
+│   ├── update.sh
+│   └── update_README.md
 └── site.yml
 
 ```
