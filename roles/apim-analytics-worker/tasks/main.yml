@@ -28,6 +28,11 @@
         state: directory
         mode: 0755
 
+    - name: Copy WSO2AM Analytics worker service file
+      template:
+        src: "wso2am-analytics-worker.service.j2"
+        dest: /etc/systemd/system/wso2am-analytics-worker.service
+
     - name: Stop wso2apim as a service
       systemd:
         name: wso2apim
@@ -72,11 +77,6 @@
     become_user: root
 
   - block:
-    - name: Copy WSO2AM Analytics worker service file
-      template:
-        src: "wso2am-analytics-worker.service.j2"
-        dest: /etc/systemd/system/wso2am-analytics-worker.service
-
     - name: Start Analytics Worker as a service
       systemd:
         name: wso2am-analytics-worker

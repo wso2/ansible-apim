@@ -28,9 +28,14 @@
         state: directory
         mode: 0755
 
-    - name: Stop wso2apim as a service
+    - name: Copy WSO2AM Identity Server as Key Manager service file
+      template:
+        src: "wso2is-km.service.j2"
+        dest: /etc/systemd/system/wso2is-km.service
+
+    - name: Stop wso2is-km as a service
       systemd:
-        name: wso2apim
+        name: wso2is-km
         state: stopped
 
     - name: Remove existing setup
@@ -73,11 +78,6 @@
     become_user: root
 
   - block:
-    - name: Copy WSO2AM Identity Server as Key Manager service file
-      template:
-        src: "wso2is-km.service.j2"
-        dest: /etc/systemd/system/wso2is-km.service
-
     - name: Start wso2is-km as a service
       systemd:
         name: wso2is-km

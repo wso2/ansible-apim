@@ -28,9 +28,14 @@
         state: directory
         mode: 0755
 
+    - name: "Copy WSO2AM Gateway service file"
+      template:
+        src: wso2apim-gateway.service.j2
+        dest: /etc/systemd/system/wso2apim-gateway.service
+
     - name: Stop wso2apim as a service
       systemd:
-        name: wso2apim
+        name: wso2apim-gateway
         state: stopped
 
     - name: Remove existing setup
@@ -73,14 +78,9 @@
     become_user: root
 
   - block:
-    - name: Copy WSO2AM service file
-      template:
-        src: wso2apim.service.j2
-        dest: /etc/systemd/system/wso2apim.service
-
-    - name: Start wso2apim as a service
+    - name: Start wso2apim-gateway as a service
       systemd:
-        name: wso2apim
+        name: wso2apim-gateway
         state: started
         daemon_reload: yes
 
