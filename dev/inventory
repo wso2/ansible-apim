@@ -4,10 +4,6 @@ apim_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 # apim_1 ansible_host=172.28.128.4 ansible_user=vagrant
 
 [apim-analytics]
-apim-analytics-dashboard_1 ansible_host=[ip_address] ansible_user=[ssh_user]
-# Example
-# apim-analytics-dashboard_1 ansible_host=172.28.128.4 ansible_user=vagrant
-
 apim-analytics-worker_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 # Example
 # apim-analytics-worker_1 ansible_host=172.28.128.4 ansible_user=vagrant
