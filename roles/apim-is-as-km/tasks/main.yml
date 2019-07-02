@@ -43,11 +43,20 @@
         path: "{{ carbon_home }}"
         state: absent
 
-    - name: Unzip WSO2AM Identity Server as Key Manager Package
+    - name: Unzip WSO2AM Identity Server as Key Manager Package from local source
       unarchive:
         src: "{{ product_package_location }}/packs/{{ product_name }}-{{ product_version }}.zip"
         dest: "{{ product_dir }}"
         mode: u=rw,g=r,o=r
+      when: pack_location == "local"
+
+    - name: Unzip WSO2AM Identity Server as Key Manager Package from remote source
+      unarchive:
+        src: "{{ remote_pack }}"
+        dest: "{{ product_dir }}"
+        mode: u=rw,g=r,o=r
+        remote_src: yes
+      when: pack_location == "remote"
 
     - name: Copy JDBC Driver
       copy:
