@@ -96,7 +96,9 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 
 ```
 
-## Packs to be Copied
+Packs could be either copied to a local directory, or downloaded from a remote location.
+
+## Copying packs locally
 
 Copy the following files to `files/packs` directory.
 
@@ -108,6 +110,13 @@ Copy the following files to `files/lib` directory.
 
 1. [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
 2. [Amazon Coretto for Linux x64 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
+
+## Downloading from remote location
+
+In **group_vars**, change the values of the following variables in all groups:
+1. The value of `pack_location` should be changed from "local" to "remote"
+2. The value of `remote_jdk` should be changed to the URL in which the JDK should be downloaded from, and remove it as a comment.
+3. The value of `remote_pack` should be changed to the URL in which the package should be downloaded from, and remove it as a comment.
 
 ## Running WSO2 API Management Ansible scripts
 
