@@ -20,7 +20,7 @@ product_name: wso2am
 product_version: 2.6.0
 target: /mnt
 product_package_location: files
-jdbc_driver: mysql-connector-java-5.1.47-bin.jar
+#jdbc_driver: mysql-connector-java-5.1.47-bin.jar
 
 # Set the location the product packages should reside in (eg: "local" in the /files directory, "remote" in a remote location)
 pack_location: local
