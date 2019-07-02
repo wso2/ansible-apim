@@ -58,10 +58,11 @@
         remote_src: yes
       when: pack_location == "remote"
 
-    - name: Copy JDBC Driver
-      copy:
-        src: "{{ product_package_location }}/lib/{{ jdbc_driver }}"
-        dest: "{{ product_dir }}/repository/components/lib"
+# Remove comments for Copy JDBC Driver task if a driver is added externally
+#    - name: Copy JDBC Driver
+#      copy:
+#        src: "{{ product_package_location }}/lib/{{ jdbc_driver }}"
+#        dest: "{{ product_dir }}/repository/components/lib"
 
     - name: Copy configuration templates
       template:
