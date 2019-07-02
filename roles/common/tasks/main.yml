@@ -30,10 +30,18 @@
         path: "{{ java_dir }}"
         state: directory
 
-    - name: Unarchive JDK distribution
+    - name: Unarchive JDK distribution from local source
       unarchive:
         src: "{{ product_package_location }}/lib/{{ jdk_name }}.tar.gz"
         dest: "{{ java_dir }}"
+      when: pack_location == "local"
+
+    - name: Unarchive JDK distribution from remote source
+      unarchive:
+        src: "{{ remote_jdk }}"
+        dest: "{{ java_dir }}"
+        remote_src: yes
+      when: pack_location == "remote"
 
     - name: Create Java symbolic link
       file:

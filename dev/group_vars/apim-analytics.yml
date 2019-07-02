@@ -22,6 +22,12 @@ target: /mnt
 product_package_location: files
 jdbc_driver: mysql-connector-java-5.1.47-bin.jar
 
+# Set the location the product packages should reside in (eg: "local" in the /files directory, "remote" in a remote location)
+pack_location: local
+#pack_location: remote
+#remote_jdk: "<URL_TO_JDK_FILE>"
+#remote_pack: "<URL_TO_APIM_ANALYTICS_PACK>"
+
 # JDK Distributions
 jdk_name: amazon-corretto-8.202.08.2-linux-x64
 java_dir: /opt
