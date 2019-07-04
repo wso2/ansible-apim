@@ -157,3 +157,10 @@ Add the configurations to the `custom.yml`. A sample is given below.
 ```
 
 Follow the steps mentioned under `docs` directory to customize/create new Ansible scripts and deploy the recommended patterns.
+
+## Performance Tuning
+
+System configurations can be changed through Puppet to optimize OS level performance. Performance tuning can be enabled by changing `enable_performance_tuning` in `dev/group_vars/apim.yml` to `true`.
+
+System files that will be updated when performance tuning are enabled is available in `files/system`. Update the configuration values according to the requirements of your deployment.
+
