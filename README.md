@@ -66,9 +66,6 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   ├── apim-analytics-worker
 │   │   ├── tasks
 │   │   └── templates
-│   ├── apim-ex-gateway
-│   │   ├── tasks
-│   │   └── templates
 │   ├── apim-gateway
 │   │   ├── tasks
 │   │   └── templates
