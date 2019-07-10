@@ -30,9 +30,9 @@
 
 - name: Apply API Manager default configuration to an apim node
   hosts:
-    - apim_1
+    - apim-km_1
   roles:
-    - apim
+    - apim-km
 
 # NOTE: There are multiple profiles for API Management. You can deploy any profile you prefer by deploying the role in
 # any host as follows.
