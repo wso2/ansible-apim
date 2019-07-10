@@ -18,28 +18,26 @@
 # requirements. If you need to add additional configurations, please use the custom.yml under each role.
 
 hostname: localhost
-mgt_hostname: localhost
 ports_offset: 0
-
-# KeyStore which will be used for encrypting/decrypting passwords and other sensitive information.
-keystore_location: ${carbon.home}/repository/resources/security/wso2carbon.jks
-keystore_type: JKS
-keystore_password: wso2carbon
-keystore_key_alias: wso2carbon
-keystore_key_password: wso2carbon
-
-# The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
-internal_keystore_location: ${carbon.home}/repository/resources/security/wso2carbon.jks
-internal_keystore_type: JKS
-internal_keystore_password: wso2carbon
-internal_keystore_key_alias: wso2carbon
-internal_keystore_key_password: wso2carbon
-
-# System wide trust-store which is used to maintain the certificates of all the trusted parties.
-truststore_location: ${carbon.home}/repository/resources/security/client-truststore.jks
-truststore_type: JKS
-truststore_password: wso2carbon
 
 # User manager configurations
 admin_username: admin
 admin_password: admin
+
+# Throttling configurations
+traffic_manager_receiver_url: tcp://${carbon.local.ip}:${receiver.url.port}
+traffic_manager_auth_url: ssl://${carbon.local.ip}:${auth.url.port}
+jms_conn_factory: amqp://${admin.username}:${admin.password}@clientid/carbon?brokerlist='tcp://${carbon.local.ip}:${jms.port}'
+
+# List of configuration file templates, and the paths they should be written to
+config_files:
+  - { src: 'carbon-home/repository/conf/carbon.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/carbon.xml' }
+  - { src: 'carbon-home/repository/conf/api-manager.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/api-manager.xml' }
+  - { src: 'carbon-home/repository/conf/axis2/axis2.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/axis2/axis2.xml' }
+  - { src: 'carbon-home/repository/conf/tomcat/catalina-server.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/tomcat/catalina-server.xml' }
+  - { src: 'carbon-home/bin/wso2server.sh.j2',
+      dest: '{{ carbon_home }}/bin/wso2server.sh' }

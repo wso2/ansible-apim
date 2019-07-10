@@ -43,10 +43,10 @@ java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
 
 # Server IP of the API gateway
-api_gateway_hostname: localhost
-api_gateway_port: ${mgt.transport.https.port}
-api_gateway_username: ${admin.username}
-api_gateway_password: ${admin.password}
+#api_gateway_hostname: localhost
+#api_gateway_port: ${mgt.transport.https.port}
+#api_gateway_username: ${admin.username}
+#api_gateway_password: ${admin.password}
 
 # Enable analytics for API Manager
 analytics_enabled: false
@@ -78,19 +78,19 @@ key_manager_password: ${admin.password}
 #  -ThriftServerHost - Allows to configure a hostname for the thrift server. It uses the carbon hostname by default.
 #  -The Gateway uses this parameter to connect to the key validation thrift service.
 # These changes should be applied to roles/apim/templates/carbon-home/repository/conf/api-manager.xml.j2 file.
-key_validator_client_type: ThriftClient
-enable_thrift_server: true
+#key_validator_client_type: ThriftClient
+#enable_thrift_server: true
 thrift_server_host: localhost
 
 # API Store related configurations
-api_store_hostname: localhost
-api_store_port: ${mgt.transport.https.port}
-api_store_username: ${admin.username}
-api_store_password: ${admin.password}
+#api_store_hostname: localhost
+#api_store_port: ${mgt.transport.https.port}
+#api_store_username: ${admin.username}
+#api_store_password: ${admin.password}
 
 # API Publisher configurations
-api_publisher_hostname: localhost
-api_publisher_port: ${mgt.transport.https.port}
+#api_publisher_hostname: localhost
+#api_publisher_port: ${mgt.transport.https.port}
 
 # Datasource configurations
 wso2am_db_driver: org.h2.Driver
@@ -111,26 +111,12 @@ wso2_mb_store_db_username: wso2carbon
 wso2_mb_store_db_password: wso2carbon
 wso2_mb_store_db_validation_query: SELECT 1
 
-# List of configuration file templates, and the paths they should be written to
-config_files:
-  - { src: 'carbon-home/repository/conf/datasources/master-datasources.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/datasources/master-datasources.xml' }
-  - { src: 'carbon-home/repository/conf/identity/identity.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/identity/identity.xml' }
-  - { src: 'carbon-home/repository/conf/carbon.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/carbon.xml' }
-  - { src: 'carbon-home/repository/conf/api-manager.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/api-manager.xml' }
-  - { src: 'carbon-home/repository/conf/registry.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/registry.xml' }
-  - { src: 'carbon-home/repository/conf/axis2/axis2.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/axis2/axis2.xml' }
-  - { src: 'carbon-home/repository/conf/tomcat/catalina-server.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/tomcat/catalina-server.xml' }
-  - { src: 'carbon-home/repository/conf/user-mgt.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/user-mgt.xml' }
-  - { src: 'carbon-home/bin/wso2server.sh.j2',
-      dest: '{{ carbon_home }}/bin/wso2server.sh' }
+# Key Store and Trust Store configuration
+key_store_location: repository/resources/security/wso2carbon.jks
+key_store_password: wso2carbon
+key_store_key_password: wso2carbon
+trust_store_location: repository/resources/security/client-truststore.jks
+trust_store_password: wso2carbon
 
 # Add any new changes you want to add for the group/profile below.
 # If you add a new file under templates and parameterized the file, the values for those parameters should be added
