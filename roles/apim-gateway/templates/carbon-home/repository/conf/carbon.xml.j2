@@ -407,7 +407,7 @@
         -->
         <InternalKeyStore>
             <!-- Keystore file location-->
-            <Location>${carbon.home}/repository/resources/security/wso2carbon.jks</Location>
+            <Location>{{ internal_keystore_location }}</Location>
             <!-- Keystore type (JKS/PKCS12 etc.)-->
             <Type>JKS</Type>
             <!-- Keystore password-->
@@ -415,7 +415,7 @@
             <!-- Private Key alias-->
             <KeyAlias>wso2carbon</KeyAlias>
             <!-- Private Key password-->
-            <KeyPassword>wso2carbon</KeyPassword>
+            <KeyPassword>{{ internal_keystore_key_password }}</KeyPassword>
         </InternalKeyStore>
 
         <!--
