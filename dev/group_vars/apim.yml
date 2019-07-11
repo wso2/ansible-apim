@@ -42,12 +42,6 @@ java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
 
-# Server IP of the API gateway
-#api_gateway_hostname: localhost
-#api_gateway_port: ${mgt.transport.https.port}
-#api_gateway_username: ${admin.username}
-#api_gateway_password: ${admin.password}
-
 # Enable analytics for API Manager
 analytics_enabled: false
 # Server URL of the remote StreamProcessor server used to collect statistics. Must be specified in
@@ -78,19 +72,12 @@ key_manager_password: ${admin.password}
 #  -ThriftServerHost - Allows to configure a hostname for the thrift server. It uses the carbon hostname by default.
 #  -The Gateway uses this parameter to connect to the key validation thrift service.
 # These changes should be applied to roles/apim/templates/carbon-home/repository/conf/api-manager.xml.j2 file.
-#key_validator_client_type: ThriftClient
-#enable_thrift_server: true
 thrift_server_host: localhost
 
 # API Store related configurations
-#api_store_hostname: localhost
-#api_store_port: ${mgt.transport.https.port}
-#api_store_username: ${admin.username}
-#api_store_password: ${admin.password}
-
-# API Publisher configurations
-#api_publisher_hostname: localhost
-#api_publisher_port: ${mgt.transport.https.port}
+api_store_url: https://localhost:${mgt.transport.https.port}/store
+api_store_hostname: localhost
+api_store_port: ${mgt.transport.https.port}
 
 # Datasource configurations
 wso2am_db_driver: org.h2.Driver
@@ -110,6 +97,18 @@ wso2_mb_store_db_url: jdbc:h2:repository/database/WSO2MB_DB;DB_CLOSE_ON_EXIT=FAL
 wso2_mb_store_db_username: wso2carbon
 wso2_mb_store_db_password: wso2carbon
 wso2_mb_store_db_validation_query: SELECT 1
+
+wso2um_db_driver: org.h2.Driver
+wso2um_db_url: jdbc:h2:repository/database/WSO2UM_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
+wso2um_db_username: wso2carbon
+wso2um_db_password: wso2carbon
+wso2um_db_validation_query: SELECT 1
+
+wso2reg_db_driver: org.h2.Driver
+wso2reg_db_url: jdbc:h2:repository/database/REGISTRY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
+wso2reg_db_username: wso2carbon
+wso2reg_db_password: wso2carbon
+wso2reg_db_validation_query: SELECT 1
 
 # Key Store and Trust Store configuration
 key_store_location: repository/resources/security/wso2carbon.jks
