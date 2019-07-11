@@ -314,17 +314,17 @@
        <parameter name="httpGetProcessor" locked="false">org.wso2.carbon.mediation.transport.handlers.PassThroughNHttpGetProcessor</parameter>
         <parameter name="keystore" locked="false">
             <KeyStore>
-                <Location>repository/resources/security/wso2carbon.jks</Location>
+                <Location>{{ key_store_location }}</Location>
                 <Type>JKS</Type>
-                <Password>wso2carbon</Password>
-                <KeyPassword>wso2carbon</KeyPassword>
+                <Password>{{ key_store_password }}</Password>
+                <KeyPassword>{{ key_store_key_password }}</KeyPassword>
             </KeyStore>
         </parameter>
         <parameter name="truststore" locked="false">
             <TrustStore>
-                <Location>repository/resources/security/client-truststore.jks</Location>
+                <Location>{{ trust_store_location }}</Location>
                 <Type>JKS</Type>
-                <Password>wso2carbon</Password>
+                <Password>{{ trust_store_password }}</Password>
             </TrustStore>
         </parameter>
         <!--<parameter name="SSLVerifyClient">require</parameter>
