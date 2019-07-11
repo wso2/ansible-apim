@@ -49,7 +49,7 @@
     <!--
     Host name to be used for the Carbon management console
     -->
-    <MgtHostName>{{ mgt_hostname }}</MgtHostName>
+    <MgtHostName>{{ hostname }}</MgtHostName>
 
     <!--
         The URL of the back end server. This is where the admin services are hosted and
@@ -390,15 +390,15 @@
         -->
         <KeyStore>
             <!-- Keystore file location-->
-            <Location>{{ keystore_location }}</Location>
+            <Location>{{ key_store_location }}</Location>
             <!-- Keystore type (JKS/PKCS12 etc.)-->
-            <Type>{{ keystore_type }}</Type>
+            <Type>JKS</Type>
             <!-- Keystore password-->
-            <Password>{{ keystore_password }}</Password>
+            <Password>{{ key_store_password }}</Password>
             <!-- Private Key alias-->
-            <KeyAlias>{{ keystore_key_alias }}</KeyAlias>
+            <KeyAlias>wso2carbon</KeyAlias>
             <!-- Private Key password-->
-            <KeyPassword>{{ keystore_key_password }}</KeyPassword>
+            <KeyPassword>{{ key_store_key_password }}</KeyPassword>
         </KeyStore>
 
         <!--
@@ -409,11 +409,11 @@
             <!-- Keystore file location-->
             <Location>{{ internal_keystore_location }}</Location>
             <!-- Keystore type (JKS/PKCS12 etc.)-->
-            <Type>{{ internal_keystore_type }}</Type>
+            <Type>JKS</Type>
             <!-- Keystore password-->
-            <Password>{{ internal_keystore_password }}</Password>
+            <Password>wso2carbon</Password>
             <!-- Private Key alias-->
-            <KeyAlias>{{ internal_keystore_key_alias }}</KeyAlias>
+            <KeyAlias>wso2carbon</KeyAlias>
             <!-- Private Key password-->
             <KeyPassword>{{ internal_keystore_key_password }}</KeyPassword>
         </InternalKeyStore>
@@ -424,11 +424,11 @@
         -->
         <TrustStore>
             <!-- trust-store file location -->
-            <Location>{{ truststore_location }}</Location>
+            <Location>{{ trust_store_location }}</Location>
             <!-- trust-store type (JKS/PKCS12 etc.) -->
-            <Type>{{ truststore_type }}</Type>
+            <Type>JKS</Type>
             <!-- trust-store password -->
-            <Password>{{ truststore_password }}</Password>
+            <Password>{{ trust_store_password }}</Password>
         </TrustStore>
 
         <!--
