@@ -86,18 +86,6 @@ wso2am_db_username: wso2carbon
 wso2am_db_password: wso2carbon
 wso2am_db_validation_query: SELECT 1
 
-wso2am_stats_db_driver: org.h2.Driver
-wso2am_stats_db_url: jdbc:h2:../tmpStatDB/WSO2AM_STATS_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
-wso2am_stats_db_username: wso2carbon
-wso2am_stats_db_password: wso2carbon
-wso2am_stats_db_validation_query: SELECT 1
-
-wso2_mb_store_db_driver: org.h2.Driver
-wso2_mb_store_db_url: jdbc:h2:repository/database/WSO2MB_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
-wso2_mb_store_db_username: wso2carbon
-wso2_mb_store_db_password: wso2carbon
-wso2_mb_store_db_validation_query: SELECT 1
-
 wso2um_db_driver: org.h2.Driver
 wso2um_db_url: jdbc:h2:repository/database/WSO2UM_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
 wso2um_db_username: wso2carbon
@@ -123,9 +111,6 @@ internal_keystore_location: ${carbon.home}/repository/resources/security/wso2car
 internal_keystore_key_password: wso2carbon
 internal_keystore_password: wso2carbon
 internal_keystore_key_alias: wso2carbon
-
-# User Manager configurations
-datasource: jdbc/WSO2CarbonDB
 
 # Add any new changes you want to add for the group/profile below.
 # If you add a new file under templates and parameterized the file, the values for those parameters should be added
