@@ -16,11 +16,11 @@
          logic relies on this. -->
     <AuthManager>
         <!-- Server URL of the Authentication service -->
-        <ServerURL>https://{{ key_manager_hostname }}:{{ key_manager_port }}${carbon.context}services/</ServerURL>
+        <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
         <!-- Admin username for the Authentication manager. -->
-        <Username>{{ key_manager_username }}</Username>
+        <Username>${admin.username}</Username>
         <!-- Admin password for the Authentication manager. -->
-        <Password>{{ key_manager_password }}</Password>
+        <Password>${admin.password}</Password>
         <!-- Indicates whether the permissions checking of the user (on the Publisher and Store) should be done
            via a remote service. The check will be done on the local server when false. -->
         <CheckPermissionsRemotely>false</CheckPermissionsRemotely>
@@ -85,11 +85,11 @@
                 <Name>Production and Sandbox</Name>
                 <Description>This is a hybrid gateway that handles both production and sandbox token traffic.</Description>
                 <!-- Server URL of the API gateway -->
-                <ServerURL>https://{{ api_gateway_hostname }}:{{ api_gateway_port }}${carbon.context}services/</ServerURL>
-		        <!-- Admin username for the API gateway. -->
-                <Username>{{ api_gateway_username }}</Username>
+                <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
+                <!-- Admin username for the API gateway. -->
+                <Username>${admin.username}</Username>
                 <!-- Admin password for the API gateway.-->
-                <Password>{{ api_gateway_password }}</Password>
+                <Password>${admin.password}</Password>
                 <!-- Endpoint URLs for the APIs hosted in this API gateway.-->
                 <GatewayEndpoint>http://${carbon.local.ip}:${http.nio.port},https://${carbon.local.ip}:${https.nio.port}</GatewayEndpoint>
                 <!-- Endpoint of the Websocket APIs hosted in this API Gateway -->
@@ -212,12 +212,12 @@
     -->
     <APIKeyValidator>
         <!-- Server URL of the API key manager -->
-        <ServerURL>https://{{ key_manager_hostname }}:{{ key_manager_port }}${carbon.context}services/</ServerURL>
+        <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
 
         <!-- Admin username for API key manager. -->
-        <Username>{{ key_manager_username }}</Username>
+        <Username>${admin.username}</Username>
         <!-- Admin password for API key manager. -->
-        <Password>{{ key_manager_password }}</Password>
+        <Password>${admin.password}</Password>
 
         <!-- Configurations related to enable thrift support for key-management related communication.
              If you want to switch back to Web Service Client, change the value of "KeyValidatorClientType" to "WSClient".
@@ -226,12 +226,12 @@
              -If you need to start two API Manager instances in the same machine, you need to give different ports to "ThriftServerPort" value in two nodes.
              -ThriftServerHost - Allows to configure a hostname for the thrift server. It uses the carbon hostname by default.
 	         -The Gateway uses this parameter to connect to the key validation thrift service. -->
-        <KeyValidatorClientType>{{ key_validator_client_type }}</KeyValidatorClientType>
+        <KeyValidatorClientType>ThriftClient</KeyValidatorClientType>
         <ThriftClientConnectionTimeOut>10000</ThriftClientConnectionTimeOut>
         <!--ThriftClientPort>10397</ThriftClientPort-->
 
-        <EnableThriftServer>{{ enable_thrift_server }}</EnableThriftServer>
-        <ThriftServerHost>{{ thrift_server_host }}</ThriftServerHost>
+        <EnableThriftServer>false</EnableThriftServer>
+        <ThriftServerHost>localhost</ThriftServerHost>
         <!--ThriftServerPort>10397</ThriftServerPort-->
 
         <!--ConnectionPool>
@@ -301,15 +301,15 @@
         <!--This property is used to indicate how we do user name comparision for token generation https://wso2.org/jira/browse/APIMANAGER-2225-->
         <CompareCaseInsensitively>true</CompareCaseInsensitively>
         <DisplayURL>false</DisplayURL>
-        <URL>https://{{ api_store_hostname }}:{{ api_store_port }}/store</URL>
+        <URL>https://localhost:${mgt.transport.https.port}/store</URL>
 
         <!-- Server URL of the API Store. -->
-        <ServerURL>https://{{ api_store_hostname }}:{{ api_store_port }}${carbon.context}services/</ServerURL>
+        <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
         <!-- Admin username for API Store. -->
-        <Username>{{ api_store_username }}</Username>
+        <Username>${admin.username}</Username>
 
         <!-- Admin password for API Store. -->
-        <Password>{{ api_store_password }}</Password>
+        <Password>${admin.password}</Password>
         <!-- This parameter specifies whether to display multiple versions of same
              API or only showing the latest version of an API. -->
         <DisplayMultipleVersions>false</DisplayMultipleVersions>
@@ -340,7 +340,7 @@
 
     <APIPublisher>
         <DisplayURL>false</DisplayURL>
-        <URL>https://{{ api_publisher_hostname }}:{{ api_publisher_port }}/publisher</URL>
+        <URL>https://localhost:${mgt.transport.https.port}/publisher</URL>
         <!-- This parameter specifies enabling the capability of setting API documentation level granular visibility levels.
              By default any document associate with an API will have the same permissions set as the API.With enabling below
              property,it will show two additional permission levels as visible only to all registered users in a particular
