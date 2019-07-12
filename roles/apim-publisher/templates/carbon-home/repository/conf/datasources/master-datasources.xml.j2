@@ -51,48 +51,46 @@
         </datasource>
 
          <datasource>
-            <name>WSO2AM_STATS_DB</name>
-            <description>The datasource used for getting statistics to API Manager</description>
-            <jndiConfig>
-                <name>jdbc/WSO2AM_STATS_DB</name>
-            </jndiConfig>
-            <definition type="RDBMS">
-                <configuration>
-                    <url>{{ wso2am_stats_db_url }}</url>
-                    <username>{{ wso2am_stats_db_username }}</username>
-                    <password>{{ wso2am_stats_db_password }}</password>
-                    <defaultAutoCommit>true</defaultAutoCommit>
-                    <driverClassName>{{ wso2am_stats_db_driver }}</driverClassName>
-                    <maxActive>50</maxActive>
-                    <maxWait>60000</maxWait>
-                    <testOnBorrow>true</testOnBorrow>
-                    <validationQuery>{{ wso2am_stats_db_validation_query }}</validationQuery>
-                    <validationInterval>30000</validationInterval>
-                </configuration>
-            </definition>
-         </datasource>
+              <name>WSO2_UM_DB</name>
+              <description>The datasource used by user manager</description>
+              <jndiConfig>
+                  <name>jdbc/WSO2UM_DB</name>
+              </jndiConfig>
+              <definition type="RDBMS">
+                  <configuration>
+                      <url>{{ wso2um_db_url }}</url>
+                      <username>{{ wso2um_db_username }}</username>
+                      <password>{{ wso2um_db_password }}</password>
+                      <driverClassName>{{ wso2um_db_driver }}</driverClassName>
+                      <maxActive>50</maxActive>
+                      <maxWait>60000</maxWait>
+                      <testOnBorrow>true</testOnBorrow>
+                      <validationQuery>{{ wso2um_db_validation_query }}</validationQuery>
+                      <validationInterval>30000</validationInterval>
+                  </configuration>
+              </definition>
+          </datasource>
 
-        <datasource>
-            <name>WSO2_MB_STORE_DB</name>
-            <description>The datasource used for message broker database</description>
-            <jndiConfig>
-                <name>WSO2MBStoreDB</name>
-            </jndiConfig>
-            <definition type="RDBMS">
-                <configuration>
-                    <url>{{ wso2_mb_store_db_url }}</url>
-                    <username>{{ wso2_mb_store_db_username }}</username>
-                    <password>{{ wso2_mb_store_db_password }}</password>
-                    <driverClassName>{{ wso2_mb_store_db_driver }}</driverClassName>
-                    <maxActive>50</maxActive>
-                    <maxWait>60000</maxWait>
-                    <testOnBorrow>true</testOnBorrow>
-                    <validationQuery>{{ wso2_mb_store_db_validation_query }}</validationQuery>
-                    <validationInterval>30000</validationInterval>
-                    <defaultAutoCommit>false</defaultAutoCommit>
-                </configuration>
-            </definition>
-        </datasource>
+          <datasource>
+              <name>WSO2_REG_DB</name>
+              <description>The datasource used by the registry</description>
+              <jndiConfig>
+                  <name>jdbc/WSO2RegistryDB</name>
+              </jndiConfig>
+              <definition type="RDBMS">
+                  <configuration>
+                      <url>{{ wso2reg_db_url }}</url>
+                      <username>{{ wso2reg_db_username }}</username>
+                      <password>{{ wso2reg_db_password }}</password>
+                      <driverClassName>{{ wso2reg_db_driver }}</driverClassName>
+                      <maxActive>50</maxActive>
+                      <maxWait>60000</maxWait>
+                      <testOnBorrow>true</testOnBorrow>
+                      <validationQuery>{{ wso2reg_db_validation_query }}</validationQuery>
+                      <validationInterval>30000</validationInterval>
+                  </configuration>
+              </definition>
+          </datasource>
 
         <!-- For an explanation of the properties, see: http://people.apache.org/~fhanik/jdbc-pool/jdbc-pool.html -->
         <!--datasource>
