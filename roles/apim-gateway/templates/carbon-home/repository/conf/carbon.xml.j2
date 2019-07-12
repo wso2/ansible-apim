@@ -396,7 +396,7 @@
             <!-- Keystore password-->
             <Password>{{ key_store_password }}</Password>
             <!-- Private Key alias-->
-            <KeyAlias>wso2carbon</KeyAlias>
+            <KeyAlias>{{ key_store_key_alias }}</KeyAlias>
             <!-- Private Key password-->
             <KeyPassword>{{ key_store_key_password }}</KeyPassword>
         </KeyStore>
@@ -411,9 +411,9 @@
             <!-- Keystore type (JKS/PKCS12 etc.)-->
             <Type>JKS</Type>
             <!-- Keystore password-->
-            <Password>wso2carbon</Password>
+            <Password>{{ internal_keystore_password }}</Password>
             <!-- Private Key alias-->
-            <KeyAlias>wso2carbon</KeyAlias>
+            <KeyAlias>{{ internal_keystore_key_alias }}</KeyAlias>
             <!-- Private Key password-->
             <KeyPassword>{{ internal_keystore_key_password }}</KeyPassword>
         </InternalKeyStore>
