@@ -114,12 +114,15 @@ wso2reg_db_validation_query: SELECT 1
 key_store_location: repository/resources/security/wso2carbon.jks
 key_store_password: wso2carbon
 key_store_key_password: wso2carbon
+key_store_key_alias: wso2carbon
 trust_store_location: repository/resources/security/client-truststore.jks
 trust_store_password: wso2carbon
 
 # The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
 internal_keystore_location: ${carbon.home}/repository/resources/security/wso2carbon.jks
 internal_keystore_key_password: wso2carbon
+internal_keystore_password: wso2carbon
+internal_keystore_key_alias: wso2carbon
 
 # User Manager configurations
 datasource: jdbc/WSO2CarbonDB
