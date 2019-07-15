@@ -390,7 +390,7 @@
         -->
         <KeyStore>
             <!-- Keystore file location-->
-            <Location>{{ key_store_location }}</Location>
+            <Location>${carbon.home}/{{ key_store_location }}</Location>
             <!-- Keystore type (JKS/PKCS12 etc.)-->
             <Type>JKS</Type>
             <!-- Keystore password-->
@@ -407,7 +407,7 @@
         -->
         <InternalKeyStore>
             <!-- Keystore file location-->
-            <Location>{{ internal_keystore_location }}</Location>
+            <Location>${carbon.home}/{{ internal_keystore_location }}</Location>
             <!-- Keystore type (JKS/PKCS12 etc.)-->
             <Type>JKS</Type>
             <!-- Keystore password-->
@@ -424,7 +424,7 @@
         -->
         <TrustStore>
             <!-- trust-store file location -->
-            <Location>{{ trust_store_location }}</Location>
+            <Location>${carbon.home}/{{ trust_store_location }}</Location>
             <!-- trust-store type (JKS/PKCS12 etc.) -->
             <Type>JKS</Type>
             <!-- trust-store password -->
