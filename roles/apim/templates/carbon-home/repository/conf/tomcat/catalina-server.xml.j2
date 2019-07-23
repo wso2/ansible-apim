@@ -75,8 +75,8 @@
                    compressionMinSize="2048"
                    noCompressionUserAgents="gozilla, traviata"
                    compressableMimeType="text/html,text/javascript,application/x-javascript,application/javascript,application/xml,text/css,application/xslt+xml,text/xsl,image/gif,image/jpg,image/jpeg"
-                   keystoreFile="${carbon.home}/repository/resources/security/wso2carbon.jks"
-                   keystorePass="wso2carbon"
+                   keystoreFile="${carbon.home}/{{ key_store_location }}"
+                   keystorePass="{{ key_store_password }}"
                    URIEncoding="UTF-8"/>
 
 
