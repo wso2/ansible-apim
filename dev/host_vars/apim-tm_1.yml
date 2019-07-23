@@ -43,3 +43,13 @@ truststore_password: wso2carbon
 # User manager configurations
 admin_username: admin
 admin_password: admin
+
+config_files:
+  - { src: 'carbon-home/repository/conf/carbon.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/carbon.xml' }
+  - { src: 'carbon-home/repository/conf/data-bridge/data-bridge-config.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/data-bridge/data-bridge-config.xml' }
+  - { src: 'carbon-home/repository/conf/tomcat/catalina-server.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/tomcat/catalina-server.xml' }
+  - { src: 'carbon-home/bin/wso2server.sh.j2',
+      dest: '{{ carbon_home }}/bin/wso2server.sh' }
