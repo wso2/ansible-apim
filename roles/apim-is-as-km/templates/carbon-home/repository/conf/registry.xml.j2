@@ -27,6 +27,26 @@
     <enableCache>true</enableCache>
     <registryRoot>/</registryRoot>
 
+    <dbConfig name="govregistry">
+        <dataSource>jdbc/WSO2RegistryDB</dataSource>
+    </dbConfig>
+    <remoteInstance url="https://localhost:9443/registry">
+        <id>gov</id>
+        <dbConfig>govregistry</dbConfig>
+        <readOnly>false</readOnly>
+        <enableCache>true</enableCache>
+        <registryRoot>/</registryRoot>
+        <cacheId>{{ wso2reg_db_username }}@{{ wso2reg_db_url }}</cacheId>
+    </remoteInstance>
+    <mount path="/_system/config" overwrite="true">
+        <instanceId>gov</instanceId>
+        <targetPath>/_system/config</targetPath>
+    </mount>
+    <mount path="/_system/governance" overwrite="true">
+        <instanceId>gov</instanceId>
+        <targetPath>/_system/governance</targetPath>
+    </mount>
+
     <dbConfig name="wso2registry">
         <dataSource>jdbc/WSO2CarbonDB</dataSource>
     </dbConfig>
