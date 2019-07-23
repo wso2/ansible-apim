@@ -120,7 +120,7 @@ In **group_vars**, change the values of the following variables in all groups:
 ### 1. Run the existing scripts without customization
 The existing Ansible scripts contain the configurations to set-up a single node WSO2 API Manager pattern. In order to deploy the pattern, you need to replace the `[ip_address]` and `[ssh_user]` given in the `inventory` file under `dev` folder by the IP of the location where you need to host the API Manager. An example is given below.
 ```
-[is]
+[apim]
 wso2am ansible_host=172.28.128.4 ansible_user=vagrant
 ```
 
@@ -134,7 +134,7 @@ If you need to alter the configurations given, please change the parameterized v
 
 The templates that are used by the Ansible scripts are in j2 format in-order to enable parameterization.
 
-The `axis2.xml.j2` file is added under `roles/wso2am/templates/carbon-home/repositoy/conf/axis2/`, in order to enable customizations. You can add any other customizations to `custom.yml` under tasks of each role as well.
+The `axis2.xml.j2` file is added under `roles/wso2am/templates/carbon-home/repository/conf/axis2/`, in order to enable customizations. You can add any other customizations to `custom.yml` under tasks of each role as well.
 
 #### Step 1
 Uncomment the following line in `main.yml` under the role you want to customize.
