@@ -16,11 +16,11 @@
          logic relies on this. -->
     <AuthManager>
         <!-- Server URL of the Authentication service -->
-        <ServerURL>https://{{ hostname }}:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
+        <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
         <!-- Admin username for the Authentication manager. -->
-        <Username>{{ admin_username }}</Username>
+        <Username>${admin.username}</Username>
         <!-- Admin password for the Authentication manager. -->
-        <Password>{{ admin_password }}</Password>
+        <Password>${admin.password}</Password>
         <!-- Indicates whether the permissions checking of the user (on the Publisher and Store) should be done
            via a remote service. The check will be done on the local server when false. -->
         <CheckPermissionsRemotely>false</CheckPermissionsRemotely>
@@ -28,7 +28,7 @@
 
     <JWTConfiguration>
         <!-- Enable/Disable JWT generation. Default is false. -->
-        <!-- EnableJWTGeneration>false</EnableJWTGeneration-->
+        <EnableJWTGeneration>false</EnableJWTGeneration>
 
         <!-- Name of the security context header to be added to the validated requests. -->
         <JWTHeader>X-JWT-Assertion</JWTHeader>
