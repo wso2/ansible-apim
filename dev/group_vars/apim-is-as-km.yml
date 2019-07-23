@@ -49,26 +49,46 @@ wso2am_db_username: wso2carbon
 wso2am_db_password: wso2carbon
 wso2am_db_validation_query: SELECT 1
 
-wso2am_stats_db_driver: org.h2.Driver
-wso2am_stats_db_url: jdbc:h2:../tmpStatDB/WSO2AM_STATS_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
-wso2am_stats_db_username: wso2carbon
-wso2am_stats_db_password: wso2carbon
-wso2am_stats_db_validation_query: SELECT 1
+wso2um_db_driver: org.h2.Driver
+wso2um_db_url: jdbc:h2:repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE
+wso2um_db_username: wso2carbon
+wso2um_db_password: wso2carbon
+wso2um_db_validation_query: SELECT 1
 
-wso2_mb_store_db_driver: org.h2.Driver
-wso2_mb_store_db_url: jdbc:h2:repository/database/WSO2MB_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
-wso2_mb_store_db_username: wso2carbon
-wso2_mb_store_db_password: wso2carbon
-wso2_mb_store_db_validation_query: SELECT 1
+wso2reg_db_driver: org.h2.Driver
+wso2reg_db_url: jdbc:h2:repository/database/REGISTRY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
+wso2reg_db_username: wso2carbon
+wso2reg_db_password: wso2carbon
+wso2reg_db_validation_query: SELECT 1
+
+# Key Store and Trust Store configuration
+key_store_location: repository/resources/security/wso2carbon.jks
+key_store_password: wso2carbon
+key_store_key_password: wso2carbon
+key_store_key_alias: wso2carbon
+trust_store_location: repository/resources/security/client-truststore.jks
+trust_store_password: wso2carbon
+
+# The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
+internal_keystore_location: ${carbon.home}/repository/resources/security/wso2carbon.jks
+internal_keystore_key_password: wso2carbon
+internal_keystore_password: wso2carbon
+internal_keystore_key_alias: wso2carbon
 
 # List of configuration file templates, and the paths they should be written to
 config_files:
   - { src: 'carbon-home/repository/conf/datasources/master-datasources.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/datasources/master-datasources.xml' }
+  - { src: 'carbon-home/repository/conf/carbon.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/carbon.xml' }
   - { src: 'carbon-home/repository/conf/api-manager.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/api-manager.xml' }
   - { src: 'carbon-home/repository/conf/registry.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/registry.xml' }
+  - { src: 'carbon-home/repository/conf/axis2/axis2.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/axis2/axis2.xml' }
+  - { src: 'carbon-home/repository/conf/tomcat/catalina-server.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/tomcat/catalina-server.xml' }
   - { src: 'carbon-home/repository/conf/user-mgt.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/user-mgt.xml' }
   - { src: 'carbon-home/bin/wso2server.sh.j2',
