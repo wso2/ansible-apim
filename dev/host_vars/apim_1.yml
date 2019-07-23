@@ -19,7 +19,6 @@
 # requirements. If you need to add additional configurations, please use the custom.yml under each role.
 
 hostname: localhost
-mgt_hostname: localhost
 ports_offset: 0
 
 # KeyStore which will be used for encrypting/decrypting passwords and other sensitive information.
@@ -45,25 +44,18 @@ truststore_password: wso2carbon
 admin_username: admin
 admin_password: admin
 
-# Datasource configurations
-wso2am_stats_db_driver: org.h2.Driver
-wso2am_stats_db_url: jdbc:h2:../tmpStatDB/WSO2AM_STATS_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
-wso2am_stats_db_username: wso2carbon
-wso2am_stats_db_password: wso2carbon
-wso2am_stats_db_validation_query: SELECT 1
+# Throttling configurations
+traffic_manager_receiver_url: tcp://${carbon.local.ip}:${receiver.url.port}
+traffic_manager_auth_url: ssl://${carbon.local.ip}:${auth.url.port}
 
-wso2_mb_store_db_driver: org.h2.Driver
-wso2_mb_store_db_url: jdbc:h2:repository/database/WSO2MB_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000
-wso2_mb_store_db_username: wso2carbon
-wso2_mb_store_db_password: wso2carbon
-wso2_mb_store_db_validation_query: SELECT 1
+# Gateway Configurations
+gateway_endpoint: http://${carbon.local.ip}:${http.nio.port},https://${carbon.local.ip}:${https.nio.port}
+gateway_ws_endpoint: ws://${carbon.local.ip}:9099
 
 # List of configuration file templates, and the paths they should be written to
 config_files:
   - { src: 'carbon-home/repository/conf/datasources/master-datasources.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/datasources/master-datasources.xml' }
-  - { src: 'carbon-home/repository/conf/identity/identity.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/identity/identity.xml' }
   - { src: 'carbon-home/repository/conf/carbon.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/carbon.xml' }
   - { src: 'carbon-home/repository/conf/api-manager.xml.j2',

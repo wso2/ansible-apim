@@ -312,21 +312,21 @@
         <!--parameter name="bind-address" locked="false">hostname or IP address</parameter-->
         <!--parameter name="WSDLEPRPrefix" locked="false">https://apachehost:port/somepath</parameter-->
        <parameter name="httpGetProcessor" locked="false">org.wso2.carbon.mediation.transport.handlers.PassThroughNHttpGetProcessor</parameter>
-        <parameter name="keystore" locked="false">
-            <KeyStore>
-                <Location>repository/resources/security/wso2carbon.jks</Location>
-                <Type>JKS</Type>
-                <Password>wso2carbon</Password>
-                <KeyPassword>wso2carbon</KeyPassword>
-            </KeyStore>
-        </parameter>
-        <parameter name="truststore" locked="false">
-            <TrustStore>
-                <Location>repository/resources/security/client-truststore.jks</Location>
-                <Type>JKS</Type>
-                <Password>wso2carbon</Password>
-            </TrustStore>
-        </parameter>
+       <parameter name="keystore" locked="false">
+           <KeyStore>
+               <Location>{{ key_store_location }}</Location>
+               <Type>JKS</Type>
+               <Password>{{ key_store_password }}</Password>
+               <KeyPassword>{{ key_store_key_password }}</KeyPassword>
+           </KeyStore>
+       </parameter>
+       <parameter name="truststore" locked="false">
+           <TrustStore>
+               <Location>{{ trust_store_location }}</Location>
+               <Type>JKS</Type>
+               <Password>{{ trust_store_password }}</Password>
+           </TrustStore>
+       </parameter>
         <!--<parameter name="SSLVerifyClient">require</parameter>
             supports optional|require or defaults to none -->
     </transportReceiver>
