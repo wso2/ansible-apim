@@ -23,3 +23,7 @@ ports_offset: 0
 # Auth Manager configurations
 admin_username: admin
 admin_password: admin
+
+# Clustering configurations
+local_member_host: 127.0.0.1
+local_member_port: 4000
