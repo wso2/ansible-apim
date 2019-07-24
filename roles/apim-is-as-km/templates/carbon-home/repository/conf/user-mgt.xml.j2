@@ -25,7 +25,7 @@
             </AdminUser>
             <EveryOneRoleName>everyone</EveryOneRoleName> <!-- By default users in this role sees the registry root -->
             <Property name="isCascadeDeleteEnabled">true</Property>
- <Property name="initializeNewClaimManager">true</Property>
+            <Property name="initializeNewClaimManager">true</Property>
             <Property name="dataSource">jdbc/WSO2UM_DB</Property>
         </Configuration>
 
@@ -38,7 +38,7 @@
 	         Note: Do not comment within UserStoreManager tags. Cause, specific tag names are used as tokens
 	         when building configurations for products.
 	    -->
-	<!--<UserStoreManager class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager">
+	<UserStoreManager class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager">
             <Property name="TenantManager">org.wso2.carbon.user.core.tenant.JDBCTenantManager</Property>
             <Property name="ReadOnly">false</Property>
             <Property name="ReadGroups">true</Property>
@@ -61,7 +61,7 @@
             <Property name="MaxRoleNameListLength">100</Property>
             <Property name="UserRolesCacheEnabled">true</Property>
             <Property name="UserNameUniqueAcrossTenants">false</Property>
-    </UserStoreManager>-->
+    </UserStoreManager>
 	
 	    <!-- If product is using an external LDAP as the user store in READ ONLY mode, use following user manager.
 		     In case if user core cache domain is needed to identify uniquely set property
@@ -168,7 +168,7 @@
              service password formats. In case if user core cache domain is needed to identify uniquely set property
              <Property name="UserCoreCacheIdentifier">domain</Property>
         -->
-	<UserStoreManager class="org.wso2.carbon.user.core.ldap.ReadWriteLDAPUserStoreManager">
+	<!-- <UserStoreManager class="org.wso2.carbon.user.core.ldap.ReadWriteLDAPUserStoreManager">
             <Property name="TenantManager">org.wso2.carbon.user.core.tenant.CommonHybridLDAPTenantManager</Property>
             <Property name="ConnectionURL">ldap://localhost:${Ports.EmbeddedLDAP.LDAPServerPort}</Property>
             <Property name="ConnectionName">uid=admin,ou=system</Property>
@@ -211,7 +211,7 @@
             <Property name="LDAPConnectionTimeout">5000</Property>
             <Property name="ReadTimeout"/>
             <Property name="RetryAttempts"/>
-	</UserStoreManager>
+    </UserStoreManager> -->
 
         <AuthorizationManager class="org.wso2.carbon.user.core.authorization.JDBCAuthorizationManager">
             <Property name="AdminRoleManagementPermissions">/permission</Property>
