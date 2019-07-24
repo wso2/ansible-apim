@@ -48,7 +48,7 @@
 				            itself.
   -->
   <EmbeddedLDAP>
-    <Property name="enable">false</Property>
+    <Property name="enable">{{ embedded_ldap_enabled }}</Property>
     <Property name="port">${Ports.EmbeddedLDAP.LDAPServerPort}</Property>
     <Property name="instanceId">default</Property>
     <Property name="connectionPassword">admin</Property>
