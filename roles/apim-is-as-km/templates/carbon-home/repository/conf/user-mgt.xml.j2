@@ -29,6 +29,8 @@
             <Property name="dataSource">jdbc/WSO2UM_DB</Property>
         </Configuration>
 
+    {% if embedded_ldap_enabled == 'false' %}
+
 	    <!-- Following is the configuration for internal JDBC user store. This user store manager is based on JDBC.
 	         In case if application needs to manage passwords externally set property
 	         <Property name="PasswordsExternallyManaged">true</Property>.
@@ -38,7 +40,7 @@
 	         Note: Do not comment within UserStoreManager tags. Cause, specific tag names are used as tokens
 	         when building configurations for products.
 	    -->
-	<UserStoreManager class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager">
+	    <UserStoreManager class="org.wso2.carbon.user.core.jdbc.JDBCUserStoreManager">
             <Property name="TenantManager">org.wso2.carbon.user.core.tenant.JDBCTenantManager</Property>
             <Property name="ReadOnly">false</Property>
             <Property name="ReadGroups">true</Property>
@@ -61,7 +63,9 @@
             <Property name="MaxRoleNameListLength">100</Property>
             <Property name="UserRolesCacheEnabled">true</Property>
             <Property name="UserNameUniqueAcrossTenants">false</Property>
-    </UserStoreManager>
+        </UserStoreManager>
+
+    {% endif %}
 	
 	    <!-- If product is using an external LDAP as the user store in READ ONLY mode, use following user manager.
 		     In case if user core cache domain is needed to identify uniquely set property
@@ -161,6 +165,8 @@
             <Property name="RetryAttempts"/>
         </UserStoreManager-->
 
+    {% if embedded_ldap_enabled == 'true' %}
+
         <!-- Following user manager is used by Identity Server (IS) as its default user manager.
              IS will do token replacement when building the product. Therefore do not change the syntax.
              If "kdcEnabled" parameter is true, IS will allow service principle management.
@@ -168,7 +174,7 @@
              service password formats. In case if user core cache domain is needed to identify uniquely set property
              <Property name="UserCoreCacheIdentifier">domain</Property>
         -->
-	<!-- <UserStoreManager class="org.wso2.carbon.user.core.ldap.ReadWriteLDAPUserStoreManager">
+	    <UserStoreManager class="org.wso2.carbon.user.core.ldap.ReadWriteLDAPUserStoreManager">
             <Property name="TenantManager">org.wso2.carbon.user.core.tenant.CommonHybridLDAPTenantManager</Property>
             <Property name="ConnectionURL">ldap://localhost:${Ports.EmbeddedLDAP.LDAPServerPort}</Property>
             <Property name="ConnectionName">uid=admin,ou=system</Property>
@@ -211,7 +217,9 @@
             <Property name="LDAPConnectionTimeout">5000</Property>
             <Property name="ReadTimeout"/>
             <Property name="RetryAttempts"/>
-    </UserStoreManager> -->
+        </UserStoreManager>
+
+    {% endif %}
 
         <AuthorizationManager class="org.wso2.carbon.user.core.authorization.JDBCAuthorizationManager">
             <Property name="AdminRoleManagementPermissions">/permission</Property>

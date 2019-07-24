@@ -95,6 +95,9 @@ clustering_members:
   - { host_name: 127.0.0.1,
       port: 4000 }
 
+# LDAP configurations
+embedded_ldap_enabled: 'true'
+
 # List of configuration file templates, and the paths they should be written to
 config_files:
   - { src: 'carbon-home/repository/conf/datasources/master-datasources.xml.j2',
