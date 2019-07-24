@@ -96,7 +96,7 @@ clustering_members:
       port: 4000 }
 
 # LDAP configurations
-embedded_ldap_enabled: 'true'
+embedded_ldap_enabled: 'false'
 
 # List of configuration file templates, and the paths they should be written to
 config_files:
@@ -120,7 +120,5 @@ config_files:
       dest: '{{ carbon_home }}/repository/conf/identity/embedded-ldap.xml' }
   - { src: 'carbon-home/repository/conf/identity/identity.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/identity/identity.xml' }
-  - { src: 'carbon-home/repository/conf/identity/embedded-ldap.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/identity/embedded-ldap.xml' }
   - { src: 'carbon-home/bin/wso2server.sh.j2',
       dest: '{{ carbon_home }}/bin/wso2server.sh' }
