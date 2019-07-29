@@ -70,27 +70,6 @@
         </datasource>
 
         <datasource>
-            <name>WSO2_REG_DB</name>
-            <description>The datasource used by the registry</description>
-            <jndiConfig>
-                <name>jdbc/WSO2RegistryDB</name>
-            </jndiConfig>
-            <definition type="RDBMS">
-                <configuration>
-                    <url>{{ wso2reg_db_url }}</url>
-                    <username>{{ wso2reg_db_username }}</username>
-                    <password>{{ wso2reg_db_password }}</password>
-                    <driverClassName>{{ wso2reg_db_driver }}</driverClassName>
-                    <maxActive>50</maxActive>
-                    <maxWait>60000</maxWait>
-                    <testOnBorrow>true</testOnBorrow>
-                    <validationQuery>{{ wso2reg_db_validation_query }}</validationQuery>
-                    <validationInterval>30000</validationInterval>
-                </configuration>
-            </definition>
-        </datasource>
-
-        <datasource>
             <name>WSO2_IDENTITY_DB</name>
             <description>The datasource used for registry, user management and identity</description>
             <jndiConfig>
