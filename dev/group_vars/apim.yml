@@ -55,10 +55,7 @@ stream_processor_rest_api_password: ${admin.password}
 
 # Server URL of the Authentication service. Make sure to import the Key Manager's public certificate to WSO2 API-M's
 # client-truststore.jks. For more information, see https://docs.wso2.com/display/ADMIN44x/Creating+New+Keystores
-key_manager_hostname: localhost
-key_manager_port: ${mgt.transport.https.port}
-key_manager_username: ${admin.username}
-key_manager_password: ${admin.password}
+key_manager_server_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
 
 # API key validator configuration used by API key manager (IS), API store and API gateway. API gateway uses it to
 # validate and authenticate users against the provided API keys.
@@ -76,8 +73,20 @@ thrift_server_host: localhost
 
 # API Store related configurations
 api_store_url: https://localhost:${mgt.transport.https.port}/store
-api_store_hostname: localhost
-api_store_port: ${mgt.transport.https.port}
+api_store_server_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
+
+# Gateway configurations
+gateway_environments:
+  - { type: 'hybrid',
+      name: 'Production and Sandbox',
+      description: 'This is a hybrid gateway that handles both production and sandbox token traffic.',
+      server_url: 'https://localhost:${mgt.transport.https.port}${carbon.context}services/',
+      gateway_endpoint: 'http://${carbon.local.ip}:${http.nio.port},https://${carbon.local.ip}:${https.nio.port}',
+      gateway_ws_endpoint: 'ws://${carbon.local.ip}:9099' }
+
+# Traffic Manager configurations
+traffic_manager_receiver_url: tcp://${carbon.local.ip}:${receiver.url.port}
+traffic_manager_auth_url: ssl://${carbon.local.ip}:${auth.url.port}
 
 # Datasource configurations
 wso2am_db_driver: org.h2.Driver

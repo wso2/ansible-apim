@@ -81,20 +81,25 @@
                  An API deployed on a 'sandbox' type gateway will only support sandbox keys
                  An API deployed on a 'hybrid' type gateway will support both production and sandbox keys. -->
             <!-- api-console element specifies whether the environment should be listed in API Console or not -->
-            <Environment type="hybrid" api-console="true">
-                <Name>Production and Sandbox</Name>
-                <Description>This is a hybrid gateway that handles both production and sandbox token traffic.</Description>
+            {%  for environment in gateway_environments %}
+
+            <Environment type="{{ environment.type }}" api-console="true">
+                <Name>{{ environment.name }}</Name>
+                <Description>{{ environment.description }}</Description>
                 <!-- Server URL of the API gateway -->
-                <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
+                <ServerURL>{{ environment.server_url }}</ServerURL>
                 <!-- Admin username for the API gateway. -->
                 <Username>${admin.username}</Username>
                 <!-- Admin password for the API gateway.-->
                 <Password>${admin.password}</Password>
                 <!-- Endpoint URLs for the APIs hosted in this API gateway.-->
-                <GatewayEndpoint>{{ gateway_endpoint }}</GatewayEndpoint>
+                <GatewayEndpoint>{{ environment.gateway_endpoint }}</GatewayEndpoint>
                 <!-- Endpoint of the Websocket APIs hosted in this API Gateway -->
-                <GatewayWSEndpoint>{{ gateway_ws_endpoint }}</GatewayWSEndpoint>
+                <GatewayWSEndpoint>{{ environment.gateway_ws_endpoint }}</GatewayWSEndpoint>
             </Environment>
+
+            {%  endfor %}
+
         </Environments>
     </APIGateway>
 
@@ -212,7 +217,7 @@
     -->
     <APIKeyValidator>
         <!-- Server URL of the API key manager -->
-        <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
+        <ServerURL>{{ key_manager_server_url }}</ServerURL>
 
         <!-- Admin username for API key manager. -->
         <Username>${admin.username}</Username>
@@ -231,7 +236,7 @@
         <!--ThriftClientPort>10397</ThriftClientPort-->
 
         <EnableThriftServer>false</EnableThriftServer>
-        <ThriftServerHost>localhost</ThriftServerHost>
+        <ThriftServerHost>{{ thrift_server_host }}</ThriftServerHost>
         <!--ThriftServerPort>10397</ThriftServerPort-->
 
         <!--ConnectionPool>
@@ -276,7 +281,7 @@
              In distributed deployment we should configure this property in key manager node by pointing
              gateway https( /http, we recommend users to use 'https' endpoints for security purpose) url.
              Also please note that we should point gateway revoke service to key manager -->
-        <RevokeAPIURL>https://localhost:${https.nio.port}/revoke</RevokeAPIURL>
+        <RevokeAPIURL>{{ oauth_configs_revoke_api_url }}</RevokeAPIURL>
         <!-- Whether to encrypt tokens when storing in the Database
         Note: If changing this value to true, change the value of <TokenPersistenceProcessor> to
         org.wso2.carbon.identity.oauth.tokenprocessor.EncryptionDecryptionPersistenceProcessor in the identity.xml -->
@@ -301,10 +306,10 @@
         <!--This property is used to indicate how we do user name comparision for token generation https://wso2.org/jira/browse/APIMANAGER-2225-->
         <CompareCaseInsensitively>true</CompareCaseInsensitively>
         <DisplayURL>false</DisplayURL>
-        <URL>https://localhost:${mgt.transport.https.port}/store</URL>
+        <URL>{{ api_store_url }}</URL>
 
         <!-- Server URL of the API Store. -->
-        <ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
+        <ServerURL>{{ api_store_server_url }}</ServerURL>
         <!-- Admin username for API Store. -->
         <Username>${admin.username}</Username>
 
@@ -577,7 +582,7 @@
         </DataPublisher>
         <PolicyDeployer>
             <Enabled>true</Enabled>
-            <ServiceURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServiceURL>
+            <ServiceURL>{{ throttle_config_policy_deployer_url }}</ServiceURL>
             <Username>${admin.username}</Username>
             <Password>${admin.password}</Password>
         </PolicyDeployer>

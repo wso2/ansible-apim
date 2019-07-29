@@ -24,6 +24,9 @@ ports_offset: 0
 admin_username: admin
 admin_password: admin
 
+# api-manager.xml configs
+oauth_configs_revoke_api_url: https://localhost:${https.nio.port}/revoke
+
 config_files:
   - { src: 'carbon-home/repository/conf/datasources/master-datasources.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/datasources/master-datasources.xml' }
@@ -41,11 +44,3 @@ config_files:
       dest: '{{ carbon_home }}/repository/conf/user-mgt.xml' }
   - { src: 'carbon-home/bin/wso2server.sh.j2',
       dest: '{{ carbon_home }}/bin/wso2server.sh' }
-
-gateway_environments:
-  - { type: 'hybrid',
-      name: 'Production and Sandbox',
-      description: 'This is a hybrid gateway that handles both production and sandbox token traffic.',
-      server_url: 'https://localhost:${mgt.transport.https.port}${carbon.context}services/',
-      gateway_endpoint: 'http://${carbon.local.ip}:${http.nio.port},https://${carbon.local.ip}:${https.nio.port}',
-      gateway_ws_endpoint: 'ws://${carbon.local.ip}:9099' }
