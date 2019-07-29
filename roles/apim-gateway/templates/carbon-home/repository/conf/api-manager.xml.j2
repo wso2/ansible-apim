@@ -212,12 +212,12 @@
     -->
     <APIKeyValidator>
         <!-- Server URL of the API key manager -->
-        <ServerURL>https://{{ key_manager_hostname }}:{{ key_manager_port }}${carbon.context}services/</ServerURL>
+        <ServerURL>{{ key_manager_server_url }}</ServerURL>
 
         <!-- Admin username for API key manager. -->
-        <Username>{{ key_manager_username }}</Username>
+        <Username>${admin.username}</Username>
         <!-- Admin password for API key manager. -->
-        <Password>{{ key_manager_password }}</Password>
+        <Password>${admin.password}</Password>
 
         <!-- Configurations related to enable thrift support for key-management related communication.
              If you want to switch back to Web Service Client, change the value of "KeyValidatorClientType" to "WSClient".
