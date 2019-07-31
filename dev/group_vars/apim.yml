@@ -20,7 +20,7 @@ product_name: wso2am
 product_version: 2.6.0
 target: /mnt
 product_package_location: files
-backup_dir: /tmp/
+backup_dir: /tmp
 #jdbc_driver: mysql-connector-java-5.1.47-bin.jar
 
 # Performance tuning configurations
