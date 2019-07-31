@@ -20,6 +20,8 @@ product_name: wso2am-analytics
 product_version: 2.6.0
 target: /mnt
 product_package_location: files
+misc_file_location: "{{ product_package_location }}/misc"
+misc_file_copy_location: "{{ target }}/misc"
 #jdbc_driver: mysql-connector-java-5.1.47-bin.jar
 
 # Performance tuning configurations
@@ -29,6 +31,12 @@ performance_tuning_file_list:
       dest: '/etc/sysctl.conf' }
   - { src: '{{ product_package_location }}/system/etc/security/limits.conf',
       dest: '/etc/security/limits.conf' }
+
+# Uncomment and add any miscellaneous files you need to copy
+# A sample is given below
+# misc_file_list:
+#   - { src: '{{ misc_file_location }}/apimcli.zip',
+#       dest: '{{ misc_file_copy_location }}/apimcli.zip' }
 
 # Set the location the product packages should reside in (eg: "local" in the /files directory, "remote" in a remote location)
 pack_location: local
