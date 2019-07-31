@@ -49,9 +49,15 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   │   ├── amazon-corretto-8.202.08.2-linux-x64.tar.gz
 │   │   └── mysql-connector-java-5.1.47-bin.jar
 │   └── packs
-│       ├── wso2am-2.6.0.zip
-│       ├── wso2am-analytics-2.6.0.zip
-│       └── wso2is-km-5.7.0.zip
+│   │   ├── wso2am-2.6.0.zip
+│   │   ├── wso2am-analytics-2.6.0.zip
+│   │   └── wso2is-km-5.7.0.zip
+│   ├── system
+│   │   └── etc
+│   │       ├── security
+│   │       │   └── limits.conf
+│   │       └── sysctl.conf
+│   └── tools
 ├── issue_template.md
 ├── LICENSE
 ├── pull_request_template.md
@@ -160,4 +166,3 @@ Follow the steps mentioned under `docs` directory to customize/create new Ansibl
 System configurations can be changed through Ansible to optimize OS level performance. Performance tuning can be enabled by changing `enable_performance_tuning` in `dev/group_vars/apim.yml` to `true`.
 
 System files that will be updated when performance tuning are enabled is available in `files/system`. Update the configuration values according to the requirements of your deployment.
-

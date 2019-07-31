@@ -70,6 +70,20 @@
         dest: "{{ item.dest }}"
       loop: "{{ worker_config_files }}"
 
+    - name: Create miscellaneous file directory
+      file:
+        path: "{{ misc_file_copy_location }}"
+        state: directory
+        mode: 0755
+      when: misc_file_list is defined
+
+    - name: Copy miscellaneous resources
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop: "{{ misc_file_list }}"
+      when: misc_file_list is defined
+
 # Enable customization by uncommenting the following and adding the changes to the custom.yml
     # - import_tasks: custom.yml
 
