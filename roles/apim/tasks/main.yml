@@ -71,11 +71,17 @@
         remote_src: yes
       when: pack_location == "remote"
 
+    - name: Check if backup of deployment resources exists
+      stat:
+        path: "{{ server_backup_dir }}"
+      register: backup_dir
+
     - name: Restore deployment resources
       copy:
         src: "{{ server_backup_dir }}/server"
         dest: "{{ carbon_home }}/repository/deployment"
         remote_src: yes
+      when: backup_dir.stat.isdir is defined and backup_dir.stat.isdir
 
     - name: Remove deployment resource backup
       file:
