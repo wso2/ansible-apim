@@ -20,6 +20,7 @@
       set_fact:
         product_dir: "{{ target }}/apim"
         carbon_home: "{{ target }}/apim/{{ product_name }}-{{ product_version }}"
+        server_backup_dir: "{{ backup_dir }}/apim"
 
     # WSO2 Distribution
     - name: Create product directory
@@ -37,6 +38,18 @@
       systemd:
         name: wso2apim
         state: stopped
+
+    - name: Check if deployment resource directory exists
+      stat:
+        path: "{{ carbon_home }}/repository/deployment/server"
+      register: server_dir
+
+    - name: Backup deployment resources
+      copy:
+        src: "{{ carbon_home }}/repository/deployment/server"
+        dest: "{{ server_backup_dir }}"
+        remote_src: yes
+      when: server_dir.stat.isdir is defined and server_dir.stat.isdir
 
     - name: Remove existing setup
       file:
@@ -57,6 +70,17 @@
         mode: u=rw,g=r,o=r
         remote_src: yes
       when: pack_location == "remote"
+
+    - name: Restore deployment resources
+      copy:
+        src: "{{ server_backup_dir }}/server"
+        dest: "{{ carbon_home }}/repository/deployment"
+        remote_src: yes
+
+    - name: Remove deployment resource backup
+      file:
+        path: "{{ server_backup_dir }}"
+        state: absent
 
 # Remove comments for Copy JDBC Driver task if a driver is added externally
 #    - name: Copy JDBC Driver
