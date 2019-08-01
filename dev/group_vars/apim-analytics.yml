@@ -158,9 +158,16 @@ databridge_config_worker_threads: 10
 tcp_receiver_thread_pool_size: 100
 ssl_receiver_thread_pool_size: 100
 
-# List of configuration file templates, and the paths they should be written to
+# Worker- List of configuration file templates, and the paths they should be written to
 worker_config_files:
   - { src: 'carbon-home/conf/worker/deployment.yaml.j2',
       dest: '{{ carbon_home }}/conf/worker/deployment.yaml' }
   - { src: 'carbon-home/wso2/worker/bin/carbon.sh.j2',
       dest: '{{ carbon_home }}/wso2/worker/bin/carbon.sh' }
+
+# Dashboard - List of configuration file templates, and the paths they should be written to
+dashboard_config_files:
+  - { src: 'carbon-home/conf/dashboard/deployment.yaml.j2',
+      dest: '{{ carbon_home }}/conf/dashboard/deployment.yaml' }
+  - { src: 'carbon-home/wso2/dashboard/bin/carbon.sh.j2',
+      dest: '{{ carbon_home }}/wso2/dashboard/bin/carbon.sh' }
