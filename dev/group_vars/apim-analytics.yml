@@ -93,6 +93,12 @@ cluster_db_password: wso2carbon
 cluster_db_driver: com.mysql.jdbc.Driver
 cluster_db_test_query: SELECT 1
 
+business_rules_db_url: jdbc:h2:${sys:carbon.home}/wso2/${sys:wso2.runtime}/database/BUSINESS_RULES_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;MVCC=TRUE
+business_rules_db_username: wso2carbon
+business_rules_db_password: wso2carbon
+business_rules_db_driver: org.h2.Driver
+business_rules_db_test_query: SELECT 1
+
 state_persistence_enabled: 'false'
 state_persistence_interval: 1
 state_persistence_revisions: 2
