@@ -28,6 +28,8 @@ binary_data_receiver_ssl_port: 9711
 transport_listner_config_port: 9643
 
 # worker configurations
+# ip: ip of the worker node
+# port: wso2_transport_msf4j_https_port of the worker node given under host_vars
 worker_nodes:
   - { ip: 'localhost',
       port: '9444' }
