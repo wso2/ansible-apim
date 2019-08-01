@@ -70,6 +70,13 @@
         dest: "{{ item.dest }}"
       loop: "{{ config_files }}"
 
+    - name: Copy security file list for WSO2AM
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop: "{{ security_file_list }}"
+      when: security_file_list is defined
+
     - name: Create miscellaneous file directory
       file:
         path: "{{ misc_file_copy_location }}"
