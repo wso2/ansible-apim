@@ -51,5 +51,7 @@ config_files:
       dest: '{{ carbon_home }}/repository/conf/data-bridge/data-bridge-config.xml' }
   - { src: 'carbon-home/repository/conf/tomcat/catalina-server.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/tomcat/catalina-server.xml' }
+  - { src: 'carbon-home/repository/conf/security/xss-patterns.properties',
+      dest: '{{ carbon_home }}/repository/conf/security/xss-patterns.properties' }
   - { src: 'carbon-home/bin/wso2server.sh.j2',
       dest: '{{ carbon_home }}/bin/wso2server.sh' }
