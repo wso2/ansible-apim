@@ -57,7 +57,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   │       ├── security
 │   │       │   └── limits.conf
 │   │       └── sysctl.conf
-│   └── tools
+│   └── misc
 ├── issue_template.md
 ├── LICENSE
 ├── pull_request_template.md
@@ -113,6 +113,8 @@ Copy the following files to `files/lib` directory.
 
 1. [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
 2. [Amazon Corretto for Linux x64 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
+
+Copy the miscellaneous files to `files/misc` directory. To enable file copying,  uncomment the `misc_file_list` in the yaml files under `group_vars` and add the miscellaneous files to the list.
 
 ## Downloading from remote location
 
