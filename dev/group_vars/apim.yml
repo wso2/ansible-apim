@@ -26,6 +26,9 @@ misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
 #jdbc_driver: mysql-connector-java-5.1.47-bin.jar
 
+# Uncomment the following line to backup <carbon-home>/repository/deployment/server directory
+# backup_enabled: yes
+
 # Performance tuning configurations
 enable_performance_tuning: false
 performance_tuning_file_list:
