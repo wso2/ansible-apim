@@ -58,11 +58,11 @@
         remote_src: yes
       when: pack_location == "remote"
 
-# Remove comments for Copy JDBC Driver task if a driver is added externally
-#    - name: Copy JDBC Driver
-#      copy:
-#        src: "{{ product_package_location }}/lib/{{ jdbc_driver }}"
-#        dest: "{{ carbon_home }}/repository/components/lib"
+    - name: Copy JDBC Driver
+      copy:
+        src: "{{ product_package_location }}/lib/{{ jdbc_driver }}"
+        dest: "{{ carbon_home }}/repository/components/lib"
+      when: jdbc_driver is defined
 
     - name: Copy configuration templates
       template:
