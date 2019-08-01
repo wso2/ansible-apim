@@ -342,8 +342,8 @@ wso2.business.rules.manager:
   deployment_configs:
     -
      # <IP>:<HTTPS Port> of the Worker node
-     {%  for node in worker_nodes %}
-     {{ node.ip }}:{{ node.port }}:
+   {%  for node in worker_nodes %}
+  {{ node.ip }}:{{ node.port }}:
        # UUIDs of rule templates that are needed to be deployed on the node
        - stock-data-analysis
        - stock-exchange-input
@@ -361,8 +361,8 @@ wso2.business.rules.manager:
        - apim_alert_abnormal_request_count
        - apim_alert_abnormal_request_pattern
        - apim_analytics_data_purging_app
-     {%  endfor %}
-     
+   {%  endfor %}
+
   # credentials for worker nodes
   username: admin
   password: admin
