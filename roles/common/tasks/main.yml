@@ -30,7 +30,7 @@
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
       loop: "{{ performance_tuning_file_list }}"
-      when: enable_performance_tuning
+      when: enable_performance_tuning|bool
 
     - name: Create Java directory
       file:
