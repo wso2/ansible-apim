@@ -45,8 +45,11 @@
       register: server_dir
 
     - name: Backup deployment resources
-      command: cp -r "{{ carbon_home }}/repository/deployment/." "{{ server_backup_dir }}/"
-      when: server_dir.stat.isdir is defined and server_dir.stat.isdir and backup_enabled is defined
+      copy:
+        src: "{{ carbon_home }}/repository/deployment/server"
+        dest: "{{ server_backup_dir }}"
+        remote_src: yes
+      when: server_dir.stat.isdir is defined and server_dir.stat.isdir and backup_enabled|bool
 
     - name: Remove existing setup
       file:
@@ -74,8 +77,11 @@
       register: backup_dir
 
     - name: Restore deployment resources
-      command: cp -r "{{ server_backup_dir }}/." "{{ carbon_home }}/repository/deployment/"
-      when: backup_dir.stat.isdir is defined and backup_dir.stat.isdir and backup_enabled is defined
+      copy:
+        src: "{{ server_backup_dir }}/server"
+        dest: "{{ carbon_home }}/repository/deployment"
+        remote_src: yes
+      when: backup_dir.stat.isdir is defined and backup_dir.stat.isdir and backup_enabled|bool
 
     - name: Remove deployment resource backup
       file:
