@@ -168,3 +168,11 @@ Follow the steps mentioned under `docs` directory to customize/create new Ansibl
 System configurations can be changed through Ansible to optimize OS level performance. Performance tuning can be enabled by changing `enable_performance_tuning` in `dev/group_vars/apim.yml` to `true`.
 
 System files that will be updated when performance tuning are enabled is available in `files/system`. Update the configuration values according to the requirements of your deployment.
+
+## Previous versions of Ansible
+
+The master branch of this repository contains the latest product version with the latest Ansible version. The Ansible resources for previous Ansible versions can be found in the branches. The following is an example.
+
+#### Ansible resources for API Manager 2.6.0 and Ansible 2.7
+
+Branch name: 2.6.0_ansible2.7
