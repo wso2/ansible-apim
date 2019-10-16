@@ -82,8 +82,8 @@ stream_processor_rest_api_password: ${admin.password}
 key_manager_server_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
 
 # API Store related configurations
-api_store_url: https://localhost:${mgt.transport.https.port}/store
-api_store_server_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
+api_devportal_url: https://localhost:${mgt.transport.https.port}/store
+api_devportal_server_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
 
 # Gateway configurations
 gateway_environments:
