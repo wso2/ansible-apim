@@ -78,15 +78,15 @@ store_api_username = "{{ stream_processor_rest_api_username }}"
 store_api_password = "{{ stream_processor_rest_api_password }}"
 
 [apim.key_manager]
-service_url = "{{ api_store_server_url }}"
+service_url = "{{ key_manager_server_url }}"
 
 [apim.oauth_config]
 revoke_endpoint = "{{ oauth_configs_revoke_api_url }}"
 
 [apim.devportal]
-url = "{{ api_store_url }}"
+url = "{{ api_devportal_url }}"
 
 [apim.throttling]
 receiver_url = "{{ traffic_manager_receiver_url }}"
 receiver_auth_url = "{{ traffic_manager_auth_url }}"
-service_url = "{{ api_store_server_url }}"
+service_url = "{{ api_devportal_server_url }}"
