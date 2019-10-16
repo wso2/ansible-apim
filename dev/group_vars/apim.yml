@@ -25,6 +25,10 @@ misc_file_location: "{{ product_package_location }}/misc"
 misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
 #jdbc_driver: mysql-connector-java-5.1.47-bin.jar
+java_xms: 256
+java_xmx: 1024
+java_max_perm_size: 256
+qpid_heartbeat_delay: 30
 
 # Set backup_enabled to true to backup <carbon-home>/repository/deployment/server directory
 backup_enabled: false
@@ -59,7 +63,7 @@ pack_location: local
 #remote_pack: "<URL_TO_APIM_PACK>"
 
 # JDK Distributions
-jdk_name: amazon-corretto-8.202.08.2-linux-x64
+jdk_name: amazon-corretto-8.222.10.1-linux-x64
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
@@ -96,6 +100,9 @@ thrift_server_host: localhost
 # API Store related configurations
 api_store_url: https://localhost:${mgt.transport.https.port}/store
 api_store_server_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
+
+# API Publisher related configurations
+api_publisher_url: https://localhost:${mgt.transport.https.port}/publisher
 
 # Gateway configurations
 gateway_environments:

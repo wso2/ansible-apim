@@ -94,6 +94,22 @@
 # Enable customization by uncommenting the following and adding the changes to the custom.yml
     # - import_tasks: custom.yml
 
+    - name: "Copy jar to bundle script"
+      template:
+        src: "{{ product_package_location }}/misc/jartobundle.sh"
+        dest: "{{ carbon_home }}/bin"
+
+    - name: Run jar to bundle script
+      command: "sh {{ carbon_home }}/bin/jartobundle.sh {{ carbon_home }}/lib/{{jdbc_driver }} {{ carbon_home }}/lib"
+      environment:
+        JAVA_HOME: "{{java_home}}"
+      when: jdbc_driver is defined
+
+    - name: Remove default database connector jar file
+      file:
+        path: "{{ carbon_home }}/lib/{{jdbc_driver}}"
+        state: absent
+
     - name: Change the owner of WSO2 directory
       file:
         path: "{{ target }}"
