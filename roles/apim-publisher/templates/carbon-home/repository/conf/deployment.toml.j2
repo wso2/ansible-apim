@@ -1,0 +1,105 @@
+[server]
+hostname = "{{ hostname }}"
+node_ip = "127.0.0.1"
+server_role = "api-publisher"
+offset = "{{ ports_offset }}"
+
+[user_store]
+type = "database"
+
+[super_admin]
+username = "{{ admin_username }}"
+password = "{{ admin_password }}"
+create_admin_account = true
+
+[database.apim_db]
+type = "{{ wso2am_db_type }}"
+url = "{{ wso2am_db_url }}"
+username = "{{ wso2am_db_username }}"
+password = "{{ wso2am_db_password }}"
+[database.apim_db.pool_options]
+validationQuery = "{{ wso2am_db_validation_query }}"
+
+[database.shared_db]
+type = "{{ wso2shared_db_type }}"
+url = "{{ wso2shared_db_url }}"
+username = "{{ wso2shared_db_username }}"
+password = "{{ wso2shared_db_password }}"
+[database.shared_db.pool_options]
+validationQuery = "{{ wso2shared_db_validation_query }}"
+
+[keystore.tls]
+file_name =  "{{ key_store_location }}"
+type =  "JKS"
+password =  "{{ key_store_password }}"
+alias =  "{{ key_store_key_alias }}"
+key_password =  "{{ key_store_key_password }}"
+
+[truststore]
+file_name = "{{ trust_store_location }}"
+type = "JKS"
+password = "{{ trust_store_password }}"
+
+{% for environment in gateway_environments %}
+
+[[apim.gateway.environment]]
+name = "{{ environment.name }}"
+type = "{{ environment.type }}"
+display_in_api_console = true
+description = "{{ environment.description }}"
+service_url = "{{ environment.service_url }}"
+username= "${admin.username}"
+password= "${admin.password}"
+
+{% endfor %}
+
+[apim.analytics]
+enable = "{{ analytics_enabled }}"
+receiver_username = "{{ stream_processor_username }}"
+receiver_password = "{{ stream_processor_password }}"
+store_api_url = "{{ stream_processor_rest_api_url }}"
+store_api_username = "{{ stream_processor_rest_api_username }}"
+store_api_password = "{{ stream_processor_rest_api_password }}"
+
+{% for url_group in analytics_url_group %}
+[[apim.analytics.url_group]]
+analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+
+{% endfor %}
+
+# Traffic Manager configurations
+[apim.throttling]
+enable_policy_deploy = "true"
+service_url = "{{ throttle_config_policy_deployer_url }}"
+receiver_url = "{{ traffic_manager_receiver_url }}"
+receiver_auth_url = "{{ traffic_manager_auth_url }}"
+username= "$ref{super_admin.username}"
+password= "$ref{super_admin.password}"
+
+{% for url_group in throttling_url_group %}
+[[apim.throttling.url_group]]
+traffic_manager_urls=[{% for url in url_group['traffic_manager_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+traffic_manager_auth_urls=[{% for url in url_group['traffic_manager_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+
+{% endfor %}
+
+[apim.cache.scopes]
+enable = true
+
+[apim.cache.publisher_roles] #check the usage and move to dev role
+enable = true
+
+[apim.devportal]
+url = "{{ api_devportal_url }}"
+
+[apim.workflow]
+enable = {{ workflow_enable }}
+service_url = "{{ workflow_service_url }}"
+username = "$ref{super_admin.username}"
+password = "$ref{super_admin.password}"
+callback_endpoint = "{{ workflow_callback_endpoint }}"
+token_endpoint = "{{ workflow_token_endpoint }}"
+client_registration_endpoint = "{{ workflow_client_registration_endpoint }}"
+client_registration_username = "$ref{super_admin.username}"
+client_registration_password = "$ref{super_admin.password}"

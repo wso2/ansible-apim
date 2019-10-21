@@ -88,7 +88,7 @@ analytics_url_group:
 key_manager_server_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
 
 # API Store related configurations
-api_devportal_url: https://localhost:${mgt.transport.https.port}/store
+api_devportal_url: https://localhost:${mgt.transport.https.port}/devportal
 api_devportal_server_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
 
 # Gateway configurations
@@ -117,6 +117,13 @@ throttling_url_group:
       - tcp://tm2.local:9611
     traffic_manager_auth_urls:
       - ssl://tm2.local:9711
+
+# Workflow configurations
+workflow_enable: "false"
+workflow_service_url: https://localhost:9445/bpmn
+workflow_callback_endpoint: https://localhost:9443/api/am/publisher/v0.15/workflows/update-workflow-status
+workflow_token_endpoint: https://localhost:8243/token
+workflow_client_registration_endpoint: https://localhost:9443/client-registration/v0.15/register
 
 # Datasource configurations
 wso2am_db_type: h2
