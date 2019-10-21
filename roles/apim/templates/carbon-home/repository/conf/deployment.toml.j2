@@ -70,12 +70,18 @@ sp_name_regex = "^[\\sa-zA-Z0-9._-]*$"
 
 [apim.analytics]
 enable = "{{ analytics_enabled }}"
-receiver_urls = "{{ stream_processor_url }}"
 receiver_username = "{{ stream_processor_username }}"
 receiver_password = "{{ stream_processor_password }}"
 store_api_url = "{{ stream_processor_rest_api_url }}"
 store_api_username = "{{ stream_processor_rest_api_username }}"
 store_api_password = "{{ stream_processor_rest_api_password }}"
+
+{% for url_group in analytics_url_group %}
+[[apim.analytics.url_group]]
+analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+
+{% endfor %}
 
 [apim.key_manager]
 service_url = "{{ key_manager_server_url }}"
