@@ -3,7 +3,7 @@ Description=WSO2 API Manager - Publisher profile
 After=network.target
 
 [Service]
-ExecStart={{ carbon_home }}/bin/wso2server.sh --optimize -Dprofile=api-publisher start
+ExecStart={{ carbon_home }}/bin/wso2server.sh -Dprofile=api-publisher start
 ExecStop={{ carbon_home }}/bin/wso2server.sh stop
 ExecRestart={{ carbon_home }}/bin/wso2server.sh restart
 PIDFile={{ carbon_home }}/wso2carbon.pid
