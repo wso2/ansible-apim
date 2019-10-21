@@ -3,7 +3,7 @@ Description=WSO2 API Manager - Traffic Manager profile
 After=network.target
 
 [Service]
-ExecStart={{ carbon_home }}/bin/wso2server.sh --optimize -Dprofile=traffic-manager start
+ExecStart={{ carbon_home }}/bin/wso2server.sh -Dprofile=traffic-manager start
 ExecStop={{ carbon_home }}/bin/wso2server.sh stop
 ExecRestart={{ carbon_home }}/bin/wso2server.sh restart
 PIDFile={{ carbon_home }}/wso2carbon.pid
