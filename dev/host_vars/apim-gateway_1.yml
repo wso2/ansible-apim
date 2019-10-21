@@ -29,15 +29,7 @@ jms_conn_factory: amqp://${admin.username}:${admin.password}@clientid/carbon?bro
 
 # List of configuration file templates, and the paths they should be written to
 config_files:
-  - { src: 'carbon-home/repository/conf/carbon.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/carbon.xml' }
-  - { src: 'carbon-home/repository/conf/api-manager.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/api-manager.xml' }
-  - { src: 'carbon-home/repository/conf/axis2/axis2.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/axis2/axis2.xml' }
-  - { src: 'carbon-home/repository/conf/tomcat/catalina-server.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/tomcat/catalina-server.xml' }
-  - { src: 'carbon-home/repository/conf/security/xss-patterns.properties',
-      dest: '{{ carbon_home }}/repository/conf/security/xss-patterns.properties' }
+  - { src: 'carbon-home/repository/conf/deployment.toml.j2',
+      dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
   - { src: 'carbon-home/bin/wso2server.sh.j2',
       dest: '{{ carbon_home }}/bin/wso2server.sh' }
