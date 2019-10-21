@@ -68,14 +68,20 @@ deployment_mode: single # Single or HA
 
 # Enable analytics for API Manager
 analytics_enabled: false
-# Server URL of the remote StreamProcessor server used to collect statistics. Must be specified in
-# protocol://hostname:port/ format.
-stream_processor_url: "{tcp://localhost:7612}"
 stream_processor_username: ${admin.username}
 stream_processor_password: ${admin.password}
 stream_processor_rest_api_url: https://localhost:7444
 stream_processor_rest_api_username: ${admin.username}
 stream_processor_rest_api_password: ${admin.password}
+analytics_url_group:
+  - analytics_urls:
+      - tcp://analytics1.local:7612
+    analytics_auth_urls:
+      - ssl://analytics1.local:7712
+  - analytics_urls:
+      - tcp://analytics2.local:7612
+    analytics_auth_urls:
+      - ssl://analytics2.local:7712
 
 # Server URL of the Authentication service. Make sure to import the Key Manager's public certificate to WSO2 API-M's
 # client-truststore.jks. For more information, see https://docs.wso2.com/display/ADMIN44x/Creating+New+Keystores
