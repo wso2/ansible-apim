@@ -58,6 +58,9 @@
         remote_src: yes
       when: pack_location == "remote"
 
+    - name: Optimize for profile
+      command: "sh {{ carbon_home }}/bin/profileSetup.sh -Dprofile=gateway-worker"
+
     - name: Copy JDBC Driver
       copy:
         src: "{{ product_package_location }}/lib/{{ jdbc_driver }}"
