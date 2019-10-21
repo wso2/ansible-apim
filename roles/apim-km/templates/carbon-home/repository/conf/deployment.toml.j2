@@ -1,0 +1,75 @@
+[server]
+hostname = "{{ hostname }}"
+node_ip = "127.0.0.1"
+server_role = "api-key-manager"
+offset = "{{ ports_offset }}"
+
+[user_store]
+type = "database"
+
+[super_admin]
+username = "{{ admin_username }}"
+password = "{{ admin_password }}"
+create_admin_account = true
+
+[database.apim_db]
+type = "{{ wso2am_db_type }}"
+url = "{{ wso2am_db_url }}"
+username = "{{ wso2am_db_username }}"
+password = "{{ wso2am_db_password }}"
+[database.apim_db.pool_options]
+validationQuery = "{{ wso2am_db_validation_query }}"
+
+[database.shared_db]
+type = "{{ wso2shared_db_type }}"
+url = "{{ wso2shared_db_url }}"
+username = "{{ wso2shared_db_username }}"
+password = "{{ wso2shared_db_password }}"
+[database.shared_db.pool_options]
+validationQuery = "{{ wso2shared_db_validation_query }}"
+
+[keystore.tls]
+file_name =  "{{ key_store_location }}"
+type =  "JKS"
+password =  "{{ key_store_password }}"
+alias =  "{{ key_store_key_alias }}"
+key_password =  "{{ key_store_key_password }}"
+
+[truststore]
+file_name = "{{ trust_store_location }}"
+type = "JKS"
+password = "{{ trust_store_password }}"
+
+{% for environment in gateway_environments %}
+
+[[apim.gateway.environment]]
+name = "{{ environment.name }}"
+type = "{{ environment.type }}"
+display_in_api_console = true
+description = "{{ environment.description }}"
+show_as_token_endpoint_url = true
+service_url = "{{ environment.service_url }}"
+username= "${admin.username}"
+password= "${admin.password}"
+
+{% endfor %}
+
+# Caches
+[apim.cache.km_token]
+enable = false
+expiry_time = 15
+
+[apim.cache.jwt_claim]
+enable = true
+expiry_time = 900
+
+# JWT Generation
+[apim.jwt]
+enable = {{ jwt_enable }}
+encoding = "{{ jwt_encoding }}" # base64,base64url
+#generator_impl = "org.wso2.carbon.apimgt.keymgt.token.JWTGenerator"
+claim_dialect = "{{ jwt_claim_dialect }}"
+header = "X-JWT-Assertion"
+signing_algorithm = "{{ jwt_signing_algorithm }}"
+#enable_user_claims = true
+#claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.DefaultClaimsRetriever"

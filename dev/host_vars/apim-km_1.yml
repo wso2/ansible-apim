@@ -24,22 +24,14 @@ ports_offset: 0
 admin_username: admin
 admin_password: admin
 
+# JWT Generation
+jwt_enable: "true"
+jwt_encoding: base64
+jwt_claim_dialect: "http://wso2.org/claims"
+jwt_signing_algorithm: SHA256withRSA
+
 config_files:
-  - { src: 'carbon-home/repository/conf/datasources/master-datasources.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/datasources/master-datasources.xml' }
-  - { src: 'carbon-home/repository/conf/carbon.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/carbon.xml' }
-  - { src: 'carbon-home/repository/conf/api-manager.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/api-manager.xml' }
-  - { src: 'carbon-home/repository/conf/registry.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/registry.xml' }
-  - { src: 'carbon-home/repository/conf/axis2/axis2.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/axis2/axis2.xml' }
-  - { src: 'carbon-home/repository/conf/tomcat/catalina-server.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/tomcat/catalina-server.xml' }
-  - { src: 'carbon-home/repository/conf/user-mgt.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/user-mgt.xml' }
-  - { src: 'carbon-home/repository/conf/security/xss-patterns.properties',
-      dest: '{{ carbon_home }}/repository/conf/security/xss-patterns.properties' }
+  - { src: 'carbon-home/repository/conf/deployment.toml.j2',
+      dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
   - { src: 'carbon-home/bin/wso2server.sh.j2',
       dest: '{{ carbon_home }}/bin/wso2server.sh' }
