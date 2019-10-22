@@ -17,7 +17,7 @@
 wso2_group: wso2
 wso2_user: wso2carbon
 product_name: wso2is-km
-product_version: 5.7.0
+product_version: 5.9.0
 target: /mnt
 product_package_location: files
 misc_file_location: "{{ product_package_location }}/misc"
@@ -61,82 +61,72 @@ java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
 
 # Datasource configurations
-wso2am_db_driver: org.h2.Driver
-wso2am_db_url: jdbc:h2:repository/database/WSO2AM_DB;DB_CLOSE_ON_EXIT=FALSE
+wso2am_db_type: h2
+wso2am_db_url: jdbc:h2:./repository/database/WSO2AM_DB;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE
 wso2am_db_username: wso2carbon
 wso2am_db_password: wso2carbon
 wso2am_db_validation_query: SELECT 1
 
-wso2um_db_driver: org.h2.Driver
-wso2um_db_url: jdbc:h2:repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE
-wso2um_db_username: wso2carbon
-wso2um_db_password: wso2carbon
-wso2um_db_validation_query: SELECT 1
+wso2shared_db_type: h2
+wso2shared_db_url: jdbc:h2:./repository/database/WSO2SHARED_DB;DB_CLOSE_ON_EXIT=FALSE
+wso2shared_db_username: wso2carbon
+wso2shared_db_password: wso2carbon
+wso2shared_db_validation_query: SELECT 1
 
-wso2reg_db_driver: org.h2.Driver
-wso2reg_db_url: jdbc:h2:repository/database/REGISTRY_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
-wso2reg_db_username: wso2carbon
-wso2reg_db_password: wso2carbon
-wso2reg_db_validation_query: SELECT 1
+wso2config_db_type: h2
+wso2config_db_url: jdbc:h2:./repository/database/WSO2SHARED_DB;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE
+wso2config_db_username: wso2carbon
+wso2config_db_password: wso2carbon
+wso2config_db_validation_query: SELECT 1
 
-wso2identity_db_driver: org.h2.Driver
-wso2identity_db_url: jdbc:h2:repository/database/WSO2AM_DB;DB_CLOSE_ON_EXIT=FALSE
-wso2identity_db_username: wso2carbon
-wso2identity_db_password: wso2carbon
-wso2identity_db_validation_query: SELECT 1
-
-wso2bps_db_driver: org.h2.Driver
-wso2bps_db_url: jdbc:h2:file:repository/database/jpadb;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE
+wso2bps_db_type: h2
+wso2bps_db_url: jdbc:h2:file:./repository/database/jpadb;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE
 wso2bps_db_username: wso2carbon
 wso2bps_db_password: wso2carbon
+wso2bps_db_driver: org.h2.Driver
 wso2bps_db_validation_query: SELECT 1
 
+wso2consent_db_id: WSO2CONSENT_DB
+wso2consent_db_type: h2
+wso2consent_db_url: jdbc:h2:./repository/database/WSO2AM_DB;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE
+wso2consent_db_username: wso2carbon
+wso2consent_db_password: wso2carbon
+wso2consent_db_driver: org.h2.Driver
+wso2consent_db_validation_query: SELECT 1
+
+wso2identity_db_id: WSO2IDENTITY_DB
+wso2identity_db_type: h2
+wso2identity_db_url: jdbc:h2:./repository/database/WSO2AM_DB;DB_CLOSE_ON_EXIT=FALSE;MVCC=TRUE
+wso2identity_db_username: wso2carbon
+wso2identity_db_password: wso2carbon
+wso2identity_db_driver: org.h2.Driver
+wso2identity_db_validation_query: SELECT 1
+
 # Key Store and Trust Store configuration
-key_store_location: repository/resources/security/wso2carbon.jks
+key_store_location: wso2carbon.jks
 key_store_password: wso2carbon
 key_store_key_password: wso2carbon
 key_store_key_alias: wso2carbon
-trust_store_location: repository/resources/security/client-truststore.jks
+trust_store_location: client-truststore.jks
 trust_store_password: wso2carbon
 
 # The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
-internal_keystore_location: ${carbon.home}/repository/resources/security/wso2carbon.jks
+internal_keystore_location: wso2carbon.jks
 internal_keystore_key_password: wso2carbon
 internal_keystore_password: wso2carbon
 internal_keystore_key_alias: wso2carbon
 
 # Clustering configurations
-clustering_enabled: 'false'
+clustering_enabled: false
 clustering_domain: wso2.carbon.domain
 membership_scheme: multicast
 clustering_members:
   - { host_name: 127.0.0.1,
       port: 4000 }
 
-# LDAP configurations
-embedded_ldap_enabled: 'false'
-
 # List of configuration file templates, and the paths they should be written to
 config_files:
-  - { src: 'carbon-home/repository/conf/datasources/master-datasources.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/datasources/master-datasources.xml' }
-  - { src: 'carbon-home/repository/conf/datasources/bps-datasources.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/datasources/bps-datasources.xml' }
-  - { src: 'carbon-home/repository/conf/carbon.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/carbon.xml' }
-  - { src: 'carbon-home/repository/conf/api-manager.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/api-manager.xml' }
-  - { src: 'carbon-home/repository/conf/registry.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/registry.xml' }
-  - { src: 'carbon-home/repository/conf/axis2/axis2.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/axis2/axis2.xml' }
-  - { src: 'carbon-home/repository/conf/tomcat/catalina-server.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/tomcat/catalina-server.xml' }
-  - { src: 'carbon-home/repository/conf/user-mgt.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/user-mgt.xml' }
-  - { src: 'carbon-home/repository/conf/identity/embedded-ldap.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/identity/embedded-ldap.xml' }
-  - { src: 'carbon-home/repository/conf/identity/identity.xml.j2',
-      dest: '{{ carbon_home }}/repository/conf/identity/identity.xml' }
+  - { src: 'carbon-home/repository/conf/deployment.toml.j2',
+      dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
   - { src: 'carbon-home/bin/wso2server.sh.j2',
       dest: '{{ carbon_home }}/bin/wso2server.sh' }
