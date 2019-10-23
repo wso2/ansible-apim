@@ -17,7 +17,7 @@
 wso2_group: wso2
 wso2_user: wso2carbon
 product_name: wso2am-analytics
-product_version: 2.6.0
+product_version: 3.0.0
 target: /mnt
 product_package_location: files
 misc_file_location: "{{ product_package_location }}/misc"
@@ -60,6 +60,8 @@ java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
 
+admin_service_url: https://localhost:9443
+
 # Database configurations
 wso2_metrics_db_url: jdbc:h2:${sys:carbon.home}/wso2/dashboard/database/metrics;AUTO_SERVER=TRUE
 wso2_metrics_db_username: wso2carbon
@@ -91,13 +93,7 @@ wso2am_mgw_analytics_db_password: wso2carbon
 wso2am_mgw_analytics_db_driver: org.h2.Driver
 wso2am_mgw_analytics_db_test_query: SELECT 1
 
-persistence_db_url: jdbc:h2:${sys:carbon.home}/wso2/worker/database/WSO2AM_MGW_ANALYTICS_DB;AUTO_SERVER=TRUE
-persistence_db_username: wso2carbon
-persistence_db_password: wso2carbon
-persistence_db_driver: com.mysql.jdbc.Driver
-persistence_db_test_query: SELECT 1
-
-cluster_db_url: jdbc:h2:${sys:carbon.home}/wso2/worker/database/WSO2AM_MGW_ANALYTICS_DB;AUTO_SERVER=TRUE
+cluster_db_url: jdbc:h2:${sys:carbon.home}/wso2/${sys:wso2.runtime}/database/WSO2_CLUSTER_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000;AUTO_SERVER=TRUE
 cluster_db_username: wso2carbon
 cluster_db_password: wso2carbon
 cluster_db_driver: com.mysql.jdbc.Driver
@@ -108,6 +104,12 @@ business_rules_db_username: wso2carbon
 business_rules_db_password: wso2carbon
 business_rules_db_driver: org.h2.Driver
 business_rules_db_test_query: SELECT 1
+
+am_db_url: jdbc:h2:${sys:carbon.home}/../wso2am-3.0.0/repository/database/WSO2AM_DB;AUTO_SERVER=TRUE
+am_db_username: wso2carbon
+am_db_password: wso2carbon
+am_db_driver: org.h2.Driver
+am_test_query: SELECT 1
 
 state_persistence_enabled: 'false'
 state_persistence_interval: 1
@@ -142,31 +144,39 @@ siddhi_api_keystore_cert_password: wso2carbon
 databridge_config_keystore_location: ${sys:carbon.home}/resources/security/wso2carbon.jks
 databridge_config_keystore_password: wso2carbon
 
-truststore_path: ${sys:carbon.home}/resources/security/client-truststore.jks
-truststore_password: wso2carbon
-
 securevault_privatekey_alias: wso2carbon
 securevault_keystore_location: ${sys:carbon.home}/resources/security/securevault.jks
 securevault_secret_properties_file: ${sys:carbon.home}/conf/${sys:wso2.runtime}/secrets.properties
 securevault_masterkeyreader_file: ${sys:carbon.home}/conf/${sys:wso2.runtime}/master-keys.yaml
 
-cluster_config_enabled: false
+cluster_config_enabled: 'false'
 cluster_config_group_id: sp
-cluster_config_heartbeat_interval: 3000
-cluster_config_max_retry: 3
-cluster_config_event_polling_interval: 3000
+cluster_config_heartbeat_interval: 1000
+cluster_config_max_retry: 2
+cluster_config_event_polling_interval: 1000
 
 # Key Store and Trust Store configuration
-key_store_location: ${carbon.home}/resources/security/wso2carbon.jks
+key_store_location: ${sys:carbon.home}/resources/security/wso2carbon.jks
 key_store_password: wso2carbon
 cert_password: wso2carbon
 key_store_key_alias: wso2carbon
-trust_store_location: repository/resources/security/client-truststore.jks
+trust_store_location: ${sys:carbon.home}/resources/security/client-truststore.jks
 trust_store_password: wso2carbon
 
 databridge_config_worker_threads: 10
 tcp_receiver_thread_pool_size: 100
 ssl_receiver_thread_pool_size: 100
+
+# Authentication Configuration
+authentication_type: local
+authentication_admin_role: admin
+user_store_users:
+  - { username: 'admin',
+      password: 'YWRtaW4=',
+      roles: 1 }
+user_store_roles:
+  - { id: 1,
+      displayName: 'admin' }
 
 # Worker- List of configuration file templates, and the paths they should be written to
 worker_config_files:
