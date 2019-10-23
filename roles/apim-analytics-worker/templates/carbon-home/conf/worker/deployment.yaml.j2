@@ -147,9 +147,9 @@ data.agent.config:
         # Data publisher strategy
       publishingStrategy: async
         # Trust store path
-      trustStorePath: '{{ truststore_path }}'
+      trustStorePath: '{{ trust_store_location }}'
         # Trust store password
-      trustStorePassword: '{{ truststore_password }}'
+      trustStorePassword: '{{ trust_store_password }}'
         # Queue Size
       queueSize: 32768
         # Batch Size
@@ -196,9 +196,9 @@ data.agent.config:
         # Data publisher strategy
       publishingStrategy: async
         # Trust store path
-      trustStorePath: '{{ truststore_path }}'
+      trustStorePath: '{{ trust_store_location }}'
         # Trust store password
-      trustStorePassword: '{{ truststore_password }}'
+      trustStorePassword: '{{ trust_store_password }}'
         # Queue Size
       queueSize: 32768
         # Batch Size
@@ -302,10 +302,9 @@ state.persistence:
   enabled: {{ state_persistence_enabled }}
   intervalInMin: {{ state_persistence_interval }}
   revisionsToKeep: {{ state_persistence_revisions }}
-  persistenceStore: org.wso2.carbon.stream.processor.core.persistence.FileSystemPersistenceStore
+  persistenceStore: org.wso2.carbon.streaming.integrator.core.persistence.FileSystemPersistenceStore
   config:
-    datasource: PERSISTENCE_DB
-    table: PERSISTENCE_TABLE
+    location: siddhi-app-persistence
 
   # Secure Vault Configuration
 wso2.securevault:
@@ -323,22 +322,6 @@ wso2.securevault:
   # Datasource Configurations
 wso2.datasources:
   dataSources:
-    -
-      definition:
-        configuration:
-          connectionTestQuery: "SELECT 1"
-          driverClassName: org.h2.Driver
-          idleTimeout: 60000
-          isAutoCommit: false
-          jdbcUrl: "jdbc:h2:${sys:carbon.home}/wso2/${sys:wso2.runtime}/database/WSO2_CARBON_DB;DB_CLOSE_ON_EXIT=FALSE;LOCK_TIMEOUT=60000"
-          maxPoolSize: 10
-          password: wso2carbon
-          username: wso2carbon
-          validationTimeout: 30000
-        type: RDBMS
-      description: "The datasource used for registry and user manager"
-      name: WSO2_CARBON_DB
-
     # carbon metrics data source
     - name: WSO2_METRICS_DB
       description: The datasource used for dashboard feature
@@ -425,6 +408,24 @@ wso2.datasources:
           validationTimeout: 30000
           isAutoCommit: false
 
+    #Main datasource used in API Manager
+    - name: AM_DB
+      description: Main datasource used by API Manager
+      jndiConfig:
+        name: jdbc/AM_DB
+      definition:
+        type: RDBMS
+        configuration:
+          jdbcUrl: "{{ am_db_url }}"
+          username: {{ am_db_username }}
+          password: {{ am_db_password }}
+          driverClassName: {{ am_db_driver }}
+          maxPoolSize: 10
+          idleTimeout: 60000
+          connectionTestQuery: {{ am_test_query }}
+          validationTimeout: 30000
+          isAutoCommit: false
+
     - name: WSO2AM_MGW_ANALYTICS_DB
       description: "The datasource used for APIM MGW analytics data."
       jndiConfig:
@@ -441,42 +442,29 @@ wso2.datasources:
           connectionTestQuery: {{ wso2am_mgw_analytics_db_test_query }}
           validationTimeout: 30000
           isAutoCommit: false
-
-    - name: PERSISTENCE_DB
-      description: The MySQL datasource used for persistence
-      jndiConfig:
-        name: jdbc/PERSISTENCE_DB
+    -
+      name: WSO2_CLUSTER_DB
+      description: "The datasource used by cluster coordinators in HA deployment"
       definition:
         type: RDBMS
         configuration:
-          jdbcUrl: '{{ persistence_db_url }}'
-          username: {{ persistence_db_username }}
-          password: {{ persistence_db_password }}
-          driverClassName: {{ persistence_db_driver }}
-          maxPoolSize: 50
-          idleTimeout: 60000
-          connectionTestQuery: {{ persistence_db_test_query }}
-          validationTimeout: 30000
-          isAutoCommit: false
-
-    - name: WSO2_CLUSTER_DB
-      description: The MySQL datasource used for Cluster Coordination
-      jndiConfig:
-        name: jdbc/WSO2ClusterDB
-      definition:
-        type: RDBMS
-        configuration:
-          jdbcUrl: '{{ cluster_db_url }}'
-          username: {{ cluster_db_username }}
-          password: {{ cluster_db_password }}
+          connectionTestQuery: "{{ cluster_db_test_query }}"
           driverClassName: {{ cluster_db_driver }}
-          maxPoolSize: 50
           idleTimeout: 60000
-          connectionTestQuery: {{ cluster_db_test_query }}
-          validationTimeout: 30000
           isAutoCommit: false
+          jdbcUrl: "{{ cluster_db_url }}"
+          maxPoolSize: 10
+          password: {{ cluster_db_password }}
+          username: {{ cluster_db_username }}
+          validationTimeout: 30000
 
 siddhi:
+  refs:
+    - ref:
+        name: 'grpcSource'
+        type: 'grpc'
+        properties:
+          receiver.url : grpc://localhost:9806/org.wso2.grpc.EventService/consume
   extensions:
     -
       extension:
@@ -512,6 +500,19 @@ siddhi:
     #       auth: false
     #       ssl.enable: false
 
+   #Enabling GRPC Service with an Extension
+    -
+      extension:
+        name: 'grpc'
+        namespace: 'source'
+        properties:
+          keyStoreFile : ${sys:carbon.home}/resources/security/wso2carbon.jks
+          keyStorePassword : wso2carbon
+          keyStoreAlgorithm : SunX509
+          trustStoreFile : ${sys:carbon.home}/resources/security/client-truststore.jks
+          trustStorePassword : wso2carbon
+          trustStoreAlgorithm : SunX509
+
   # Cluster Configuration
 cluster.config:
   enabled: {{ cluster_config_enabled }}
@@ -522,6 +523,33 @@ cluster.config:
     heartbeatInterval: {{ cluster_config_heartbeat_interval }}
     heartbeatMaxRetry: {{ cluster_config_max_retry }}
     eventPollingInterval: {{ cluster_config_event_polling_interval }}
+
+# Authentication configuration
+auth.configs:
+  type: '{{ authentication_type }}'        # Type of the IdP client used
+  userManager:
+    adminRole: {{ authentication_admin_role }}   # Admin role which is granted all permissions
+    userStore:         # User store
+      users:
+       -
+        {% for user in user_store_users %}
+ user:
+           username: {{ user.username }}
+           password: {{ user.password }}
+           roles: {{ user.roles }}
+        {%  endfor %}
+
+      roles:
+       -
+        {% for role in user_store_roles %}
+ role:
+           id: {{ role.id }}
+           displayName: {{ role.displayName }}
+        {%  endfor %}
+
+  # Configuration to enable apim alerts
+#analytics.solutions:
+#  APIM-alerts.enabled: true
 
 {% if deployment_type == 'ha' %}
 deployment.config:
