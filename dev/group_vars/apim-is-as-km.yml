@@ -116,6 +116,10 @@ internal_keystore_key_password: wso2carbon
 internal_keystore_password: wso2carbon
 internal_keystore_key_alias: wso2carbon
 
+# Traffic Manager configurations
+traffic_manager_url: 'tcp://localhost:9611'
+traffic_manager_auth_url: 'ssl://localhost:9711'
+
 # Clustering configurations
 clustering_enabled: false
 clustering_domain: wso2.carbon.domain
