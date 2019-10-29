@@ -22,7 +22,7 @@
 set -e
 
 # Build artifacts and versions
-: ${version:="2.6.0"}
+: ${version:="3.0.0"}
 : ${packs_dir:=$(pwd)/../files/packs}
 
 usage() { echo "Usage: $0 -p <profile_name>" 1>&2; exit 1; }
@@ -69,49 +69,49 @@ fi
 case "${profile}" in
     apim)
         pack="wso2am-"${version}
-        updated_roles=("apim" "apim-ex-gateway" "apim-gateway" "apim-km" "apim-publisher" "apim-store" "apim-tm")
-        ;;
-    apim-ex-gateway)
-        pack="wso2am-"${version}
-        updated_roles=("apim" "apim-ex-gateway" "apim-gateway" "apim-km" "apim-publisher" "apim-store" "apim-tm")
+        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
         ;;
     apim-gateway)
         pack="wso2am-"${version}
-        updated_roles=("apim" "apim-ex-gateway" "apim-gateway" "apim-km" "apim-publisher" "apim-store" "apim-tm")
+        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
         ;;
     apim-km)
         pack="wso2am-"${version}
-        updated_roles=("apim" "apim-ex-gateway" "apim-gateway" "apim-km" "apim-publisher" "apim-store" "apim-tm")
+        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
         ;;
     apim-publisher)
         pack="wso2am-"${version}
-        updated_roles=("apim" "apim-ex-gateway" "apim-gateway" "apim-km" "apim-publisher" "apim-store" "apim-tm")
+        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
         ;;
-    apim-store)
+    apim-devportal)
         pack="wso2am-"${version}
-        updated_roles=("apim" "apim-ex-gateway" "apim-gateway" "apim-km" "apim-publisher" "apim-store" "apim-tm")
+        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
         ;;
     apim-tm)
         pack="wso2am-"${version}
-        updated_roles=("apim" "apim-ex-gateway" "apim-gateway" "apim-km" "apim-publisher" "apim-store" "apim-tm")
+        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
+        ;;
+    apim-analytics-dashboard)
+        pack="wso2am-analytics-"${version}
+        updated_roles=("apim-analytics-dashboard")
         ;;
     apim-analytics-worker)
         pack="wso2am-analytics-"${version}
         updated_roles=("apim-analytics-worker")
         ;;
     apim-is-as-km)
-        pack="wso2is-km-5.7.0"
+        pack="wso2is-km-5.9.0"
         updated_roles=("apim-is-as-km")
         ;;
     *)
         echo "Invalid profile. Please provide one of the following profiles:
             apim
-            apim-ex-gateway
             apim-gateway
             apim-km
             apim-publisher
-            apim-store
+            apim-devportal
             apim-tm
+            apim-analytics-dashboard
             apim-analytics-worker
             apim-is-as-km"
         exit 1

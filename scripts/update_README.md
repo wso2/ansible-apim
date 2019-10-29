@@ -7,7 +7,7 @@ The update script is to be used by WSO2 subscription users such that products pa
 * [WUM](https://wso2.com/updates/wum) updated packs should be provided in the `/files/packs` directory
 
 `
-NOTE: Provided WUM updated packs should contain the latest updates for wso2am-2.6.0 and wso2am-analytics-2.6.0
+NOTE: Provided WUM updated packs should contain the latest updates for wso2am-3.0.0 and wso2am-analytics-3.0.0
 `
 
 ### Usage
@@ -17,12 +17,12 @@ While executing the update script, provide the profile name. The pack correspond
 ```
 Any of the following profile names can be provided as arguments:
 * apim
-* apim-ex-gateway
 * apim-gateway
 * apim-km
 * apim-publisher
-* apim-store
+* apim-devportal
 * apim-tm
+* apim-analytics-dashboard
 * apim-analytics-worker
 * apim-is-as-km
 
