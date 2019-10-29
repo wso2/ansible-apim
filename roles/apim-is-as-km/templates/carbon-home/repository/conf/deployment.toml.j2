@@ -132,6 +132,8 @@ enable_data_publishing = false
 enable_policy_deploy = false
 enable_blacklist_condition = false
 enable_decision_connection = false
+receiver_url = "{{ traffic_manager_url }}"
+receiver_auth_url = "{{ traffic_manager_auth_url }}"
 
 {% if clustering_enabled %}
 [clustering]

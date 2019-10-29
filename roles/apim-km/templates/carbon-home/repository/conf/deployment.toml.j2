@@ -73,3 +73,11 @@ header = "X-JWT-Assertion"
 signing_algorithm = "{{ jwt_signing_algorithm }}"
 #enable_user_claims = true
 #claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.DefaultClaimsRetriever"
+
+[apim.throttling]
+{% for url_group in throttling_url_group %}
+[[apim.throttling.url_group]]
+traffic_manager_urls=[{% for url in url_group['traffic_manager_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+traffic_manager_auth_urls=[{% for url in url_group['traffic_manager_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+
+{% endfor %}
