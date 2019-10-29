@@ -23,12 +23,11 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   │   ├── apim_1.yml
 │   │   ├── apim-analytics-dashboard_1.yml
 │   │   ├── apim-analytics-worker_1.yml
-│   │   ├── apim-ex-gateway_1.yml
 │   │   ├── apim-gateway_1.yml
 │   │   ├── apim-is-as-km_1.yml
 │   │   ├── apim-km_1.yml
 │   │   ├── apim-publisher_1.yml
-│   │   ├── apim-store_1.yml
+│   │   ├── apim-devportal_1.yml
 │   │   └── apim-tm_1.yml
 │   └── inventory
 ├── docs
@@ -46,12 +45,12 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   └── Pattern_5.md
 ├── files
 │   ├── lib
-│   │   ├── amazon-corretto-8.202.08.2-linux-x64.tar.gz
+│   │   ├── amazon-corretto-8.222.10.1-linux-x64.tar.gz
 │   │   └── mysql-connector-java-5.1.47-bin.jar
 │   └── packs
-│   │   ├── wso2am-2.6.0.zip
-│   │   ├── wso2am-analytics-2.6.0.zip
-│   │   └── wso2is-km-5.7.0.zip
+│   │   ├── wso2am-3.0.0.zip
+│   │   ├── wso2am-analytics-3.0.0.zip
+│   │   └── wso2is-km-5.9.0.zip
 │   ├── system
 │   │   └── etc
 │   │       ├── security
@@ -84,7 +83,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   ├── apim-publisher
 │   │   ├── tasks
 │   │   └── templates
-│   ├── apim-store
+│   ├── apim-devportal
 │   │   ├── tasks
 │   │   └── templates
 │   ├── apim-tm
@@ -105,9 +104,9 @@ Packs could be either copied to a local directory, or downloaded from a remote l
 
 Copy the following files to `files/packs` directory.
 
-1. [WSO2 API Manager 2.6.0 package](https://wso2.com/api-management/install/)
-2. [WSO2 API Manager Analytics 2.6.0 package](https://wso2.com/api-management/install/analytics/)
-3. [WSO2 API Manager Identity Server as Key Manager 5.7.0 package](https://wso2.com/api-management/install/key-manager/)
+1. [WSO2 API Manager 3.0.0 package](https://wso2.com/api-management/install/)
+2. [WSO2 API Manager Analytics 3.0.0 package](https://wso2.com/api-management/install/analytics/)
+3. [WSO2 API Manager Identity Server as Key Manager 5.9.0 package](https://wso2.com/api-management/install/key-manager/)
 
 Copy the following files to `files/lib` directory.
 
@@ -142,7 +141,7 @@ If you need to alter the configurations given, please change the parameterized v
 
 The templates that are used by the Ansible scripts are in j2 format in-order to enable parameterization.
 
-The `axis2.xml.j2` file is added under `roles/wso2am/templates/carbon-home/repository/conf/axis2/`, in order to enable customizations. You can add any other customizations to `custom.yml` under tasks of each role as well.
+The `deployment.toml.j2` file is added under `roles/apim/templates/carbon-home/repository/conf/`, in order to enable customizations. You can add any other customizations to `custom.yml` under tasks of each role as well.
 
 #### Step 1
 Uncomment the following line in `main.yml` under the role you want to customize.
