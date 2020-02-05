@@ -34,19 +34,21 @@
 
     - name: Create Java directory
       file:
-        path: "{{ java_dir }}"
+        path: "{{ java_home }}"
         state: directory
 
     - name: Unarchive JDK distribution from local source
       unarchive:
         src: "{{ product_package_location }}/lib/{{ jdk_name }}.tar.gz"
-        dest: "{{ java_dir }}"
+        dest: "{{ java_home }}"
+        extra_opts: [--strip-components=1]
       when: pack_location == "local"
 
     - name: Unarchive JDK distribution from remote source
       unarchive:
         src: "{{ remote_jdk }}"
-        dest: "{{ java_dir }}"
+        dest: "{{ java_home }}"
+        extra_opts: [--strip-components=1]
         remote_src: yes
       when: pack_location == "remote"
 
