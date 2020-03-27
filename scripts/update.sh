@@ -22,7 +22,7 @@
 set -e
 
 # Build artifacts and versions
-: ${version:="3.0.0"}
+: ${version:="3.1.0"}
 : ${packs_dir:=$(pwd)/../files/packs}
 
 usage() { echo "Usage: $0 -p <profile_name>" 1>&2; exit 1; }
@@ -100,7 +100,7 @@ case "${profile}" in
         updated_roles=("apim-analytics-worker")
         ;;
     apim-is-as-km)
-        pack="wso2is-km-5.9.0"
+        pack="wso2is-km-5.10.0"
         updated_roles=("apim-is-as-km")
         ;;
     *)
