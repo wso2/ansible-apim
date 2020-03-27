@@ -283,8 +283,8 @@ echo "Using Java memory options: $JVM_MEM_OPTS"
 
 JAVA_VER_BASED_OPTS=""
 
-NASHRON_ARGS=""
-
+NASHRON_ARGS="" 
+ 
 if [ $java_version_formatted -ge 1100 ]; then
  NASHRON_ARGS="--no-deprecation-warning"
     JAVA_VER_BASED_OPTS="--add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens java.rmi/sun.rmi.transport=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED"
