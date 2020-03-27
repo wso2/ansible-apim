@@ -17,7 +17,7 @@
 wso2_group: wso2
 wso2_user: wso2carbon
 product_name: wso2is-km
-product_version: 5.9.0
+product_version: 5.10.0
 target: /mnt
 product_package_location: files
 misc_file_location: "{{ product_package_location }}/misc"
