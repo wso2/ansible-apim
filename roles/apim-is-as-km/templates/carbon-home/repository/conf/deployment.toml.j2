@@ -2,9 +2,9 @@
 hostname = "{{ hostname }}"
 node_ip = "127.0.0.1"
 base_path = "https://$ref{server.hostname}:${carbon.management.port}"
-serverDetails = "WSO2 IS as KM 5.9.0"
+serverDetails = "WSO2 IS as KM 5.10.0"
 mode = "single"
-userAgent = "WSO2 IS as KM 5.9.0"
+userAgent = "WSO2 IS as KM 5.10.0"
 offset = "{{ ports_offset }}"
 
 [super_admin]
@@ -20,102 +20,31 @@ type = "{{ wso2am_db_type }}"
 url = "{{ wso2am_db_url }}"
 username = "{{ wso2am_db_username }}"
 password = "{{ wso2am_db_password }}"
-validationQuery = "{{ wso2am_db_validation_query }}"
 
-[database.config]
-type = "{{ wso2config_db_type }}"
-url = "{{ wso2config_db_url }}"
-username = "{{ wso2config_db_username }}"
-password = "{{ wso2config_db_password }}"
-[database.config.pool_options]
-validationQuery = "{{ wso2config_db_validation_query }}"
-
-[database.shared_db]
-type = "{{ wso2shared_db_type }}"
-url = "{{ wso2shared_db_url }}"
-username = "{{ wso2shared_db_username }}"
+[database.shared_db]	
+type = "{{ wso2shared_db_type }}"	
+url = "{{ wso2shared_db_url }}"	
+username = "{{ wso2shared_db_username }}"	
 password = "{{ wso2shared_db_password }}"
-[database.shared_db.pool_options]
-validationQuery = "{{ wso2shared_db_validation_query }}"
 
-[database.bps_database.config]
-type = "{{ wso2bps_db_type }}"
-url = "{{ wso2bps_db_url }}"
-username = "{{ wso2bps_db_username }}"
-password = "{{ wso2bps_db_password }}"
+[database.bps_database.config]	
+type = "{{ wso2bps_db_type }}"	
+url = "{{ wso2bps_db_url }}"	
+username = "{{ wso2bps_db_username }}"	
+password = "{{ wso2bps_db_password }}"	
 driver = "{{ wso2bps_db_driver }}"
-[database.bps_database.pool_options]
-validationQuery = "{{ wso2bps_db_validation_query }}"
-
-[[datasource]]
-id = "{{ wso2consent_db_id }}"
-type = "{{ wso2consent_db_type }}"
-url = "{{ wso2consent_db_url }}"
-username = "{{ wso2consent_db_username }}"
-password = "{{ wso2consent_db_password }}"
-driver = "{{ wso2consent_db_driver }}"
-validationQuery = "{{ wso2consent_db_validation_query }}"
-
-[[datasource]]
-id = "{{ wso2identity_db_id }}"
-type = "{{ wso2identity_db_type }}"
-url = "{{ wso2identity_db_url }}"
-username = "{{ wso2identity_db_username }}"
-password = "{{ wso2identity_db_password }}"
-driver = "{{ wso2identity_db_driver }}"
-validationQuery = "{{ wso2identity_db_validation_query }}"
 
 [keystore.primary]
-name = "{{ key_store_location }}"
-type = "JKS"
-password = "{{ key_store_password }}"
-alias = "{{ key_store_key_alias }}"
-key_password = "{{ key_store_key_password }}"
+name = "{{ key_store_location }}"	
+type = "JKS"	
+password = "{{ key_store_password }}"	
+alias = "{{ key_store_key_alias }}"	
+key_password = "{{ key_store_key_password }}"	
 
-[keystore.internal]
-filename = "{{ internal_keystore_location }}"
-type = "JKS"
-password = "{{ internal_keystore_password }}"
-alias = "{{ internal_keystore_key_alias }}"
-key_password = "{{ internal_keystore_key_password }}"
-
-[truststore]
-file_name = "{{ trust_store_location }}"
-type = "JKS"
+[truststore]	
+file_name = "{{ trust_store_location }}"	
+type = "JKS"	
 password = "{{ trust_store_password }}"
-
-[identity]
-data_source = "jdbc/{{ wso2identity_db_id }}"
-
-[authentication.consent]
-data_source = "jdbc/{{ wso2consent_db_id }}"
-prompt = true
-
-[transport.https.sslHostConfig.properties]
-certificateVerification = "want"
-
-[tasks]
-client_dispatch_address = "https://$ref{server.hostname}:9448"
-server_address = "https://localhost:9443"
-
-[oauth]
-prompt_consent = "$ref{authentication.consent.prompt}"
-
-[oauth.scope_validator.xacml]
-enable = true
-
-[oauth.grant_type.uma_ticket]
-enable = true
-
-[identity_mgt.user_self_registration]
-allow_self_registration = false
-
-[default_cache_timeout]
-force_local_cache = true
-
-[event.default_listener.mutual_tls_authenticator]
-priority = ""
-enable = false
 
 [[event_listener]]
 id = "mutual_tls_authenticator"
@@ -124,22 +53,7 @@ name = "org.wso2.carbon.identity.oauth2.token.handler.clientauth.mutualtls.Mutua
 order = "158"
 enable = false
 
-[oauth.extensions]
-token_generator = "org.wso2.carbon.apimgt.keymgt.issuers.APIMTokenIssuer"
-
-[apim.throttling]
-enable_data_publishing = false
-enable_policy_deploy = false
-enable_blacklist_condition = false
-enable_decision_connection = false
-receiver_url = "{{ traffic_manager_url }}"
-receiver_auth_url = "{{ traffic_manager_auth_url }}"
-
-{% if clustering_enabled %}
-[clustering]
-membership_scheme = "{{ membership_scheme }}"
-domain = "{{ clustering_domain }}"
-local_member_host = "{{ local_member_host }}"
-local_member_port = "{{ local_member_port }}"
-members = [{% for member in clustering_members %}"{{ member['host_name'] }}:{{ member['port'] }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
-{% endif %}
+[[apim.throttling.url_group]]
+traffic_manager_urls = "{{ traffic_manager_url }}"
+traffic_manager_auth_urls = "{{ traffic_manager_auth_url }}"
+type = "loadbalance"
