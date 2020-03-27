@@ -281,7 +281,7 @@ wso2.datasources:
         idleTimeout: 60000
         connectionTestQuery: {{ wso2_permissions_db_test_query }}
         validationTimeout: 30000
-        isAutoCommit: false
+        isAutoCommit: false 
 
   #Data source for APIM Analytics
   - name: APIM_ANALYTICS_DB
@@ -325,8 +325,8 @@ wso2.business.rules.manager:
   deployment_configs:
     -
      # <IP>:<HTTPS Port> of the Worker node
-     {%  for node in worker_nodes %}
-{{ node.ip }}:{{ node.port }}:
+     {%  for node in worker_nodes %}	
+     {{ node.ip }}:{{ node.port }}:
        # UUIDs of rule templates that are needed to be deployed on the node
        - stock-data-analysis
        - stock-exchange-input
@@ -351,9 +351,13 @@ wso2.transport.http:
       value: true
 
   listenerConfigurations:
-    - id: "default-https"
+    - id: "default"
       host: "{{ hostname }}"
       port: {{ transport_listner_config_port }}
+
+    - id: "default-https"
+      host: "{{ hostname }}"
+      port: {{ transport_listner_config_https_port }}
       scheme: https
       keyStoreFile: "{{ key_store_location }}"
       keyStorePassword: {{ key_store_password }}
@@ -361,13 +365,17 @@ wso2.transport.http:
 
 ## Dashboard data provider authorization
 data.provider.configs:
-  authorizingClass: org.wso2.carbon.dashboards.core.DashboardDataProviderAuthorizer
+  authorizingClass: org.wso2.analytics.apim.dashboards.core.data.provider.Authorizer
 
 ## Additional APIs that needs to be added to the server.
 ## Should be provided as a key value pairs { API context path: Microservice implementation class }
 ## The configured APIs will be available as https://{host}:{port}/analytics-dashboard/{API_context_path}
 additional.apis:
   /apis/analytics/v1.0/apim: org.wso2.analytics.apim.rest.api.proxy.ApimApi
+  /apis/v1.0/report: org.wso2.analytics.apim.rest.api.report.ReportApi
+
+report:
+  implClass: org.wso2.analytics.apim.rest.api.report.reportgen.DefaultReportGeneratorImpl
 
 ## Authentication configuration
 auth.configs:
@@ -376,23 +384,33 @@ auth.configs:
   properties:
     adminScope: apim_analytics:admin_carbon.super
     allScopes: apim_analytics:admin apim_analytics:product_manager apim_analytics:api_developer apim_analytics:app_developer apim_analytics:devops_engineer apim_analytics:analytics_viewer apim_analytics:everyone openid apim:api_view apim:subscribe
-    adminServiceBaseUrl: {{ admin_service_url }}
     adminUsername: {{ admin_service_username }}
     adminPassword: {{ admin_service_password }}
-    kmDcrUrl: {{ admin_service_url }}/client-registration/v0.15/register
-    kmTokenUrlForRedirection: {{ admin_service_url }}:9443/oauth2
+    kmDcrUrl: {{ admin_service_url }}/client-registration/v0.16/register
+    kmTokenUrlForRedirection: {{ admin_service_url }}/oauth2
     kmTokenUrl: {{ admin_service_url }}/oauth2
     kmUsername: {{ keymanager_username }}
     kmPassword: {{ keymanager_password }}
     portalAppContext: analytics-dashboard
     businessRulesAppContext : business-rules
-    cacheTimeout: 900
+    cacheTimeout: 30
     baseUrl: https://localhost:9643
     grantType: authorization_code
     publisherUrl: {{ admin_service_url }}
-    #storeUrl: {{ admin_service_url }}
+    devPortalUrl: {{ admin_service_url }}
+    externalLogoutUrl: {{ admin_service_url }}/oidc/logout
 
 wso2.dashboard:
   roles:
     creators:
       - apim_analytics:admin_carbon.super
+  themeConfigProviderClass: org.wso2.carbon.dashboards.core.DefaultDashboardThemeConfigProvider
+
+## RDBMS Data Provider configuration
+wso2.rdbms.data.provider:
+  timeTypes:
+    - DATE
+    - TIME
+    - DATETIME
+    - TIMESTAMP
+    - TIMESTAMP WITHOUT TIME ZONE
