@@ -25,7 +25,8 @@ thrift_data_receiver_ssl_port: 7711
 binary_data_receiver_tcp_port: 9611
 binary_data_receiver_ssl_port: 9711
 
-transport_listner_config_port: 9643
+transport_listner_config_port: 9089
+transport_listner_config_https_port: 9643
 
 # worker configurations
 # ip: ip of the worker node
