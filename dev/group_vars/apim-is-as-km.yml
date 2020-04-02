@@ -55,7 +55,7 @@ pack_location: local
 #remote_pack: "<URL_TO_IS_AS_KM_PACK>"
 
 # JDK Distributions
-jdk_name: amazon-corretto-8.222.10.1-linux-x64
+jdk_name: amazon-corretto-8.242.08.1-linux-x64
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
