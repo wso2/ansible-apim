@@ -18,7 +18,6 @@
 # requirements. If you need to add additional configurations, please use the custom.yml under each role.
 
 hostname: localhost
-ports_offset: 0
 
 # Auth Manager configurations
 admin_username: admin
