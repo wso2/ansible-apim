@@ -5,7 +5,6 @@ base_path = "https://$ref{server.hostname}:${carbon.management.port}"
 serverDetails = "WSO2 IS as KM 5.10.0"
 mode = "single"
 userAgent = "WSO2 IS as KM 5.10.0"
-offset = "{{ ports_offset }}"
 
 [super_admin]
 username = "{{ admin_username }}"
@@ -27,24 +26,11 @@ url = "{{ wso2shared_db_url }}"
 username = "{{ wso2shared_db_username }}"	
 password = "{{ wso2shared_db_password }}"
 
-[database.bps_database.config]	
-type = "{{ wso2bps_db_type }}"	
-url = "{{ wso2bps_db_url }}"	
-username = "{{ wso2bps_db_username }}"	
-password = "{{ wso2bps_db_password }}"	
-driver = "{{ wso2bps_db_driver }}"
-
 [keystore.primary]
-name = "{{ key_store_location }}"	
-type = "JKS"	
+name = "{{ key_store_location }}"		
 password = "{{ key_store_password }}"	
 alias = "{{ key_store_key_alias }}"	
 key_password = "{{ key_store_key_password }}"	
-
-[truststore]	
-file_name = "{{ trust_store_location }}"	
-type = "JKS"	
-password = "{{ trust_store_password }}"
 
 [[event_listener]]
 id = "mutual_tls_authenticator"
@@ -54,6 +40,6 @@ order = "158"
 enable = false
 
 [[apim.throttling.url_group]]
-traffic_manager_urls = "{{ traffic_manager_url }}"
-traffic_manager_auth_urls = "{{ traffic_manager_auth_url }}"
+traffic_manager_urls = ["{{ traffic_manager_url }}"]
+traffic_manager_auth_urls = ["{{ traffic_manager_auth_url }}"]
 type = "loadbalance"
