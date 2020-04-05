@@ -5,7 +5,7 @@ After=network.target
 [Service]
 ExecStart={{ carbon_home }}/wso2/dashboard/bin/carbon.sh start
 ExecStop={{ carbon_home }}/wso2/dashboard/bin/carbon.sh stop
-ExecRestart={{ carbon_home }}/wso2/dashboard/bin/carbon.sh restart
+ExecReload={{ carbon_home }}/wso2/dashboard/bin/carbon.sh restart
 PIDFile={{ carbon_home }}/wso2/dashboard/runtime.pid
 User={{ wso2_user }}
 Group={{ wso2_group }}

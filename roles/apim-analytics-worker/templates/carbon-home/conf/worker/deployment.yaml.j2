@@ -490,20 +490,21 @@ auth.configs:
     adminRole: {{ authentication_admin_role }}   # Admin role which is granted all permissions
     userStore:         # User store
       users:
-      {% for user in user_store_users %}
-       - 
-         user:
+       -
+        {% for user in user_store_users %}
+ user:
            username: {{ user.username }}
            password: {{ user.password }}
            roles: {{ user.roles }}
-      {%  endfor %}
+        {%  endfor %}
+
       roles:
-      {% for role in user_store_roles %}
        -
-         role:
+        {% for role in user_store_roles %}
+ role:
            id: {{ role.id }}
            displayName: {{ role.displayName }}
-      {%  endfor %}
+        {%  endfor %}
 
   # Configuration to enable apim alerts
 #analytics.solutions:

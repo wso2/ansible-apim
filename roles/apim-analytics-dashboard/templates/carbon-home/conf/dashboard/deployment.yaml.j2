@@ -22,7 +22,7 @@ wso2.carbon:
     # server name
   name: WSO2 API Manager Analytics Server
     # enable/disable hostname verifier
-  hostnameVerificationEnabled: true
+  hostnameVerificationEnabled: false
     # ports used by this server
   ports:
       # port offset
@@ -325,8 +325,8 @@ wso2.business.rules.manager:
   deployment_configs:
     -
      # <IP>:<HTTPS Port> of the Worker node
-     {%  for node in worker_nodes %}	
-     {{ node.ip }}:{{ node.port }}:
+     {%  for node in worker_nodes %}
+{{ node.ip }}:{{ node.port }}:
        # UUIDs of rule templates that are needed to be deployed on the node
        - stock-data-analysis
        - stock-exchange-input
