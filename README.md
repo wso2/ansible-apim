@@ -129,6 +129,8 @@ The existing Ansible scripts contain the configurations to set-up a single node 
 apim_1 ansible_host=172.28.128.4 ansible_user=vagrant
 ```
 
+Update the hostname in dev/host_vars/apim_1.yml with ansible_host, 172.28.128.4
+
 Run the following command to run the scripts.
 
 `ansible-playbook -i dev site.yml`
