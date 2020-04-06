@@ -9,7 +9,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 
 ## Supported Ansible Versions
 
-- Ansible 2.8.0
+- Ansible 2.5 or higher
 
 ## Directory Structure
 ```
@@ -46,11 +46,10 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 ├── files
 │   ├── lib
 │   │   ├── amazon-corretto-8.242.08.1-linux-x64.tar.gz
-│   │   └── mysql-connector-java-5.1.47-bin.jar
 │   └── packs
-│   │   ├── wso2am-3.0.0.zip
-│   │   ├── wso2am-analytics-3.0.0.zip
-│   │   └── wso2is-km-5.9.0.zip
+│   │   ├── wso2am-3.1.0.zip
+│   │   ├── wso2am-analytics-3.1.0.zip
+│   │   └── wso2is-km-5.10.0.zip
 │   ├── system
 │   │   └── etc
 │   │       ├── security
@@ -104,14 +103,13 @@ Packs could be either copied to a local directory, or downloaded from a remote l
 
 Copy the following files to `files/packs` directory.
 
-1. [WSO2 API Manager 3.0.0 package](https://wso2.com/api-management/install/)
-2. [WSO2 API Manager Analytics 3.0.0 package](https://wso2.com/api-management/install/analytics/)
-3. [WSO2 API Manager Identity Server as Key Manager 5.9.0 package](https://wso2.com/api-management/install/key-manager/)
+1. [WSO2 API Manager 3.1.0 package](https://wso2.com/api-management/install/)
+2. [WSO2 API Manager Analytics 3.1.0 package](https://wso2.com/api-management/install/analytics/)
+3. [WSO2 API Manager Identity Server as Key Manager 5.10.0 package](https://wso2.com/api-management/install/key-manager/)
 
 Copy the following files to `files/lib` directory.
 
-1. [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
-2. [Amazon Corretto for Linux x64 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
+1. [Amazon Corretto for Linux x64 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
 
 Copy the miscellaneous files to `files/misc` directory. To enable file copying,  uncomment the `misc_file_list` in the yaml files under `group_vars` and add the miscellaneous files to the list.
 
@@ -128,7 +126,7 @@ In **group_vars**, change the values of the following variables in all groups:
 The existing Ansible scripts contain the configurations to set-up a single node WSO2 API Manager pattern. In order to deploy the pattern, you need to replace the `[ip_address]` and `[ssh_user]` given in the `inventory` file under `dev` folder by the IP of the location where you need to host the API Manager. An example is given below.
 ```
 [apim]
-wso2am ansible_host=172.28.128.4 ansible_user=vagrant
+apim_1 ansible_host=172.28.128.4 ansible_user=vagrant
 ```
 
 Run the following command to run the scripts.
@@ -172,6 +170,6 @@ System files that will be updated when performance tuning are enabled is availab
 
 The master branch of this repository contains the latest product version with the latest Ansible version. The Ansible resources for previous Ansible versions can be found in the branches. The following is an example.
 
-#### Ansible resources for API Manager 2.6.0 and Ansible 2.7
+#### Ansible resources for API Manager 3.0.0
 
-Branch name: 2.6.0_ansible2.7
+Branch name: 3.0.x
