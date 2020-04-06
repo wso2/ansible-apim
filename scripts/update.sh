@@ -150,11 +150,11 @@ cd ${carbon_home}/bin
 # Run in-place update
 if [[ ${status} -eq 0 ]] || [[ ${status} -eq 1 ]] || [[ ${status} -eq 2 ]]
 then
-  ./update_darwin --verbose 2>&1 | tee ${updates_dir}/output.txt
+  ./update_linux --verbose 2>&1 | tee ${updates_dir}/output.txt
   update_status=${PIPESTATUS[0]}
 elif [[ ${status} -eq 3 ]]
 then
-  ./update_darwin --verbose --continue 2>&1 | tee ${updates_dir}/output.txt
+  ./update_linux --verbose --continue 2>&1 | tee ${updates_dir}/output.txt
   update_status=${PIPESTATUS[0]}
 
   # Handle user running update script without resolving conflicts
@@ -174,7 +174,7 @@ fi
 if [[ ${update_status} -eq 2 ]]
 then
     echo "In-place tool has been updated. Running update again."
-    ./update_darwin --verbose 2>&1 | tee ${updates_dir}/output.txt
+    ./update_linux --verbose 2>&1 | tee ${updates_dir}/output.txt
     update_status=${PIPESTATUS[0]}
 fi
 
