@@ -139,37 +139,10 @@ then
 fi
 
 cd ${packs_dir}
-# Check if user has a WSO2 subscription
-while :
-do
-  read -p "Do you have a WSO2 subscription? (Y/n) "
-  echo
-  if [[ $REPLY =~ ^[Yy]$ ]] || [[ -z "$REPLY" ]]
+if [[ ${status} -ne 3 ]]
   then
-    # The pack should not be unzipped if a conflict is being resolved
-    if [[ ${status} -ne 3 ]]
-    then
-        unzip_pack ${pack}
-    fi
-
-    if [[ ! -f ${carbon_home}/bin/update_linux ]]
-    then
-      echo "Update executable not found. Please download package for subscription users from website."
-      echo "Don't have a subscription yet? Sign up for a free-trial subscription at https://wso2.com/subscription/free-trial"
-      rm -rf ${packs_dir}/${pack}
-      exit 1
-    else
-      break
-    fi
-  elif [[ $REPLY =~ ^[Nn]$ ]]
-  then
-    echo "Don't have a subscription yet? Sign up for a free-trial subscription at https://wso2.com/subscription/free-trial"
-    exit 0
-  else
-    echo "Invalid input provided."
-    sleep .5
-  fi
-done
+    unzip_pack ${pack}
+fi
 
 # Move into binaries directory
 cd ${carbon_home}/bin
@@ -177,11 +150,11 @@ cd ${carbon_home}/bin
 # Run in-place update
 if [[ ${status} -eq 0 ]] || [[ ${status} -eq 1 ]] || [[ ${status} -eq 2 ]]
 then
-  ./update_linux --verbose 2>&1 | tee ${updates_dir}/output.txt
+  ./update_darwin --verbose 2>&1 | tee ${updates_dir}/output.txt
   update_status=${PIPESTATUS[0]}
 elif [[ ${status} -eq 3 ]]
 then
-  ./update_linux --verbose --continue 2>&1 | tee ${updates_dir}/output.txt
+  ./update_darwin --verbose --continue 2>&1 | tee ${updates_dir}/output.txt
   update_status=${PIPESTATUS[0]}
 
   # Handle user running update script without resolving conflicts
@@ -201,7 +174,7 @@ fi
 if [[ ${update_status} -eq 2 ]]
 then
     echo "In-place tool has been updated. Running update again."
-    ./update_linux --verbose 2>&1 | tee ${updates_dir}/output.txt
+    ./update_darwin --verbose 2>&1 | tee ${updates_dir}/output.txt
     update_status=${PIPESTATUS[0]}
 fi
 
