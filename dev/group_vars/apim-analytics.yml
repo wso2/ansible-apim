@@ -143,6 +143,9 @@ deployment_type: none
 #      username: 'admin',
 #      password: 'admin'}
 
+stream_processor_username: admin
+stream_processor_password: YWRtaW4=
+
 siddhi_api_keystore_file: ${carbon.home}/resources/security/wso2carbon.jks
 siddhi_api_keystore_password: wso2carbon
 siddhi_api_keystore_cert_password: wso2carbon
