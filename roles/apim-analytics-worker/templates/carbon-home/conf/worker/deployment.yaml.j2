@@ -560,3 +560,20 @@ deployment.config:
 
   {% endfor %}
 {% endif %}
+
+auth.configs:
+  type: 'local'
+  userManager:
+    adminRole: admin
+    userStore:
+      users:
+       -
+         user:
+           username: {{ stream_processor_username }}
+           password: {{ stream_processor_password }}
+           roles: 1
+      roles:
+       -
+         role:
+           id: 1
+           displayName: admin
