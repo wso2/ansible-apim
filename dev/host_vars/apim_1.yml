@@ -51,3 +51,5 @@ config_files:
       dest: '{{ carbon_home }}/bin/wso2server.sh' }
   - { src: 'carbon-home/repository/conf/advanced/qpid-config.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/advanced/qpid-config.xml' }
+  - { src: 'carbon-home/repository/conf/jndi.properties.j2',
+      dest: '{{ carbon_home }}/repository/conf/jndi.properties' }
