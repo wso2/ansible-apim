@@ -1,17 +1,16 @@
 [server]
 hostname = "{{ hostname }}"
 node_ip = "127.0.0.1"
-offset="{{ ports_offset }}"
-#discard_empty_caches = false
+offset = "{{ ports_offset }}"
 server_role = "api-publisher"
+
+[user_store]
+type = "database_unique_id"
 
 [super_admin]
 username = "{{ admin_username }}"
 password = "{{ admin_password }}"
 create_admin_account = true
-
-[user_store]
-type = "database_unique_id"
 
 [database.apim_db]
 type = "{{ wso2am_db_type }}"
@@ -32,32 +31,23 @@ password =  "{{ key_store_password }}"
 alias =  "{{ key_store_key_alias }}"
 key_password =  "{{ key_store_key_password }}"
 
-[truststore]	
+[truststore]
 file_name = "{{ trust_store_location }}"	
 type = "JKS"	
 password = "{{ trust_store_password }}"
 
 {% for environment in gateway_environments %}
-
-[[apim.gateway.environment]]
-name = "{{ environment.name }}"
-type = "{{ environment.type }}"
-display_in_api_console = true
-description = "{{ environment.description }}"
-show_as_token_endpoint_url = true
-service_url = "{{ environment.service_url }}"
-username= "${admin.username}"
-password= "${admin.password}"
-http_endpoint = "{{ environment.http_endpoint }}"
-https_endpoint = "{{ environment.https_endpoint }}"
-
+    [[apim.gateway.environment]]
+    name = "{{ environment.name }}"
+    type = "{{ environment.type }}"
+    display_in_api_console = true
+    description = "{{ environment.description }}"
+    service_url = "{{ environment.service_url }}"
+    username= "${admin.username}"
+    password= "${admin.password}"
+    http_endpoint = "{{ environment.http_endpoint }}"
+    https_endpoint = "{{ environment.https_endpoint }}"
 {% endfor %}
-
-[apim.cache.scopes]
-enable = true
-
-[apim.cache.publisher_roles]
-enable = true
 
 [apim.analytics]
 enable = "{{ analytics_enabled }}"	
@@ -73,21 +63,20 @@ analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if no
 analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 {% endfor %}
 
-[apim.devportal]
-url = "{{ api_devportal_url }}"
-
 [apim.throttling]	
 enable_policy_deploy = "true"	
-service_url = "{{ throttle_config_policy_deployer_url }}"	
-receiver_url = "{{ traffic_manager_receiver_url }}"	
-receiver_auth_url = "{{ traffic_manager_auth_url }}"	
-username= "$ref{super_admin.username}"	
-password= "$ref{super_admin.password}"	
-{% for url_group in throttling_url_group %}	
-[[apim.throttling.url_group]]	
-traffic_manager_urls=[{% for url in url_group['traffic_manager_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]	
-traffic_manager_auth_urls=[{% for url in url_group['traffic_manager_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]	
-{% endfor %}
+service_url = "{{ throttle_config_policy_deployer_url }}"		
+policy_deploy.username= "$ref{super_admin.username}"	
+policy_deploy.password= "$ref{super_admin.password}"
+
+[apim.cache.scopes]
+enable = true
+
+[apim.cache.publisher_roles] #check the usage and move to dev role
+enable = true
+
+[apim.devportal]
+url = "{{ api_devportal_url }}"
 
 [apim.workflow]
 enable = {{ workflow_enable }}
