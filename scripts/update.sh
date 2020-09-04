@@ -22,7 +22,7 @@
 set -e
 
 # Build artifacts and versions
-: ${version:="3.1.0"}
+: ${version:="3.2.0"}
 : ${packs_dir:=$(pwd)/../files/packs}
 
 usage() { echo "Usage: $0 -p <profile_name>" 1>&2; exit 1; }
