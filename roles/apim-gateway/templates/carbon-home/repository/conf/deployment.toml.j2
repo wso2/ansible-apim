@@ -36,13 +36,10 @@ service_url = "{{ key_manager_server_url }}"
 username= "$ref{super_admin.username}"
 password= "$ref{super_admin.password}"
 
-[apim.throttling]	
-receiver_url = "{{ traffic_manager_receiver_url }}"	
-receiver_auth_url = "{{ traffic_manager_auth_url }}"	
+[apim.throttling]		
 service_url = "{{ api_devportal_server_url }}"
-receiver_username = "$ref{super_admin.username}"
-receiver_password = "$ref{super_admin.password}"
-jms.topic_connection_factory = "{{ jms_conn_factory }}"
+username = "$ref{super_admin.username}"
+password = "$ref{super_admin.password}"
 enable_unlimited_tier = true
 enable_header_based_throttling = false
 enable_jwt_claim_based_throttling = false
