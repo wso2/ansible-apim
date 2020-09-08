@@ -17,7 +17,7 @@
 wso2_group: wso2
 wso2_user: wso2carbon
 product_name: wso2am-analytics
-product_version: 3.1.0
+product_version: 3.2.0
 target: /mnt
 product_package_location: files
 misc_file_location: "{{ product_package_location }}/misc"
@@ -55,7 +55,7 @@ pack_location: local
 #remote_pack: "<URL_TO_APIM_ANALYTICS_PACK>"
 
 # JDK Distributions
-jdk_name: amazon-corretto-8.242.08.1-linux-x64
+jdk_name: amazon-corretto-8-x64-linux-jdk
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
@@ -109,7 +109,7 @@ business_rules_db_password: wso2carbon
 business_rules_db_driver: org.h2.Driver
 business_rules_db_test_query: SELECT 1
 
-am_db_url: jdbc:h2:${sys:carbon.home}/../wso2am-3.0.0/repository/database/WSO2AM_DB;AUTO_SERVER=TRUE
+am_db_url: jdbc:h2:${sys:carbon.home}/../../apim/wso2am-3.2.0/repository/database/WSO2AM_DB;AUTO_SERVER=TRUE
 am_db_username: wso2carbon
 am_db_password: wso2carbon
 am_db_driver: org.h2.Driver

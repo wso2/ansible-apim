@@ -45,10 +45,10 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   └── Pattern_5.md
 ├── files
 │   ├── lib
-│   │   ├── amazon-corretto-8.242.08.1-linux-x64.tar.gz
+│   │   ├── amazon-corretto-8-x64-linux-jdk.tar.gz
 │   └── packs
-│   │   ├── wso2am-3.1.0.zip
-│   │   ├── wso2am-analytics-3.1.0.zip
+│   │   ├── wso2am-3.2.0.zip
+│   │   ├── wso2am-analytics-3.2.0.zip
 │   │   └── wso2is-km-5.10.0.zip
 │   ├── system
 │   │   └── etc
@@ -103,8 +103,8 @@ Packs could be either copied to a local directory, or downloaded from a remote l
 
 Copy the following files to `files/packs` directory.
 
-1. [WSO2 API Manager 3.1.0 package](https://wso2.com/api-management/install/)
-2. [WSO2 API Manager Analytics 3.1.0 package](https://wso2.com/api-management/install/analytics/)
+1. [WSO2 API Manager 3.2.0 package](https://wso2.com/api-management/install/)
+2. [WSO2 API Manager Analytics 3.2.0 package](https://wso2.com/api-management/install/analytics/)
 3. [WSO2 API Manager Identity Server as Key Manager 5.10.0 package](https://wso2.com/api-management/install/key-manager/)
 
 Copy the following files to `files/lib` directory.
@@ -172,6 +172,6 @@ System files that will be updated when performance tuning are enabled is availab
 
 The master branch of this repository contains the latest product version with the latest Ansible version. The Ansible resources for previous Ansible versions can be found in the branches. The following is an example.
 
-#### Ansible resources for API Manager 3.0.0
+#### Ansible resources for API Manager 3.1.0
 
-Branch name: 3.0.x
+Branch name: 3.1.x
