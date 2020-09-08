@@ -12,6 +12,9 @@ username = "{{ admin_username }}"
 password = "{{ admin_password }}"
 create_admin_account = true
 
+[user_store]
+type = "database_unique_id"
+
 [database.shared_db]
 type = "{{ wso2shared_db_type }}"
 url = "{{ wso2shared_db_url }}"

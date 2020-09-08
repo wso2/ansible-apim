@@ -12,6 +12,9 @@ username = "{{ admin_username }}"
 password = "{{ admin_password }}"
 create_admin_account = true
 
+[user_store]
+type = "database_unique_id"
+
 [database.apim_db]
 type = "{{ wso2am_db_type }}"
 url = "{{ wso2am_db_url }}"
@@ -48,6 +51,12 @@ password = "{{ trust_store_password }}"
     http_endpoint = "{{ environment.http_endpoint }}"
     https_endpoint = "{{ environment.https_endpoint }}"
 {% endfor %}
+
+[apim.cache.scopes]
+enable = true
+
+[apim.cache.publisher_roles]
+enable = true
 
 [apim.analytics]
 enable = "{{ analytics_enabled }}"	

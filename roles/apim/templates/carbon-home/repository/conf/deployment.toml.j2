@@ -132,6 +132,20 @@ password = "$ref{super_admin.password}"
 #enable_user_claims = true
 #claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.ExtendedDefaultClaimsRetriever"
 
+#[apim.idp]
+#authorize_endpoint = "https://localhost:${mgt.transport.https.port}/oauth2/authorize"
+#oidc_logout_endpoint = "https://localhost:${mgt.transport.https.port}/oidc/logout"
+
+#[apim.jwt]
+#enable = true
+#encoding = "base64" # base64,base64url
+#generator_impl = "org.wso2.carbon.apimgt.keymgt.token.JWTGenerator"
+#claim_dialect = "http://wso2.org/claims"
+#header = "X-JWT-Assertion"
+#signing_algorithm = "SHA256withRSA"
+#enable_user_claims = true
+#claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.DefaultClaimsRetriever"
+
 [apim.oauth_config]
 enable_outbound_auth_header = false
 auth_header = "Authorization"

@@ -31,9 +31,9 @@ password =  "{{ key_store_password }}"
 alias =  "{{ key_store_key_alias }}"
 key_password =  "{{ key_store_key_password }}"
 
-[truststore]
-file_name = "{{ trust_store_location }}"
-type = "JKS"
+[truststore]	
+file_name = "{{ trust_store_location }}"	
+type = "JKS"	
 password = "{{ trust_store_password }}"
 
 {% for environment in gateway_environments %}
