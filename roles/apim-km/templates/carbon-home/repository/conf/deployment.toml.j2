@@ -2,8 +2,10 @@
 hostname = "{{ hostname }}"
 node_ip = "127.0.0.1"
 offset= "{{ ports_offset }}"
-#discard_empty_caches = false
 server_role = "api-key-manager"
+
+[user_store]
+type = "database_unique_id"
 
 [super_admin]
 username = "{{ admin_username }}"
@@ -32,50 +34,11 @@ password =  "{{ key_store_password }}"
 alias =  "{{ key_store_key_alias }}"
 key_password =  "{{ key_store_key_password }}"
 
-[truststore]	
+[truststore]
 file_name = "{{ trust_store_location }}"	
 type = "JKS"	
 password = "{{ trust_store_password }}"
 
-{% for environment in gateway_environments %}
-
-[[apim.gateway.environment]]
-name = "{{ environment.name }}"
-type = "{{ environment.type }}"
-display_in_api_console = true
-description = "{{ environment.description }}"
-show_as_token_endpoint_url = true
-service_url = "{{ environment.service_url }}"
-username= "${admin.username}"
-password= "${admin.password}"
-
-{% endfor %}
-
-[apim.cache.km_token]
-enable = false
-expiry_time = "15m"
-
-[apim.cache.jwt_claim]
-enable = true
-expiry_time = "15m"
-
-[apim.jwt]
-enable = {{ jwt_enable }}
-encoding = "{{ jwt_encoding }}" # base64,base64url
-#generator_impl = "org.wso2.carbon.apimgt.keymgt.token.JWTGenerator"
-claim_dialect = "{{ jwt_claim_dialect }}"
-header = "X-JWT-Assertion"
-signing_algorithm = "{{ jwt_signing_algorithm }}"
-#enable_user_claims = true
-#claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.DefaultClaimsRetriever"
-
-[apim.throttling]
-{% for url_group in throttling_url_group %}
-[[apim.throttling.url_group]]
-traffic_manager_urls=[{% for url in url_group['traffic_manager_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
-traffic_manager_auth_urls=[{% for url in url_group['traffic_manager_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
-{% endfor %}
-		
 [[event_handler]]	
 name="userPostSelfRegistration"	
 subscriptions=["POST_ADD_USER"]

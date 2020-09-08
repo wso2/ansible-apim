@@ -17,7 +17,7 @@
 wso2_group: wso2
 wso2_user: wso2carbon
 product_name: wso2am
-product_version: 3.1.0
+product_version: 3.2.0
 target: /mnt
 product_package_location: files
 backup_dir: /tmp
@@ -59,7 +59,7 @@ pack_location: local
 #remote_pack: "<URL_TO_APIM_PACK>"
 
 # JDK Distributions
-jdk_name: amazon-corretto-8.242.08.1-linux-x64
+jdk_name: amazon-corretto-8-x64-linux-jdk
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"

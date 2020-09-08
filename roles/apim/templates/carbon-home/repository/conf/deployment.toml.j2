@@ -49,21 +49,19 @@ key_password =  "{{ key_store_key_password }}"
 #key_password =  "wso2carbon"
 
 {% for environment in gateway_environments %}
-
-[[apim.gateway.environment]]
-name = "{{ environment.name }}"
-type = "{{ environment.type }}"
-display_in_api_console = true
-description = "{{ environment.description }}"
-show_as_token_endpoint_url = true
-service_url = "{{ environment.service_url }}"
-username= "${admin.username}"
-password= "${admin.password}"
-ws_endpoint = "{{ environment.ws_endpoint }}"
-wss_endpoint = "{{ environment.wss_endpoint }}"
-http_endpoint = "{{ environment.http_endpoint }}"
-https_endpoint = "{{ environment.https_endpoint }}"
-
+    [[apim.gateway.environment]]
+    name = "{{ environment.name }}"
+    type = "{{ environment.type }}"
+    display_in_api_console = true
+    description = "{{ environment.description }}"
+    show_as_token_endpoint_url = true
+    service_url = "{{ environment.service_url }}"
+    username= "${admin.username}"
+    password= "${admin.password}"
+    ws_endpoint = "{{ environment.ws_endpoint }}"
+    wss_endpoint = "{{ environment.wss_endpoint }}"
+    http_endpoint = "{{ environment.http_endpoint }}"
+    https_endpoint = "{{ environment.https_endpoint }}"
 {% endfor %}
 
 #[apim.cache.gateway_token]
@@ -96,22 +94,16 @@ https_endpoint = "{{ environment.https_endpoint }}"
 
 [apim.analytics]
 enable = "{{ analytics_enabled }}"	
-receiver_username = "{{ stream_processor_username }}"	
-receiver_password = "{{ stream_processor_password }}"	
-store_api_url = "{{ stream_processor_rest_api_url }}"	
-store_api_username = "{{ stream_processor_rest_api_username }}"	
-store_api_password = "{{ stream_processor_rest_api_password }}"
+store_api_url = "{{ stream_processor_rest_api_url }}"
+username = "{{ stream_processor_username }}"	
+password = "{{ stream_processor_password }}"
 
 {% for url_group in analytics_url_group %}	
-[[apim.analytics.url_group]]	
-analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]	
-analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+    [[apim.analytics.url_group]]	
+    analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]	
+    analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+    type = "loadbalance"
 {% endfor %}
-
-#[[apim.analytics.url_group]]
-#analytics_url =["tcp://analytics1:7611","tcp://analytics2:7611"]
-#analytics_auth_url =["ssl://analytics1:7711","ssl://analytics2:7711"]
-#type = "loadbalance"
 
 #[[apim.analytics.url_group]]
 #analytics_url =["tcp://analytics1:7612","tcp://analytics2:7612"]
@@ -120,6 +112,25 @@ analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}
 
 [apim.key_manager]
 service_url = "{{ key_manager_server_url }}"
+username = "$ref{super_admin.username}"
+password = "$ref{super_admin.password}"
+
+#[apim.idp]
+#server_url = "https://localhost:${mgt.transport.https.port}"
+#authorize_endpoint = "https://localhost:${mgt.transport.https.port}/oauth2/authorize"
+#oidc_logout_endpoint = "https://localhost:${mgt.transport.https.port}/oidc/logout"
+#oidc_check_session_endpoint = "https://localhost:${mgt.transport.https.port}/oidc/checksession"
+
+#[apim.jwt]
+#enable = true
+#encoding = "base64" # base64,base64url
+#generator_impl = "org.wso2.carbon.apimgt.keymgt.token.JWTGenerator"
+#claim_dialect = "http://wso2.org/claims"
+#convert_dialect = false
+#header = "X-JWT-Assertion"
+#signing_algorithm = "SHA256withRSA"
+#enable_user_claims = true
+#claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.ExtendedDefaultClaimsRetriever"
 
 #[apim.idp]
 #authorize_endpoint = "https://localhost:${mgt.transport.https.port}/oauth2/authorize"
@@ -136,7 +147,11 @@ service_url = "{{ key_manager_server_url }}"
 #claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.DefaultClaimsRetriever"
 
 [apim.oauth_config]
+enable_outbound_auth_header = false
+auth_header = "Authorization"
 revoke_endpoint = "{{ oauth_configs_revoke_api_url }}"
+enable_token_encryption = false
+enable_token_hashing = false
 
 [apim.devportal]
 url = "{{ api_devportal_url }}"
@@ -144,13 +159,8 @@ url = "{{ api_devportal_url }}"
 [apim.cors]
 allow_origins = "*"
 allow_methods = ["GET","PUT","POST","DELETE","PATCH","OPTIONS"]
-allow_headers = ["authorization","Access-Control-Allow-Origin","Content-Type","SOAPAction","apikey"]
+allow_headers = ["authorization","Access-Control-Allow-Origin","Content-Type","SOAPAction","apikey", "testKey"]
 allow_credentials = false
-
-[apim.throttling]	
-receiver_url = "{{ traffic_manager_receiver_url }}"	
-receiver_auth_url = "{{ traffic_manager_auth_url }}"	
-service_url = "{{ api_devportal_server_url }}"
 
 #[apim.throttling]
 #enable_data_publishing = true
@@ -189,9 +199,9 @@ service_url = "{{ api_devportal_server_url }}"
 #service_url = "https://localhost:9445/bpmn"
 #username = "$ref{super_admin.username}"
 #password = "$ref{super_admin.password}"
-#callback_endpoint = "https://localhost:${mgt.transport.https.port}/api/am/admin/v0.16/workflows/update-workflow-status"
+#callback_endpoint = "https://localhost:${mgt.transport.https.port}/api/am/admin/v0.17/workflows/update-workflow-status"
 #token_endpoint = "https://localhost:${https.nio.port}/token"
-#client_registration_endpoint = "https://localhost:${mgt.transport.https.port}/client-registration/v0.16/register"
+#client_registration_endpoint = "https://localhost:${mgt.transport.https.port}/client-registration/v0.17/register"
 #client_registration_username = "$ref{super_admin.username}"
 #client_registration_password = "$ref{super_admin.password}"
 
@@ -237,3 +247,14 @@ sp_name_regex = "^[\\sa-zA-Z0-9._-]*$"
 
 [database.local]
 url = "jdbc:h2:./repository/database/WSO2CARBON_DB;DB_CLOSE_ON_EXIT=FALSE"
+
+[[event_listener]]
+id = "token_revocation"
+type = "org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
+name = "org.wso2.is.notification.ApimOauthEventInterceptor"
+order = 1
+[event_listener.properties]
+notification_endpoint = "https://localhost:${mgt.transport.https.port}/internal/data/v1/notify"
+username = "${admin.username}"
+password = "${admin.password}"
+'header.X-WSO2-KEY-MANAGER' = "default"
