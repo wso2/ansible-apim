@@ -30,16 +30,10 @@ The followings are the roles needed to deploy API Manager pattern 3.
 [apim]
 apim_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 apim_2 ansible_host=[ip_address] ansible_user=[ssh_user]
-
-[apim-gateway]
 apim-gateway_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 apim-gateway_2 ansible_host=[ip_address] ansible_user=[ssh_user]
-
-[apim-tm]
 apim-tm_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 apim-tm_2 ansible_host=[ip_address] ansible_user=[ssh_user]
-
-[apim-km]
 apim-km_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 apim-km_2 ansible_host=[ip_address] ansible_user=[ssh_user]
 
@@ -103,9 +97,6 @@ apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
 └── dev
     ├── group_vars
     │   ├── apim-analytics.yml
-    │   ├── apim-gateway.yml
-    │   ├── apim-km.yml
-    │   ├── apim-tm.yml
     │   └── apim.yml
     ├── host_vars
     │   ├── apim_1.yml
@@ -121,7 +112,7 @@ apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
     └── inventory
 
 ```
-API Manager pattern 3 contains 5 groups and the configurations specific for each group should be in the respective yaml file under [group_vars](../dev/group_vars) folder. Configurations specific to each host should be added to the corresponding yaml file under [host_vars](../dev/host_vars) folder.
+API Manager pattern 3 contains 2 groups and the configurations specific for each group should be in the respective yaml file under [group_vars](../dev/group_vars) folder. Configurations specific to each host should be added to the corresponding yaml file under [host_vars](../dev/host_vars) folder.
 
 Most commonly changed values are parameterized in the above files. If further changes are required, the values should be parameterized and added to the files accordingly.
 
