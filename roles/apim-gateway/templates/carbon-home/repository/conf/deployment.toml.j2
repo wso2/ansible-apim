@@ -12,9 +12,6 @@ username = "{{ admin_username }}"
 password = "{{ admin_password }}"
 create_admin_account = true
 
-[user_store]
-type = "database_unique_id"
-
 [database.shared_db]
 type = "{{ wso2shared_db_type }}"
 url = "{{ wso2shared_db_url }}"
@@ -42,16 +39,16 @@ enable = true
 expiry_time = "900s"
 
 [apim.analytics]
-enable = "{{ analytics_enabled }}"	
-receiver_username = "{{ stream_processor_username }}"	
-receiver_password = "{{ stream_processor_password }}"	
-store_api_url = "{{ stream_processor_rest_api_url }}"	
-store_api_username = "{{ stream_processor_rest_api_username }}"	
+enable = "{{ analytics_enabled }}"
+receiver_username = "{{ stream_processor_username }}"
+receiver_password = "{{ stream_processor_password }}"
+store_api_url = "{{ stream_processor_rest_api_url }}"
+store_api_username = "{{ stream_processor_rest_api_username }}"
 store_api_password = "{{ stream_processor_rest_api_password }}"
 
-{% for url_group in analytics_url_group %}	
-[[apim.analytics.url_group]]	
-analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]	
+{% for url_group in analytics_url_group %}
+[[apim.analytics.url_group]]
+analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 {% endfor %}
 
@@ -60,7 +57,7 @@ service_url = "{{ key_manager_server_url }}"
 username= "$ref{super_admin.username}"
 password= "$ref{super_admin.password}"
 
-[apim.throttling]		
+[apim.throttling]
 service_url = "{{ api_devportal_server_url }}"
 username = "$ref{super_admin.username}"
 password = "$ref{super_admin.password}"
@@ -75,17 +72,17 @@ traffic_manager_urls=[{% for url in url_group['traffic_manager_urls'] %}"{{ url 
 traffic_manager_auth_urls=[{% for url in url_group['traffic_manager_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 {% endfor %}
 
-[apim.analytics]	
+[apim.analytics]
 enable = "{{ analytics_enabled }}"
-receiver_username = "{{ stream_processor_username }}"	
-receiver_password = "{{ stream_processor_password }}"	
-store_api_url = "{{ stream_processor_rest_api_url }}"	
-store_api_username = "{{ stream_processor_rest_api_username }}"	
+receiver_username = "{{ stream_processor_username }}"
+receiver_password = "{{ stream_processor_password }}"
+store_api_url = "{{ stream_processor_rest_api_url }}"
+store_api_username = "{{ stream_processor_rest_api_username }}"
 store_api_password = "{{ stream_processor_rest_api_password }}"
 
-{% for url_group in analytics_url_group %}	
-[[apim.analytics.url_group]]	
-analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]	
+{% for url_group in analytics_url_group %}
+[[apim.analytics.url_group]]
+analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 {% endfor %}
 

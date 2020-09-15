@@ -12,9 +12,6 @@ username = "{{ admin_username }}"
 password = "{{ admin_password }}"
 create_admin_account = true
 
-[user_store]
-type = "database_unique_id"
-
 [database.apim_db]
 type = "{{ wso2am_db_type }}"
 url = "{{ wso2am_db_url }}"
@@ -35,10 +32,10 @@ alias =  "{{ key_store_key_alias }}"
 key_password =  "{{ key_store_key_password }}"
 
 [truststore]
-file_name = "{{ trust_store_location }}"	
-type = "JKS"	
+file_name = "{{ trust_store_location }}"
+type = "JKS"
 password = "{{ trust_store_password }}"
 
-[[event_handler]]	
-name="userPostSelfRegistration"	
+[[event_handler]]
+name="userPostSelfRegistration"
 subscriptions=["POST_ADD_USER"]
