@@ -83,13 +83,13 @@ Most commonly changed values are parameterized in the above files. If further ch
 #### i. Customize `apim` role
 
 Navigate to [carbon-home](../roles/apim/templates/carbon-home) of the `apim` role. All the files required to deploy the API Manager active-active combination are here. Follow the instructions in the following document to modify the files.
-- [Configuring an active-active deployment](https://docs.wso2.com/display/AM260/Configuring+an+Active-Active+Deployment)
+- [Configuring an active-active deployment](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/single-node/configuring-an-active-active-deployment/)
 
 #### ii. Customize `apim-analytics-worker` role
 
 Navigate to [carbon-home](../roles/apim-analytics-worker/templates/carbon-home) of the `apim-analytics-worker` role. All the files required to deploy the API Manager analytics are here. Follow the instructions in the following files to modify the files.
-- [Configure Analytics](https://docs.wso2.com/display/AM260/Configuring+APIM+Analytics#standardsetup)
-- [Minimum HA deployment](https://docs.wso2.com/display/SP430/Minimum%20High%20Availability%20Deployment)
+- [Configure Analytics](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/distributed-deployment/configure-apim-analytics/active-active/)
+- [Minimum HA deployment](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/single-node/configuring-an-active-active-deployment/)
 
 ### 4. Further customization
 
