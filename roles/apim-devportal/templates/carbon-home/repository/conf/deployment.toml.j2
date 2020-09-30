@@ -31,9 +31,23 @@ password =  "{{ key_store_password }}"
 alias =  "{{ key_store_key_alias }}"
 key_password =  "{{ key_store_key_password }}"
 
-[truststore]	
-file_name = "{{ trust_store_location }}"	
-type = "JKS"	
+#[keystore.primary]
+#file_name =  "wso2carbon.jks"
+#type =  "JKS"
+#password =  "wso2carbon"
+#alias =  "wso2carbon"
+#key_password =  "wso2carbon"
+
+#[keystore.internal]
+#file_name =  "wso2carbon.jks"
+#type =  "JKS"
+#password =  "wso2carbon"
+#alias =  "wso2carbon"
+#key_password =  "wso2carbon"
+
+[truststore]
+file_name = "{{ trust_store_location }}"
+type = "JKS"
 password = "{{ trust_store_password }}"
 
 {% for environment in gateway_environments %}
@@ -81,7 +95,7 @@ password= "$ref{super_admin.password}"
 
 [apim.oauth_config]
 revoke_endpoint = "{{ oauth_configs_revoke_api_url }}"
-enable_token_encryption = false	
+enable_token_encryption = false
 enable_token_hashing = false
 
 [apim.devportal]
@@ -97,7 +111,7 @@ enable_forum = true
 name="userPostSelfRegistration"
 subscriptions=["POST_ADD_USER"]
 
-[apim.throttling]		
+[apim.throttling]
 service_url = "{{ api_devportal_server_url }}"
 username = "$ref{super_admin.username}"
 password = "$ref{super_admin.password}"
