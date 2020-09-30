@@ -31,6 +31,20 @@ password =  "{{ key_store_password }}"
 alias =  "{{ key_store_key_alias }}"
 key_password =  "{{ key_store_key_password }}"
 
+#[keystore.primary]
+#file_name =  "wso2carbon.jks"
+#type =  "JKS"
+#password =  "wso2carbon"
+#alias =  "wso2carbon"
+#key_password =  "wso2carbon"
+
+#[keystore.internal]
+#file_name =  "wso2carbon.jks"
+#type =  "JKS"
+#password =  "wso2carbon"
+#alias =  "wso2carbon"
+#key_password =  "wso2carbon"
+
 [truststore]
 file_name = "{{ trust_store_location }}"
 type = "JKS"
@@ -84,12 +98,6 @@ throttle_decision_endpoints = [{% for endpoint in throttle_decision_endpoints %}
 traffic_manager_urls=[{% for url in url_group['traffic_manager_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 traffic_manager_auth_urls=[{% for url in url_group['traffic_manager_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 {% endfor %}
-
-[apim.cache.scopes]
-enable = true
-
-[apim.cache.publisher_roles] #check the usage and move to dev role
-enable = true
 
 [apim.devportal]
 url = "{{ api_devportal_url }}"
