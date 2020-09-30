@@ -2,7 +2,7 @@
 
 This document provides instructions to customize the WSO2 API Manager Ansible resources in order to deploy API Manager Pattern 3.
 
-![API Manager Pattern 3](images/P-H-1.png "API Manager Pattern 3")
+![API Manager Pattern 3](images/3-fully-distributed-setup.png "API Manager Pattern 3")
 
 ## Packs to be Copied
 

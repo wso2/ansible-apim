@@ -32,8 +32,8 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   └── inventory
 ├── docs
 │   ├── images
+│   │   ├── 3-fully-distributed-setup.png
 │   │   ├── API-M-single-node-deployment.png
-│   │   ├── P-H-1.png
 │   │   ├── P-H-2.png
 │   │   ├── P-H-3.png
 │   │   ├── P-M-1.png
