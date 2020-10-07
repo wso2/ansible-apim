@@ -13,14 +13,19 @@ Copy the following files to `files` directory. (Packs must be copied as per the 
 
 ## Database configurations
 
-In a production environment we recomend using an external database to store WSO2 application data. Follow the below steps to configure the database. 
+In a production environment we recommend using an external database to store WSO2 application data. Follow the below steps to configure the database. 
 
 1. Copy the relevant JDBC driver needed into `files/lib` directory.
 e.g : [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
 2. Update the database configurations in all the files under [group_vars](../dev/group_vars). In the files update `Datasource configurations section` and the `jdbc_driver` parameter. 
 
 
-Note: The step 3 is required if MySQL is used as the underneath database. Or else add the relevant database driver needed for the deployment. 
+## Keystore configurations
+
+Inorder to change the default keystores of the WSO2 server follow the instructions below.
+
+1. Add the primary keystore and the client-trustore under files/security/<product-home>.
+2. Uncomment the Keystore Configurations section in all the files under [group_vars](../dev/group_vars) and if the keystore names are different from the defaults make sure these changes are done.
 
 ## Customize the WSO2 Ansible scripts
 
