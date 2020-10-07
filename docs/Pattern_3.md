@@ -1,16 +1,26 @@
 # Customize WSO2 Ansible resources to deploy API Manager Pattern 3
 
-This document provides instructions to customize the WSO2 API Manager Ansible resources in order to deploy API Manager Pattern 3.
+This document provides instructions required to deploy API Manager Pattern 3.
 
 ![API Manager Pattern 3](images/3-fully-distributed-setup.png "API Manager Pattern 3")
 
 ## Packs to be Copied
 
-Copy the following files to `files` directory.
+Copy the following files to `files` directory. (Packs must be copied as per the required components). You need to add the ZIP Archive of the WSO2 distributions.
 
-1. [WSO2 API Manager package](https://wso2.com/api-management/install/)
-2. [WSO2 API Manager Analytics package](https://wso2.com/api-management/install/analytics/)
-3. [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
+1. [WSO2 API Manager package](https://wso2.com/api-management/install/) to files/packs
+2. [WSO2 API Manager Analytics package](https://wso2.com/api-management/install/analytics/) to files/packs
+
+## Database configurations
+
+In a production environment we recomend using an external database to store WSO2 application data. Follow the below steps to configure the database. 
+
+1. Copy the relevant JDBC driver needed into `files/lib` directory.
+e.g : [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
+2. Update the database configurations in all the files under [group_vars](../dev/group_vars). In the files update `Datasource configurations section` and the `jdbc_driver` parameter. 
+
+
+Note: The step 3 is required if MySQL is used as the underneath database. Or else add the relevant database driver needed for the deployment. 
 
 ## Customize the WSO2 Ansible scripts
 
