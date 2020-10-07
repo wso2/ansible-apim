@@ -31,11 +31,13 @@ Inorder to change the default keystores of the WSO2 server follow the instructio
 
 The followings are the roles needed to deploy API Manager pattern 3.
 
-- apim
+- apim-devportal
+- apim-publisher
 - apim-gateway
 - apim-tm
 - apim-km
 - apim-analytics-worker
+- apim-analytics-dashboard
 
 ### 1. Customize the [inventory](../dev/inventory) file
 
@@ -43,8 +45,8 @@ The followings are the roles needed to deploy API Manager pattern 3.
 
 ```
 [apim]
-apim_1 ansible_host=[ip_address] ansible_user=[ssh_user]
-apim_2 ansible_host=[ip_address] ansible_user=[ssh_user]
+apim-devportal_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+apim-publisher_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 apim-gateway_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 apim-gateway_2 ansible_host=[ip_address] ansible_user=[ssh_user]
 apim-tm_1 ansible_host=[ip_address] ansible_user=[ssh_user]
@@ -54,7 +56,7 @@ apim-km_2 ansible_host=[ip_address] ansible_user=[ssh_user]
 
 [apim-analytics]
 apim-analytics-worker_1 ansible_host=[ip_address] ansible_user=[ssh_user]
-apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
+apim-analytics-dashboard_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 ```
 > NOTE: Replace `[ip_address]` and `[ssh_user]` appropriately.
 
@@ -69,12 +71,17 @@ apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
   roles:
     - common
 
-- name: Apply API Manager Analytics worker configuration to apim-analytics-worker nodes
+- name: Apply API Manager Analytics worker configuration to apim-analytics-worker node
   hosts:
     - apim-analytics-worker_1
-    - apim-analytics-worker_2
   roles:
     - apim-analytics-worker
+
+- name: Apply API Manager Analytics dashboard configuration to apim-analytics-dashboard node
+  hosts:
+    - apim-analytics-dashboard_1
+  roles:
+    - apim-analytics-dashboard
 
 - name: Apply API-M keymanager configuration to keymanager nodes
   hosts:
@@ -83,12 +90,17 @@ apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
   roles:
     - apim-km
 
-- name: Apply API Manager configuration to apim nodes
+- name: Apply API Manager Devportal configuration to apim-devportal nodes
   hosts:
-    - apim_1
-    - apim_2
+    - apim-devportal_1
   roles:
-    - apim
+    - apim-devportal
+
+- name: Apply API Manager Publisher configuration to apim-publisher nodes
+  hosts:
+    - apim-publisher_1
+  roles:
+    - apim-publisher
 
 - name: Apply API Manager traffic manager configuration to gateway nodes
   hosts:
