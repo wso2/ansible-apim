@@ -27,6 +27,9 @@ admin_password: admin
 # api-manager.xml configs
 oauth_configs_revoke_api_url: https://localhost:${https.nio.port}/revoke
 
+# Heap memory allocation
+devportal_memory: -Xms256m -Xmx1024m
+
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',
       dest: '{{ carbon_home }}/repository/conf/deployment.toml' }

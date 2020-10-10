@@ -35,6 +35,7 @@
 #ulimit -n 100000
 
 export JAVA_HOME={{ java_symlink }};
+export JVM_MEM_OPTS={{ analytics_worker_memory }}
 cygwin=false;
 darwin=false;
 os400=false;
@@ -284,7 +285,7 @@ while [ "$status" = "$START_EXIT_STATUS" ]
 do
     $JAVACMD \
     -Xbootclasspath/a:"$CARBON_XBOOTCLASSPATH" \
-    -Xms256m -Xmx1024m \
+    $JVM_MEM_OPTS \
     -XX:+HeapDumpOnOutOfMemoryError \
     -XX:HeapDumpPath="$RUNTIME_HOME/logs/heap-dump.hprof" \
     $JAVA_OPTS \
