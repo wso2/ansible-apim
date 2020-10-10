@@ -30,6 +30,9 @@ jwt_encoding: base64
 jwt_claim_dialect: "http://wso2.org/claims"
 jwt_signing_algorithm: SHA256withRSA
 
+# Heap memory allocation
+km_memory: -Xms256m -Xmx1024m
+
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',
       dest: '{{ carbon_home }}/repository/conf/deployment.toml' }

@@ -34,3 +34,6 @@ transport_listner_config_https_port: 9643
 worker_nodes:
   - { ip: 'localhost',
       port: '9444' }
+
+# Heap memory allocation
+analytics_dashboard_memory: -Xms256m -Xmx1024m
