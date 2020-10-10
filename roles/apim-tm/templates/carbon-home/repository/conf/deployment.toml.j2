@@ -35,3 +35,13 @@ key_password =  "{{ key_store_key_password }}"
 file_name = "{{ trust_store_location }}"
 type = "JKS"
 password = "{{ trust_store_password }}"
+
+[apim.key_manager]
+service_url = "{{ key_manager_server_url }}"
+username = "$ref{super_admin.username}"
+password = "$ref{super_admin.password}"
+
+{% if tm_event_duplicate_url is defined %}
+[apim.throttling]
+event_duplicate_url = ["{{ tm_event_duplicate_url }}"]
+{% endif %}
