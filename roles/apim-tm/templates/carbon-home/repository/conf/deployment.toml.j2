@@ -37,7 +37,7 @@ type = "JKS"
 password = "{{ trust_store_password }}"
 
 [apim.key_manager]
-service_url = "{{ km_service_url }}"
+service_url = "{{ key_manager_server_url }}"
 username = "$ref{super_admin.username}"
 password = "$ref{super_admin.password}"
 
