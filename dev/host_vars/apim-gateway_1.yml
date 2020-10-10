@@ -27,6 +27,9 @@ admin_password: admin
 # Throttling configurations
 jms_conn_factory: amqp://${admin.username}:${admin.password}@clientid/carbon?brokerlist='tcp://${carbon.local.ip}:${jms.port}'
 
+# Heap memory allocation
+gw_memory: -Xms256m -Xmx1024m
+
 # List of configuration file templates, and the paths they should be written to
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',

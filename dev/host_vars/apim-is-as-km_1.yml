@@ -23,6 +23,9 @@ hostname: localhost
 admin_username: admin
 admin_password: admin
 
+# Heap memory allocation
+is_km_memory: -Xms256m -Xmx1024m
+
 # Clustering configurations
 local_member_host: 127.0.0.1
 local_member_port: 4000
