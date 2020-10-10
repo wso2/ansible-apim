@@ -24,9 +24,6 @@ ports_offset: 0
 admin_username: admin
 admin_password: admin
 
-# Add the LB host if the KM is deployed in HA. 
-km_service_url: https://[Key-Manager-LB-host]/services/
-
 #Following needs to be uncommented if TM is deployed in HA mode, If the TM is not HA keep the following commented.
 #tm_event_duplicate_url: tcp://tm_host:5672
 
