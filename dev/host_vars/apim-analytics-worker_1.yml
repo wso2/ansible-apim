@@ -30,3 +30,6 @@ thrift_data_receiver_ssl_port: 7711
 
 binary_data_receiver_tcp_port: 9611
 bianry_data_receiver_ssl_port: 9711
+
+# Heap memory allocation
+analytics_worker_memory: -Xms256m -Xmx1024m
