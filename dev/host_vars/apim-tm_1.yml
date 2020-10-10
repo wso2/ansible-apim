@@ -27,6 +27,9 @@ admin_password: admin
 #Following needs to be uncommented if TM is deployed in HA mode, If the TM is not HA keep the following commented.
 #tm_event_duplicate_url: tcp://tm_host:5672
 
+# Heap memory allocation
+tm_memory: -Xms256m -Xmx1024m
+
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',
       dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
