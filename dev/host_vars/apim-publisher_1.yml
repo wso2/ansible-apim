@@ -30,6 +30,9 @@ throttle_config_policy_deployer_url: https://localhost:${mgt.transport.https.por
 # Heap memory allocation
 publisher_memory: -Xms256m -Xmx1024m
 
+# If you want to add proxy port uncomment the following line
+#publisher_https_proxy_port: 443 
+
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',
       dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
