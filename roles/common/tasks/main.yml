@@ -36,13 +36,14 @@
       file:
         path: "{{ java_home }}"
         state: directory
+      when: jdk_setup_enabled|bool
 
     - name: Unarchive JDK distribution from local source
       unarchive:
         src: "{{ product_package_location }}/lib/{{ jdk_name }}.tar.gz"
         dest: "{{ java_home }}"
         extra_opts: [--strip-components=1]
-      when: pack_location == "local"
+      when: pack_location == "local" and jdk_setup_enabled|bool
 
     - name: Unarchive JDK distribution from remote source
       unarchive:
@@ -50,7 +51,7 @@
         dest: "{{ java_home }}"
         extra_opts: [--strip-components=1]
         remote_src: yes
-      when: pack_location == "remote"
+      when: pack_location == "remote" and jdk_setup_enabled|bool
 
     - name: Create Java symbolic link
       file:
