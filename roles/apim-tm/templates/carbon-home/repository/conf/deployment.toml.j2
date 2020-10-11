@@ -25,14 +25,28 @@ username = "{{ wso2am_db_username }}"
 password = "{{ wso2am_db_password }}"
 
 [keystore.tls]
-file_name =  "{{ key_store_location }}"
+file_name =  "{{ tls_key_store_name }}"
 type =  "JKS"
-password =  "{{ key_store_password }}"
-alias =  "{{ key_store_key_alias }}"
-key_password =  "{{ key_store_key_password }}"
+password =  "{{ tls_key_store_password }}"
+alias =  "{{ tls_key_store_key_alias }}"
+key_password =  "{{ tls_key_store_key_password }}"
+
+[keystore.primary]
+file_name =  "{{ primary_key_store_name }}"
+type =  "JKS"
+password =  "{{ primary_key_store_password }}"
+alias =  "{{ primary_key_store_key_alias }}"
+key_password =  "{{ primary_key_store_key_alias }}"
+
+[keystore.internal]
+file_name =  "{{ internal_key_store_name }}"
+type =  "JKS"
+password =  "{{ internal_key_store_password }}"
+alias =  "{{ internal_key_store_key_alias }}"
+key_password =  "{{ internal_key_store_key_alias }}"
 
 [truststore]
-file_name = "{{ trust_store_location }}"
+file_name = "{{ trust_store_name }}"
 type = "JKS"
 password = "{{ trust_store_password }}"
 
