@@ -162,10 +162,10 @@ trust_store_name: client-truststore.jks
 trust_store_password: wso2carbon
 
 # The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
-internal_keystore_name: wso2carbon.jks
-internal_keystore_key_password: wso2carbon
-internal_keystore_password: wso2carbon
-internal_keystore_key_alias: wso2carbon
+internal_key_store_name: wso2carbon.jks
+internal_key_store_key_password: wso2carbon
+internal_key_store_password: wso2carbon
+internal_key_store_key_alias: wso2carbon
 
 # The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
 tls_key_store_name: wso2carbon.jks
