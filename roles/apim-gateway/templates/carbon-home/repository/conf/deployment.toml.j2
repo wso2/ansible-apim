@@ -19,38 +19,30 @@ username = "{{ wso2shared_db_username }}"
 password = "{{ wso2shared_db_password }}"
 
 [keystore.tls]
-file_name =  "{{ key_store_location }}"
+file_name =  "{{ tls_key_store_name }}"
 type =  "JKS"
-password =  "{{ key_store_password }}"
-alias =  "{{ key_store_key_alias }}"
-key_password =  "{{ key_store_key_password }}"
+password =  "{{ tls_key_store_password }}"
+alias =  "{{ tls_key_store_key_alias }}"
+key_password =  "{{ tls_key_store_key_password }}"
 
-#[keystore.primary]
-#file_name =  "wso2carbon.jks"
-#type =  "JKS"
-#password =  "wso2carbon"
-#alias =  "wso2carbon"
-#key_password =  "wso2carbon"
+[keystore.primary]
+file_name =  "{{ primary_key_store_name }}"
+type =  "JKS"
+password =  "{{ primary_key_store_password }}"
+alias =  "{{ primary_key_store_key_alias }}"
+key_password =  "{{ primary_key_store_key_alias }}"
 
-#[keystore.internal]
-#file_name =  "wso2carbon.jks"
-#type =  "JKS"
-#password =  "wso2carbon"
-#alias =  "wso2carbon"
-#key_password =  "wso2carbon"
+[keystore.internal]
+file_name =  "{{ internal_key_store_name }}"
+type =  "JKS"
+password =  "{{ internal_key_store_password }}"
+alias =  "{{ internal_key_store_key_alias }}"
+key_password =  "{{ internal_key_store_key_alias }}"
 
 [truststore]
-file_name = "{{ trust_store_location }}"
+file_name = "{{ trust_store_name }}"
 type = "JKS"
 password = "{{ trust_store_password }}"
-
-[apim.cache.gateway_token]
-enable = true
-expiry_time = "900s"
-
-[apim.cache.resource]
-enable = true
-expiry_time = "900s"
 
 [apim.analytics]
 enable = "{{ analytics_enabled }}"
@@ -70,6 +62,17 @@ analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}
 service_url = "{{ key_manager_server_url }}"
 username= "$ref{super_admin.username}"
 password= "$ref{super_admin.password}"
+
+ # JWT Generation
+[apim.jwt]
+enable = true
+encoding = "base64" # base64,base64url
+#generator_impl = "org.wso2.carbon.apimgt.keymgt.token.JWTGenerator"
+claim_dialect = "http://wso2.org/claims"
+header = "X-JWT-Assertion"
+signing_algorithm = "SHA256withRSA"
+#enable_user_claims = true
+#claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.DefaultClaimsRetriever"
 
 [apim.throttling]
 service_url = "{{ api_devportal_server_url }}"
@@ -97,6 +100,20 @@ analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}
 enable = true
 expiry_time = 900
 
+[apim.cache.gateway_token]
+enable = true
+expiry_time = "900s"
+
+[apim.cache.resource]
+enable = true
+expiry_time = "900s"[apim.cache.gateway_token]
+enable = true
+expiry_time = "900s"
+
+[apim.cache.resource]
+enable = true
+expiry_time = "900s"
+
 [apim.oauth_config]
 remove_outbound_auth_header = true
 auth_header = "Authorization"
@@ -106,3 +123,11 @@ allow_origins = "*"
 allow_methods = ["GET","PUT","POST","DELETE","PATCH","OPTIONS"]
 allow_headers = ["authorization","Access-Control-Allow-Origin","Content-Type","SOAPAction"]
 allow_credentials = false
+
+{% if gw_https_proxy_port is defined %}
+[transport.https.properties]
+proxyPort = {{ gw_https_proxy_port }}
+{% endif %}
+
+[transport.passthru_https.sender.parameters]
+HostnameVerifier = "AllowAll"
