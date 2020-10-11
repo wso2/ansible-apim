@@ -168,10 +168,10 @@ internal_keystore_password: wso2carbon
 internal_keystore_key_alias: wso2carbon
 
 # The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
-tls_keystore_name: wso2carbon.jks
-tls_keystore_key_password: wso2carbon
-tls_keystore_password: wso2carbon
-tls_keystore_key_alias: wso2carbon
+tls_key_store_name: wso2carbon.jks
+tls_key_store_key_password: wso2carbon
+tls_key_store_password: wso2carbon
+tls_key_store_key_alias: wso2carbon
 
 # Add any new changes you want to add for the group/profile below.
 # If you add a new file under templates and parameterized the file, the values for those parameters should be added
