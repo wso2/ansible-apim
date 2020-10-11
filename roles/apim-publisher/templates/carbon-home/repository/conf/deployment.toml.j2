@@ -112,3 +112,8 @@ token_endpoint = "{{ workflow_token_endpoint }}"
 client_registration_endpoint = "{{ workflow_client_registration_endpoint }}"
 client_registration_username = "$ref{super_admin.username}"
 client_registration_password = "$ref{super_admin.password}"
+
+{% if publisher_https_proxy_port is defined %}
+[transport.https.properties]
+proxyPort = {{ publisher_https_proxy_port }}
+{% endif %}
