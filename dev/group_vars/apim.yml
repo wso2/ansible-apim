@@ -117,6 +117,7 @@ gateway_environments:
       https_endpoint: 'https://localhost:${https.nio.port}' }
 
 # Traffic Manager configurations
+traffic_manager_host_url: https://${carbon.local.ip}:${mgt.transport.https.port}
 traffic_manager_receiver_url: tcp://${carbon.local.ip}:${receiver.url.port}
 traffic_manager_auth_url: ssl://${carbon.local.ip}:${auth.url.port}
 throttle_decision_endpoints:
