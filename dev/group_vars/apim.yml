@@ -37,7 +37,7 @@ performance_tuning_file_list:
   - { src: '{{ product_package_location }}/system/etc/security/limits.conf',
       dest: '/etc/security/limits.conf' }
 
-# If custom keystores and trsustrores are need to be added, uncomment the below list
+# If custom primary keystores and trsustrores are need to be added, uncomment the below list
 # Add the required files under files/security/<product-home>/<path-to-file>
 # A sample is given below
 # security_file_list:
@@ -45,6 +45,20 @@ performance_tuning_file_list:
 #       dest: '{{ carbon_home }}/repository/resources/security/client-truststore.jks' }
 #   - { src: '{{ security_file_location }}/wso2am/wso2carbon.jks',
 #       dest: '{{ carbon_home }}/repository/resources/security/wso2carbon.jks' }
+
+# If custom tls keystore needs to be added, uncomment the below list
+# Add the required files under files/security/<product-home>/<path-to-file>
+# A sample is given below
+# security_file_list:
+#   - { src: '{{ security_file_location }}/wso2am/tls.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/tls.jks' }
+
+# If custom internal keystore needs to be added, uncomment the below list
+# Add the required files under files/security/<product-home>/<path-to-file>
+# A sample is given below
+# security_file_list:
+#   - { src: '{{ security_file_location }}/wso2am/internal.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/internal.jks' }
 
 # Uncomment and add any miscellaneous files you need to copy
 # A sample is given below
@@ -137,21 +151,28 @@ wso2shared_db_username: wso2carbon
 wso2shared_db_password: wso2carbon
 
 # Key Store and Trust Store configuration
-key_store_location: wso2carbon.jks
-key_store_password: wso2carbon
-key_store_key_password: wso2carbon
-key_store_key_alias: wso2carbon
-trust_store_location: client-truststore.jks
+primary_key_store_name: wso2carbon.jks
+primary_key_store_password: wso2carbon
+primary_key_store_key_password: wso2carbon
+primary_key_store_key_alias: wso2carbon
+
+# Client trustore configurations
+trust_store_name: client-truststore.jks
 trust_store_password: wso2carbon
 
 # The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
-internal_keystore_location: wso2carbon.jks
+internal_keystore_name: wso2carbon.jks
 internal_keystore_key_password: wso2carbon
 internal_keystore_password: wso2carbon
 internal_keystore_key_alias: wso2carbon
 
+# The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
+tls_keystore_name: wso2carbon.jks
+tls_keystore_key_password: wso2carbon
+tls_keystore_password: wso2carbon
+tls_keystore_key_alias: wso2carbon
+
 # Add any new changes you want to add for the group/profile below.
 # If you add a new file under templates and parameterized the file, the values for those parameters should be added
 # below. An example is provided below.
-# Changes applied to axis2.xml file.
 # clustering_enable: false

@@ -30,6 +30,9 @@ jms_conn_factory: amqp://${admin.username}:${admin.password}@clientid/carbon?bro
 # Heap memory allocation
 gw_memory: -Xms256m -Xmx1024m
 
+# If you want to add proxy port uncomment the following line
+#gw_https_proxy_port: 443 
+
 # List of configuration file templates, and the paths they should be written to
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',
