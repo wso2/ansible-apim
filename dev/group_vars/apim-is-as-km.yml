@@ -55,6 +55,7 @@ pack_location: local
 #remote_pack: "<URL_TO_IS_AS_KM_PACK>"
 
 # JDK Distributions
+setup_java_enabled: true #If this is set to false java_home variable below needs to be specified.
 jdk_name: amazon-corretto-8-x64-linux-jdk
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
