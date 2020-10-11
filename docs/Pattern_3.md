@@ -1,8 +1,18 @@
-# Customize WSO2 Ansible resources to deploy API Manager Pattern 3
+# Deploying API Manager Pattern 3
 
 This document provides instructions required to deploy API Manager Pattern 3.
 
 ![API Manager Pattern 3](images/3-fully-distributed-setup.png "API Manager Pattern 3")
+
+## Setting up Java
+The Ansible scripts are capable of installing java from a given JDK installer from the local file system or from the remote location. Java installation can be disabled if necessary from the `group_vars`. 
+
+Copy the following files to `files/lib` directory.
+
+1. [Amazon Corretto for Linux x64 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
+
+## Adding miscellaneous files
+If additional files needs to be added to the VMs, copy the miscellaneous files to `files/misc` directory. To enable file copying,  uncomment the `misc_file_list` in the yaml files under `group_vars` and add the miscellaneous files to the list.
 
 ## Packs to be Copied
 
@@ -24,8 +34,8 @@ e.g : [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
 
 Inorder to change the default keystores of the WSO2 server follow the instructions below.
 
-1. Add the primary keystore and the client-trustore under files/security/<product-home>.
-2. Uncomment the Keystore Configurations section in all the files under [group_vars](../dev/group_vars) and if the keystore names are different from the defaults make sure these changes are done.
+1. Add the primary, internal, tls keystore and the client-trustore under files/security/<product-home>.
+2. Uncomment the Keystore Configurations sections in all the files under [group_vars](../dev/group_vars) and if the keystore names are different from the defaults make sure these changes are done.
 
 ## Customize the WSO2 Ansible scripts
 
@@ -118,6 +128,7 @@ apim-analytics-dashboard_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 ```
 
 ### 3. Customize the roles for API Manager pattern 3
+API Manager pattern 3 contains 2 groups and the configurations specific for each group should be in the respective yaml file under [group_vars](../dev/group_vars) folder. Configurations specific to each host should be added to the corresponding yaml file under [host_vars](../dev/host_vars) folder.
 
 ```
 .
@@ -139,29 +150,31 @@ apim-analytics-dashboard_1 ansible_host=[ip_address] ansible_user=[ssh_user]
     └── inventory
 
 ```
-API Manager pattern 3 contains 2 groups and the configurations specific for each group should be in the respective yaml file under [group_vars](../dev/group_vars) folder. Configurations specific to each host should be added to the corresponding yaml file under [host_vars](../dev/host_vars) folder.
-
 Most commonly changed values are parameterized in the above files. If further changes are required, the values should be parameterized and added to the files accordingly.
 
-#### i. Customize `apim` role
+#### i. Customize `apim-devportal` role
 
-Navigate to [carbon-home](../roles/apim/templates/carbon-home) of the `apim` role. All the files required to deploy the API Manager Pub-Store-TM combination are here. Follow the instructions in the following documents to modify the files.
-- [Publisher](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/distributed-deployment/deploying-wso2-api-m-in-a-distributed-setup/#step-64-configure-and-start-the-api-publisher)
+Navigate to [carbon-home](../roles/apim-devportal/templates/carbon-home) of the `apim-devportal` role. Follow the instructions in the following documents to modify the files.
 - [Developer Portal](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/distributed-deployment/deploying-wso2-api-m-in-a-distributed-setup/#step-65-configure-and-start-the-developer-portal)
 
-#### ii. Customize `apim-gateway` role
+#### ii. Customize `apim-publisher` role
+
+Navigate to [carbon-home](../roles/apim-devportal/templates/carbon-home) of the `apim-devportal` role. Follow the instructions in the following documents to modify the files.
+- [Publisher](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/distributed-deployment/deploying-wso2-api-m-in-a-distributed-setup/#step-64-configure-and-start-the-api-publisher)
+
+#### iii. Customize `apim-gateway` role
 
 Navigate to [carbon-home](../roles/apim-gateway/templates/carbon-home) of the `apim-gateway` role. Follow the instructions in the [document](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/distributed-deployment/deploying-wso2-api-m-in-a-distributed-setup/#step-66-configure-and-start-the-gateway) and modify the files.
 
-#### iii. Customize `apim-tm` role
+#### iv. Customize `apim-tm` role
 
 Navigate to [carbon-home](../roles/apim-tm/templates/carbon-homel) of the `apim-tm` role. Follow the instructions in the [document](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/distributed-deployment/deploying-wso2-api-m-in-a-distributed-setup/#step-63-configure-and-start-the-traffic-manager) and modify the files.
 
-#### iv. Customize `apim-km` role
+#### v. Customize `apim-km` role
 
 Navigate to [carbon-home](../roles/apim-km/templates/carbon-home) of the `apim-km` role. Follow the instructions in the [document](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/distributed-deployment/deploying-wso2-api-m-in-a-distributed-setup/#step-62-configure-and-start-the-key-manager) and modify the files.
 
-#### v. Customize `apim-analytics-worker` role
+#### vi. Customize `apim-analytics-worker` role
 
 Navigate to [carbon-home](../roles/apim-analytics-worker/templates/carbon-home) of the `apim-analytics-worker` role. All the files required to deploy the API Manager analytics are here. Follow the instructions in the following files to modify the files.
 - [Minimum HA deployment](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/distributed-deployment/configure-apim-analytics/active-active/)
