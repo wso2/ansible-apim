@@ -5,7 +5,7 @@ offset="{{ ports_offset }}"
 server_role = "api-devportal"
 
 [super_admin]
-username = "{{ admin_username }}"
+username = "{% if secure_vault_enabled|bool %}$secret{admin_password}{% else %}{{ admin_username }}{% endif %}"
 password = "{{ admin_password }}"
 create_admin_account = true
 
@@ -36,14 +36,14 @@ file_name =  "{{ primary_key_store_name }}"
 type =  "JKS"
 password =  "{{ primary_key_store_password }}"
 alias =  "{{ primary_key_store_key_alias }}"
-key_password =  "{{ primary_key_store_key_alias }}"
+key_password =  "{{ primary_key_store_key_password }}"
 
 [keystore.internal]
 file_name =  "{{ internal_key_store_name }}"
 type =  "JKS"
 password =  "{{ internal_key_store_password }}"
 alias =  "{{ internal_key_store_key_alias }}"
-key_password =  "{{ internal_key_store_key_alias }}"
+key_password =  "{{ internal_key_store_key_password }}"
 
 [truststore]
 file_name = "{{ trust_store_name }}"
@@ -136,11 +136,21 @@ subscriptions=["POST_ADD_USER"]
 proxyPort = {{ devportal_https_proxy_port }}
 {% endif %}
 
-[apim.cache.recent_apis]
-enable = false
-
-[apim.cache.scopes]
-enable = true
-
-[apim.cache.tags]
-expiry_time = 120000
+{% if secure_vault_enabled|bool %}
+[secrets]
+admin_password = "[{{ admin_password }}]"
+primary_keystore_password = "[{{ primary_keystore_password }}]"
+primary_key_password = "[{{ primary_key_password }}]"
+truststrore_password = "[{{ truststrore_password }}]"
+wso2am_db_username = "[{{ wso2am_db_username }}]"
+wso2am_db_password = "[{{ wso2am_db_password }}]"
+wso2shared_db_username = "[{{ wso2shared_db_username }}]"
+wso2shared_db_password = "[{{ wso2shared_db_password }}]"
+primary_key_store_password = "[{{ primary_key_store_password }}]"
+primary_key_store_key_password = "[{{ primary_key_store_key_password }}]"
+trust_store_password = "[{{ trust_store_password }}]"
+internal_key_store_key_password = "[{{ internal_key_store_key_password }}]"
+internal_key_store_password = "[{{ internal_key_store_password }}]"
+tls_key_store_key_password = "[{{ tls_key_store_key_password }}]"
+tls_key_store_password = "[{{ tls_key_store_password }}]"
+{% endif %}
