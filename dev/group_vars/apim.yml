@@ -172,6 +172,9 @@ tls_key_store_key_password: wso2carbon
 tls_key_store_password: wso2carbon
 tls_key_store_key_alias: wso2carbon
 
+# If following is enabled all the sensitive information in server configurations will be encrypted. 
+secure_vault_enabled: true
+
 # Add any new changes you want to add for the group/profile below.
 # If you add a new file under templates and parameterized the file, the values for those parameters should be added
 # below. An example is provided below.
