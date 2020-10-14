@@ -14,13 +14,13 @@
 #  limitations under the License.
 # ----------------------------------------------------------------------------
 
-wso2_group: wso2
-wso2_user: wso2carbon
+wso2_group: wso2 # OS group to be created
+wso2_user: wso2carbon # OS user for WSO2 services
 product_name: wso2am
 product_version: 3.2.0
-target: /mnt
-product_package_location: files
-backup_dir: /tmp
+target: /mnt # Product installation directory
+product_package_location: files 
+backup_dir: /tmp # aArtifact backup die in the instance
 misc_file_location: "{{ product_package_location }}/misc"
 misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
@@ -29,7 +29,7 @@ security_file_location: "{{ product_package_location }}/security"
 # Set backup_enabled to true to backup <carbon-home>/repository/deployment/server directory
 backup_enabled: false
 
-# Performance tuning configurations
+# Performance tuning configurations for the operating system
 enable_performance_tuning: false
 performance_tuning_file_list:
   - { src: '{{ product_package_location }}/system/etc/sysctl.conf',
@@ -79,12 +79,10 @@ java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
 
-deployment_mode: single # Single or HA
-
 # Enable analytics for API Manager
 analytics_enabled: false
-stream_processor_username: ${admin.username}
-stream_processor_password: ${admin.password}
+stream_processor_username: ${admin.username} # Stream processor connection credentials
+stream_processor_password: ${admin.password} # Stream processor connection credentials
 stream_processor_rest_api_url: https://localhost:7444
 stream_processor_rest_api_username: ${admin.username}
 stream_processor_rest_api_password: ${admin.password}
@@ -111,7 +109,7 @@ gateway_environments:
   - { type: 'hybrid',
       name: 'Production and Sandbox',
       description: 'This is a hybrid gateway that handles both production and sandbox token traffic.',
-      service_url: 'https://localhost:${mgt.transport.https.port}${carbon.context}services/',
+      service_url: 'https://localhost:${mgt.transport.https.port}/services/',
       ws_endpoint: 'ws://localhost:9099',
       wss_endpoint: 'wss://localhost:8099',
       http_endpoint: 'http://localhost:${http.nio.port}',
