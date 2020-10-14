@@ -2,7 +2,7 @@
 hostname = "{{ hostname }}"
 node_ip = "127.0.0.1"
 offset="{{ ports_offset }}"
-mode = "{{ deployment_mode }}" #single or ha
+mode = "single" #single or ha
 base_path = "${carbon.protocol}://${carbon.host}:${carbon.management.port}"
 #discard_empty_caches = false
 server_role = "default"

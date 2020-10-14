@@ -27,7 +27,6 @@ admin_password: admin
 
 # api-manager.xml configs
 oauth_configs_revoke_api_url: https://localhost:${https.nio.port}/revoke
-throttle_config_policy_deployer_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
 
 # Heap memory allocation
 apim_memory: -Xms256m -Xmx1024m
