@@ -59,3 +59,19 @@ password = "$ref{super_admin.password}"
 [apim.throttling]
 event_duplicate_url = ["{{ tm_event_duplicate_url }}"]
 {% endif %}
+
+{% if secure_vault_enabled|bool %}
+[secrets]
+admin_password = "[{{ admin_password }}]"
+wso2am_db_username = "[{{ wso2am_db_username }}]"
+wso2am_db_password = "[{{ wso2am_db_password }}]"
+wso2shared_db_username = "[{{ wso2shared_db_username }}]"
+wso2shared_db_password = "[{{ wso2shared_db_password }}]"
+primary_key_store_password = "[{{ primary_key_store_password }}]"
+primary_key_store_key_password = "[{{ primary_key_store_key_password }}]"
+trust_store_password = "[{{ trust_store_password }}]"
+internal_key_store_key_password = "[{{ internal_key_store_key_password }}]"
+internal_key_store_password = "[{{ internal_key_store_password }}]"
+tls_key_store_key_password = "[{{ tls_key_store_key_password }}]"
+tls_key_store_password = "[{{ tls_key_store_password }}]"
+{% endif %}
