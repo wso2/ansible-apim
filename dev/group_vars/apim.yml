@@ -20,7 +20,7 @@ product_name: wso2am
 product_version: 3.2.0
 target: /mnt # Product installation directory
 product_package_location: files 
-backup_dir: /tmp # aArtifact backup die in the instance
+backup_dir: /tmp # Artifact backup directory in the instance
 misc_file_location: "{{ product_package_location }}/misc"
 misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
@@ -173,7 +173,7 @@ tls_key_store_password: wso2carbon
 tls_key_store_key_alias: wso2carbon
 
 # If following is enabled all the sensitive information in server configurations will be encrypted. 
-secure_vault_enabled: true
+secure_vault_enabled: false
 
 # Add any new changes you want to add for the group/profile below.
 # If you add a new file under templates and parameterized the file, the values for those parameters should be added
