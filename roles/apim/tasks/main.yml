@@ -139,17 +139,8 @@
     become_user: root
 
   - block:
-    - name: Run Secure Vault to Encrypt passwords
-      command: "{{ carbon_home }}/bin/ciphertool.sh -Dconfigure -Dpassword={{ internal_key_store_password }}"
-      args: 
-        chdir: "{{ carbon_home }}" 
+    - include: common-tasks/secure-vault.yml
       when: secure_vault_enabled|bool
-
-    - name: Creating a file with content
-      copy:
-        dest: "{{ carbon_home }}/password-tmp"
-        content: |
-          "{{ internal_key_store_password }}""
 
     - name: Start wso2apim as a service
       systemd:

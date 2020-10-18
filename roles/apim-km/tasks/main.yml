@@ -112,6 +112,9 @@
     become_user: root
 
   - block:
+    - include: common-tasks/secure-vault.yml
+      when: secure_vault_enabled|bool
+      
     - name: Start wso2apim-km as a service
       systemd:
         name: wso2apim-km
