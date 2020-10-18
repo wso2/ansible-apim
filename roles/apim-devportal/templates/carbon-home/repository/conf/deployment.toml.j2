@@ -5,8 +5,8 @@ offset="{{ ports_offset }}"
 server_role = "api-devportal"
 
 [super_admin]
-username = "{% if secure_vault_enabled|bool %}$secret{admin_password}{% else %}{{ admin_username }}{% endif %}"
-password = "{{ admin_password }}"
+username = "{% if secure_vault_enabled|bool %}$secret{admin_username}{% else %}{{ admin_username }}{% endif %}"
+password = "{% if secure_vault_enabled|bool %}$secret{admin_password}{% else %}{{ admin_password }}{% endif %}"
 create_admin_account = true
 
 [user_store]
@@ -139,9 +139,6 @@ proxyPort = {{ devportal_https_proxy_port }}
 {% if secure_vault_enabled|bool %}
 [secrets]
 admin_password = "[{{ admin_password }}]"
-primary_keystore_password = "[{{ primary_keystore_password }}]"
-primary_key_password = "[{{ primary_key_password }}]"
-truststrore_password = "[{{ truststrore_password }}]"
 wso2am_db_username = "[{{ wso2am_db_username }}]"
 wso2am_db_password = "[{{ wso2am_db_password }}]"
 wso2shared_db_username = "[{{ wso2shared_db_username }}]"
