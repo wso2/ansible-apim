@@ -8,8 +8,8 @@ base_path = "${carbon.protocol}://${carbon.host}:${carbon.management.port}"
 server_role = "default"
 
 [super_admin]
-username = "{% if secure_vault_enabled|bool %}$secret{admin_password}{% else %}{{ admin_username }}{% endif %}"
-password = "{{ admin_password }}"
+username = "{% if secure_vault_enabled|bool %}$secret{admin_username}{% else %}{{ admin_username }}{% endif %}"
+password = "{% if secure_vault_enabled|bool %}$secret{admin_password}{% else %}{{ admin_password }}{% endif %}"
 create_admin_account = true
 
 [user_store]
@@ -18,40 +18,40 @@ type = "database_unique_id"
 [database.apim_db]
 type = "{{ wso2am_db_type }}"
 url = "{{ wso2am_db_url }}"
-username = "{{ wso2am_db_username }}"
-password = "{{ wso2am_db_password }}"
+username = "{% if secure_vault_enabled|bool %}$secret{wso2am_db_username}{% else %}{{ wso2am_db_username }}{% endif %}"
+password = "{% if secure_vault_enabled|bool %}$secret{wso2am_db_password}{% else %}{{ wso2am_db_password }}{% endif %}"
 
 [database.shared_db]
 type = "{{ wso2shared_db_type }}"
 url = "{{ wso2shared_db_url }}"
-username = "{{ wso2shared_db_username }}"
-password = "{{ wso2shared_db_password }}"
+username = "{% if secure_vault_enabled|bool %}$secret{wso2shared_db_username}{% else %}{{ wso2shared_db_username }}{% endif %}"
+password = "{% if secure_vault_enabled|bool %}$secret{wso2shared_db_password}{% else %}{{ wso2shared_db_password }}{% endif %}"
 
 [keystore.tls]
 file_name =  "{{ tls_key_store_name }}"
 type =  "JKS"
-password =  "{{ tls_key_store_password }}"
+password =  "{% if secure_vault_enabled|bool %}$secret{tls_key_store_password}{% else %}{{ tls_key_store_password }}{% endif %}"
 alias =  "{{ tls_key_store_key_alias }}"
-key_password =  "{{ tls_key_store_key_password }}"
+key_password =  "{% if secure_vault_enabled|bool %}$secret{tls_key_store_key_password}{% else %}{{ tls_key_store_key_password }}{% endif %}"
 
 [keystore.primary]
 file_name =  "{{ primary_key_store_name }}"
 type =  "JKS"
-password =  "{{ primary_key_store_password }}"
+password =  "{% if secure_vault_enabled|bool %}$secret{primary_key_store_password}{% else %}{{ primary_key_store_password }}{% endif %}"
 alias =  "{{ primary_key_store_key_alias }}"
-key_password =  "{{ primary_key_store_key_alias }}"
+key_password =  "{% if secure_vault_enabled|bool %}$secret{primary_key_store_key_password}{% else %}{{ primary_key_store_key_password }}{% endif %}"
 
 [keystore.internal]
 file_name =  "{{ internal_key_store_name }}"
 type =  "JKS"
-password =  "{{ internal_key_store_password }}"
+password =  "{% if secure_vault_enabled|bool %}$secret{internal_key_store_password}{% else %}{{ internal_key_store_password }}{% endif %}"
 alias =  "{{ internal_key_store_key_alias }}"
-key_password =  "{{ internal_key_store_key_alias }}"
+key_password =  "{% if secure_vault_enabled|bool %}$secret{internal_key_store_key_password}{% else %}{{ internal_key_store_key_password }}{% endif %}"
 
 [truststore]
 file_name = "{{ trust_store_name }}"
 type = "JKS"
-password = "{{ trust_store_password }}"
+password = "{% if secure_vault_enabled|bool %}$secret{trust_store_password}{% else %}{{ trust_store_password }}{% endif %}"
 
 
 {% for environment in gateway_environments %}
