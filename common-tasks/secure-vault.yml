@@ -11,5 +11,11 @@
   copy:
     dest: "{{ carbon_home }}/password-tmp"
     content: |
-      "{{ internal_key_store_password }}"
-      
+      {{ internal_key_store_password }}
+
+- name: Change the owner of WSO2 directory
+  file:
+    path: "{{ carbon_home }}/password-tmp"
+    owner: "{{ wso2_user }}"
+    group: "{{ wso2_group }}"
+    mode: 0755
