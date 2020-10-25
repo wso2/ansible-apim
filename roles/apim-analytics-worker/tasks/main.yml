@@ -108,7 +108,7 @@
     become_user: root
 
   - block:
-    - include: common-tasks/analytics-secure-vault.yml
+    - include: common-tasks/analytics-secure-vault.yml analytics_profile=worker
       when: analytics_secure_vault_enabled|bool
     - name: Start Analytics Worker as a service
       systemd:

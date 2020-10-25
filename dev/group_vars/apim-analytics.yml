@@ -154,9 +154,12 @@ databridge_config_keystore_password: wso2carbon
 
 analytics_secure_vault_enabled: true # If sensitive passwords need to be encrypted enable this
 securevault_privatekey_alias: wso2carbon
+securevault_keystore_password: wso2carbon
+securevault_privatekey_password: wso2carbon
 securevault_keystore_location: ${sys:carbon.home}/resources/security/securevault.jks
 securevault_secret_properties_file: ${sys:carbon.home}/conf/${sys:wso2.runtime}/secrets.properties
 securevault_masterkeyreader_file: ${sys:carbon.home}/conf/${sys:wso2.runtime}/master-keys.yaml
+securevault_persist_masterkeys_file: true
 
 cluster_config_enabled: 'false'
 cluster_config_group_id: sp
