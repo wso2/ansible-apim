@@ -108,6 +108,8 @@
     become_user: root
 
   - block:
+    - include: common-tasks/analytics-secure-vault.yml analytics_profile=dashboard
+      when: analytics_secure_vault_enabled|bool
     - name: Start Analytics dashboard as a service
       systemd:
         name: wso2am-analytics-dashboard
