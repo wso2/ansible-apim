@@ -152,7 +152,7 @@ siddhi_api_keystore_cert_password: wso2carbon
 databridge_config_keystore_location: ${sys:carbon.home}/resources/security/wso2carbon.jks
 databridge_config_keystore_password: wso2carbon
 
-anaytics_secure_vault_enabled: true # If sensitive passwords need to be encrypted enable this
+analytics_secure_vault_enabled: true # If sensitive passwords need to be encrypted enable this
 securevault_privatekey_alias: wso2carbon
 securevault_keystore_location: ${sys:carbon.home}/resources/security/securevault.jks
 securevault_secret_properties_file: ${sys:carbon.home}/conf/${sys:wso2.runtime}/secrets.properties
@@ -195,6 +195,10 @@ worker_config_files:
       dest: '{{ carbon_home }}/conf/worker/deployment.yaml' }
   - { src: 'carbon-home/wso2/worker/bin/carbon.sh.j2',
       dest: '{{ carbon_home }}/wso2/worker/bin/carbon.sh' }
+  - { src: 'carbon-home/conf/worker/secrets.properties.j2',
+      dest: '{{ carbon_home }}/conf/worker/secrets.properties' }
+  - { src: 'carbon-home/conf/worker/master-keys.yaml.j2',
+      dest: '{{ carbon_home }}/conf/worker/master-keys.yaml' }
 
 # Dashboard - List of configuration file templates, and the paths they should be written to
 dashboard_config_files:
