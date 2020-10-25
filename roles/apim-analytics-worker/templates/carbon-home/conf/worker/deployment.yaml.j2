@@ -79,8 +79,8 @@ siddhi.stores.query.api:
       port: {{ siddhi_api_msf4j_https_port }}
       scheme: https
       keyStoreFile: "{{ siddhi_api_keystore_file }}"
-      keyStorePassword: {% if anaytics_secure_vault_enabled|bool %}${sec:siddhi_api_keystore_password}{% else %}{{ siddhi_api_keystore_password }}{% endif %}
-      certPass: {% if anaytics_secure_vault_enabled|bool %}${sec:siddhi_api_keystore_cert_password}{% else %}{{ siddhi_api_keystore_cert_password }}{% endif %}
+      keyStorePassword: {% if analytics_secure_vault_enabled|bool %}${sec:siddhi_api_keystore_password}{% else %}{{ siddhi_api_keystore_password }}{% endif %}{{''}}
+      certPass: {% if analytics_secure_vault_enabled|bool %}${sec:siddhi_api_keystore_cert_password}{% else %}{{ siddhi_api_keystore_cert_password }}{% endif %}{{''}}
 
   # Configuration used for the databridge communication
 databridge.config:
@@ -332,8 +332,8 @@ wso2.datasources:
         type: RDBMS
         configuration:
           jdbcUrl: '{{ wso2_metrics_db_url }}'
-          username: {% if anaytics_secure_vault_enabled|bool %}${sec:wso2_metrics_db_username}{% else %}{{ wso2_metrics_db_username }}{% endif %}
-          password: {% if anaytics_secure_vault_enabled|bool %}${sec:wso2_metrics_db_password}{% else %}{{ wso2_metrics_db_password }}{% endif %}
+          username: {% if analytics_secure_vault_enabled|bool %}${sec:wso2_metrics_db_username}{% else %}{{ wso2_metrics_db_username }}{% endif %}{{''}}
+          password: {% if analytics_secure_vault_enabled|bool %}${sec:wso2_metrics_db_password}{% else %}{{ wso2_metrics_db_password }}{% endif %}{{''}}
           driverClassName: {{ wso2_metrics_db_driver }}
           maxPoolSize: 30
           idleTimeout: 60000
@@ -350,8 +350,8 @@ wso2.datasources:
         type: RDBMS
         configuration:
           jdbcUrl: '{{ wso2_permissions_db_url }}'
-          username: {% if anaytics_secure_vault_enabled|bool %}${sec:wso2_permissions_db_username}{% else %}{{ wso2_permissions_db_username }}{% endif %}
-          password: {% if anaytics_secure_vault_enabled|bool %}${sec:wso2_permissions_db_password}{% else %}{{ wso2_permissions_db_password }}{% endif %}
+          username: {% if analytics_secure_vault_enabled|bool %}${sec:wso2_permissions_db_username}{% else %}{{ wso2_permissions_db_username }}{% endif %}{{''}}
+          password: {% if analytics_secure_vault_enabled|bool %}${sec:wso2_permissions_db_password}{% else %}{{ wso2_permissions_db_password }}{% endif %}{{''}}
           driverClassName: {{ wso2_permissions_db_driver }}
           maxPoolSize: 10
           idleTimeout: 60000
@@ -383,8 +383,8 @@ wso2.datasources:
         type: RDBMS
         configuration:
           jdbcUrl: '{{ apim_analytics_db_url }}'
-          username: {% if anaytics_secure_vault_enabled|bool %}${sec:apim_analytics_db_username}{% else %}{{ apim_analytics_db_username }}{% endif %}
-          password: {% if anaytics_secure_vault_enabled|bool %}${sec:apim_analytics_db_password}{% else %}{{ apim_analytics_db_password }}{% endif %}
+          username: {% if analytics_secure_vault_enabled|bool %}${sec:apim_analytics_db_username}{% else %}{{ apim_analytics_db_username }}{% endif %}{{''}}
+          password: {% if analytics_secure_vault_enabled|bool %}${sec:apim_analytics_db_password}{% else %}{{ apim_analytics_db_password }}{% endif %}{{''}}
           driverClassName: {{ apim_analytics_db_driver }}
           maxPoolSize: 50
           idleTimeout: 60000
@@ -406,8 +406,8 @@ wso2.datasources:
           isAutoCommit: false
           jdbcUrl: "{{ cluster_db_url }}"
           maxPoolSize: 10
-          password: {% if anaytics_secure_vault_enabled|bool %}${sec:cluster_db_password}{% else %}{{ cluster_db_password }}{% endif %}
-          username: {% if anaytics_secure_vault_enabled|bool %}${sec:cluster_db_username}{% else %}{{ cluster_db_username }}{% endif %}
+          password: {% if analytics_secure_vault_enabled|bool %}${sec:cluster_db_password}{% else %}{{ cluster_db_password }}{% endif %}{{''}}
+          username: {% if analytics_secure_vault_enabled|bool %}${sec:cluster_db_username}{% else %}{{ cluster_db_username }}{% endif %}{{''}}
           validationTimeout: 30000
 
 #    -
@@ -500,8 +500,8 @@ auth.configs:
        -
         {% for user in user_store_users %}
  user:
-           username: {% if anaytics_secure_vault_enabled|bool %}${sec:user_store_users_username}{% else %}{{ user.username }}{% endif %}
-           password: {% if anaytics_secure_vault_enabled|bool %}${sec:user_store_users_username}{% else %}{{ user.password }}{% endif %}
+           username: {% if analytics_secure_vault_enabled|bool %}${sec:user_store_users_username}{% else %}{{ user.username }}{% endif %}{{''}}
+           password: {% if analytics_secure_vault_enabled|bool %}${sec:user_store_users_username}{% else %}{{ user.password }}{% endif %}{{''}}
            roles: {{ user.roles }}
         {%  endfor %}
 
