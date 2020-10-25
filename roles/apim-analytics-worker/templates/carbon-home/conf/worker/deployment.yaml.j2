@@ -49,8 +49,8 @@ wso2.transport.http:
       port: {{ wso2_transport_msf4j_https_port }}
       scheme: https
       keyStoreFile: "{{ key_store_location }}"
-      keyStorePassword: {{ key_store_password }}
-      certPass: {{ cert_password }}
+      keyStorePassword: {% if analytics_secure_vault_enabled|bool %}${sec:key_store_password}{% else %}{{ key_store_password }}{% endif %}{{''}}
+      certPass: {% if analytics_secure_vault_enabled|bool %}${sec:cert_password}{% else %}{{ cert_password }}{% endif %}{{''}}
 
   senderConfigurations:
     -

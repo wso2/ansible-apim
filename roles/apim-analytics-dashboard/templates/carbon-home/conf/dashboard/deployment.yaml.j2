@@ -44,7 +44,7 @@ databridge.config:
   keyStoreLocation : {{ key_store_location }}
     # Keystore password
     # THIS IS A MANDATORY FIELD
-  keyStorePassword : {{ key_store_password }}
+  keyStorePassword : {% if analytics_secure_vault_enabled|bool %}${sec:key_store_password}{% else %}{{ key_store_password }}{% endif %}{{''}}
     # Session Timeout value in mins
     # THIS IS A MANDATORY FIELD
   clientTimeoutMin: 30
@@ -95,7 +95,7 @@ data.agent.config:
         # Trust store path
       trustStorePath: '{{ trust_store_location }}'
         # Trust store password
-      trustStorePassword: '{{ trust_store_password }}'
+      trustStorePassword: {% if analytics_secure_vault_enabled|bool %}${sec:trust_store_password}{% else %}{{ trust_store_password }}{% endif %}{{''}}
         # Queue Size
       queueSize: 32768
         # Batch Size
@@ -144,7 +144,7 @@ data.agent.config:
         # Trust store path
       trustStorePath: '{{ trust_store_location }}'
         # Trust store password
-      trustStorePassword: '{{ trust_store_password }}'
+      trustStorePassword: {% if analytics_secure_vault_enabled|bool %}${sec:trust_store_password}{% else %}{{ trust_store_password }}{% endif %}{{''}}
         # Queue Size
       queueSize: 32768
         # Batch Size
@@ -238,8 +238,8 @@ wso2.datasources:
       type: RDBMS
       configuration:
         jdbcUrl: '{{ business_rules_db_url }}'
-        username: {{ business_rules_db_username }}
-        password: {{ business_rules_db_password }}
+        username: {% if analytics_secure_vault_enabled|bool %}${sec:business_rules_db_username}{% else %}{{ business_rules_db_username }}{% endif %}{{''}}
+        password: {% if analytics_secure_vault_enabled|bool %}${sec:business_rules_db_password}{% else %}{{ business_rules_db_password }}{% endif %}{{''}}
         driverClassName: {{ business_rules_db_driver }}
         maxPoolSize: 20
         idleTimeout: 60000
@@ -256,8 +256,8 @@ wso2.datasources:
       type: RDBMS
       configuration:
         jdbcUrl: 'jdbc:h2:${sys:carbon.home}/wso2/dashboard/database/metrics;AUTO_SERVER=TRUE'
-        username: wso2carbon
-        password: wso2carbon
+        username: {% if analytics_secure_vault_enabled|bool %}${sec:wso2_metrics_db_username}{% else %}{{ wso2_metrics_db_username }}{% endif %}{{''}}
+        password: {% if analytics_secure_vault_enabled|bool %}${sec:wso2_metrics_db_password}{% else %}{{ wso2_metrics_db_password }}{% endif %}{{''}}
         driverClassName: org.h2.Driver
         maxPoolSize: 20
         idleTimeout: 60000
@@ -274,8 +274,8 @@ wso2.datasources:
       type: RDBMS
       configuration:
         jdbcUrl: '{{ wso2_permissions_db_url }}'
-        username: {{ wso2_permissions_db_username }}
-        password: {{ wso2_permissions_db_password }}
+        username: {% if analytics_secure_vault_enabled|bool %}${sec:wso2_permissions_db_username}{% else %}{{ wso2_permissions_db_username }}{% endif %}{{''}}
+        password: {% if analytics_secure_vault_enabled|bool %}${sec:wso2_permissions_db_password}{% else %}{{ wso2_permissions_db_password }}{% endif %}{{''}}
         driverClassName: {{ wso2_permissions_db_driver }}
         maxPoolSize: 10
         idleTimeout: 60000
@@ -292,8 +292,8 @@ wso2.datasources:
       type: RDBMS
       configuration:
         jdbcUrl: '{{ apim_analytics_db_url }}'
-        username: {{ apim_analytics_db_username }}
-        password: {{ apim_analytics_db_password }}
+        username: {% if analytics_secure_vault_enabled|bool %}${sec:apim_analytics_db_username}{% else %}{{ apim_analytics_db_username }}{% endif %}{{''}}
+        password: {% if analytics_secure_vault_enabled|bool %}${sec:apim_analytics_db_password}{% else %}{{ apim_analytics_db_password }}{% endif %}{{''}}
         driverClassName: {{ apim_analytics_db_driver }}
         maxPoolSize: 50
         idleTimeout: 60000
@@ -310,8 +310,8 @@ wso2.datasources:
       type: RDBMS
       configuration:
         jdbcUrl: "{{ am_db_url }}"
-        username: {{ am_db_username }}
-        password: {{ am_db_password }}
+        username: {% if analytics_secure_vault_enabled|bool %}${sec:am_db_username}{% else %}{{ am_db_username }}{% endif %}{{''}}
+        password: {% if analytics_secure_vault_enabled|bool %}${sec:am_db_password}{% else %}{{ am_db_password }}{% endif %}{{''}}
         driverClassName: {{ am_db_driver }}
         maxPoolSize: 10
         idleTimeout: 60000
@@ -360,8 +360,8 @@ wso2.transport.http:
       port: {{ transport_listner_config_https_port }}
       scheme: https
       keyStoreFile: "{{ key_store_location }}"
-      keyStorePassword: {{ key_store_password }}
-      certPass: {{ cert_password }}
+      keyStorePassword: {% if analytics_secure_vault_enabled|bool %}${sec:key_store_password}{% else %}{{ key_store_password }}{% endif %}{{''}}
+      certPass: {% if analytics_secure_vault_enabled|bool %}${sec:cert_password}{% else %}{{ cert_password }}{% endif %}{{''}}
 
 ## Dashboard data provider authorization
 data.provider.configs:
@@ -384,13 +384,13 @@ auth.configs:
   properties:
     adminScope: apim_analytics:admin_carbon.super
     allScopes: apim_analytics:admin openid apim:api_view apim:subscribe apim_analytics:monitoring_dashboard:own apim_analytics:monitoring_dashboard:edit apim_analytics:monitoring_dashboard:view apim_analytics:business_analytics:own apim_analytics:business_analytics:edit apim_analytics:business_analytics:view apim_analytics:api_analytics:own apim_analytics:api_analytics:edit apim_analytics:api_analytics:view apim_analytics:application_analytics:own apim_analytics:application_analytics:edit apim_analytics:application_analytics:view
-    adminUsername: {{ admin_service_username }}
-    adminPassword: {{ admin_service_password }}
+    adminUsername: {% if analytics_secure_vault_enabled|bool %}${sec:admin_service_username}{% else %}{{ admin_service_username }}{% endif %}{{''}}
+    adminPassword: {% if analytics_secure_vault_enabled|bool %}${sec:admin_service_password}{% else %}{{ admin_service_password }}{% endif %}{{''}}
     kmDcrUrl: {{ admin_service_url }}/client-registration/v0.16/register
     kmTokenUrlForRedirection: {{ admin_service_url }}/oauth2
     kmTokenUrl: {{ admin_service_url }}/oauth2
-    kmUsername: {{ keymanager_username }}
-    kmPassword: {{ keymanager_password }}
+    kmUsername: {% if analytics_secure_vault_enabled|bool %}${sec:keymanager_username}{% else %}{{ keymanager_username }}{% endif %}{{''}}
+    kmPassword: {% if analytics_secure_vault_enabled|bool %}${sec:keymanager_password}{% else %}{{ keymanager_password }}{% endif %}{{''}}
     portalAppContext: analytics-dashboard
     businessRulesAppContext : business-rules
     cacheTimeout: 30
