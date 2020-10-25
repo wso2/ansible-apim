@@ -209,3 +209,7 @@ dashboard_config_files:
       dest: '{{ carbon_home }}/conf/dashboard/deployment.yaml' }
   - { src: 'carbon-home/wso2/dashboard/bin/carbon.sh.j2',
       dest: '{{ carbon_home }}/wso2/dashboard/bin/carbon.sh' }
+  - { src: 'carbon-home/conf/dashboard/secrets.properties.j2',
+      dest: '{{ carbon_home }}/conf/dashboard/secrets.properties' }
+  - { src: 'carbon-home/conf/dashboard/master-keys.yaml.j2',
+      dest: '{{ carbon_home }}/conf/dashboard/master-keys.yaml' }
