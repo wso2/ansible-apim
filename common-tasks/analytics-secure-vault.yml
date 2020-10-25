@@ -4,4 +4,4 @@
     JAVA_HOME: "{{ java_home }}"
   args: 
     chdir: "{{ carbon_home }}" 
-  when: secure_vault_enabled|bool
+  when: analytics_secure_vault_enabled|bool
