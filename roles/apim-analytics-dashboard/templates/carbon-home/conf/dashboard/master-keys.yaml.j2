@@ -4,3 +4,4 @@ permanent: {{ securevault_persist_masterkeys_file }}
 masterKeys:
   keyStorePassword: !!binary {{ securevault_keystore_password | b64encode }}
   privateKeyPassword: !!binary {{ securevault_privatekey_password | b64encode }}
+  
