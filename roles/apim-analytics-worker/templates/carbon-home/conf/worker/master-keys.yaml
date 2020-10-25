@@ -1,6 +1,0 @@
-permanent: {{ persist_key_file }}
-# mastterKeys should be given in the base64 format and the data type of the
-# password should be explicitly specified as binary (type !!binary).
-masterKeys:
-  keyStorePassword: !!binary {{ decoded | b64encode }}
-  privateKeyPassword: !!binary {{ decoded | b64encode }}
