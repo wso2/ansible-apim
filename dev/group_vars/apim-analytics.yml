@@ -152,7 +152,7 @@ siddhi_api_keystore_cert_password: wso2carbon
 databridge_config_keystore_location: ${sys:carbon.home}/resources/security/wso2carbon.jks
 databridge_config_keystore_password: wso2carbon
 
-analytics_secure_vault_enabled: true # If sensitive passwords need to be encrypted enable this
+analytics_secure_vault_enabled: false # If sensitive passwords need to be encrypted enable this
 securevault_privatekey_alias: wso2carbon
 securevault_keystore_password: wso2carbon
 securevault_privatekey_password: wso2carbon
