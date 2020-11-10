@@ -61,7 +61,9 @@ java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
 
-admin_service_url: https://localhost:9443
+baseUrl: https://localhost:9643 # Analytics URL
+publisherUrl: https://localhost:9443 # Publisher URL
+devPortalUrl: https://localhost:9443 # Devportal URL
 admin_service_username: admin
 admin_service_password: admin
 keymanager_username: admin
