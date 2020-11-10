@@ -386,19 +386,19 @@ auth.configs:
     allScopes: apim_analytics:admin openid apim:api_view apim:subscribe apim_analytics:monitoring_dashboard:own apim_analytics:monitoring_dashboard:edit apim_analytics:monitoring_dashboard:view apim_analytics:business_analytics:own apim_analytics:business_analytics:edit apim_analytics:business_analytics:view apim_analytics:api_analytics:own apim_analytics:api_analytics:edit apim_analytics:api_analytics:view apim_analytics:application_analytics:own apim_analytics:application_analytics:edit apim_analytics:application_analytics:view
     adminUsername: {% if analytics_secure_vault_enabled|bool %}${sec:admin_service_username}{% else %}{{ admin_service_username }}{% endif %}{{''}}
     adminPassword: {% if analytics_secure_vault_enabled|bool %}${sec:admin_service_password}{% else %}{{ admin_service_password }}{% endif %}{{''}}
-    kmDcrUrl: {{ admin_service_url }}/client-registration/v0.16/register
-    kmTokenUrlForRedirection: {{ admin_service_url }}/oauth2
-    kmTokenUrl: {{ admin_service_url }}/oauth2
+    kmDcrUrl: {{ publisherUrl }}/client-registration/v0.17/register
+    kmTokenUrlForRedirection: {{ publisherUrl }}/oauth2
+    kmTokenUrl: {{ publisherUrl }}/oauth2
     kmUsername: {% if analytics_secure_vault_enabled|bool %}${sec:keymanager_username}{% else %}{{ keymanager_username }}{% endif %}{{''}}
     kmPassword: {% if analytics_secure_vault_enabled|bool %}${sec:keymanager_password}{% else %}{{ keymanager_password }}{% endif %}{{''}}
     portalAppContext: analytics-dashboard
     businessRulesAppContext : business-rules
     cacheTimeout: 30
-    baseUrl: https://localhost:9643
+    baseUrl: {{ baseUrl }}
     grantType: authorization_code
-    publisherUrl: {{ admin_service_url }}
-    devPortalUrl: {{ admin_service_url }}
-    externalLogoutUrl: {{ admin_service_url }}/oidc/logout
+    publisherUrl: {{ publisherUrl }}
+    devPortalUrl: {{ devPortalUrl }}
+    externalLogoutUrl: {{ publisherUrl }}/oidc/logout
 
 wso2.dashboard:
   roles:
