@@ -46,7 +46,7 @@
 #     - apim-store
 #
 # If you like to start two roles of APIM at a single node, you can achieve that by adding both roles under roles:. An
-# example is give below. This will start both API Manager default profile and Identity Server as Key Manager in the same
+# example is give below. This will start both API Manager default profile and APIM Analytics Worker in the same
 # apim_1 node.
 #
 # - name: Apply API Management store configuration to an apim node
@@ -54,4 +54,4 @@
 #     - apim_1
 #   roles:
 #     - apim
-#     - apim-is-as-km
+#     - apim-analytics-worker

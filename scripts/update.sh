@@ -99,10 +99,6 @@ case "${profile}" in
         pack="wso2am-analytics-"${version}
         updated_roles=("apim-analytics-worker")
         ;;
-    apim-is-as-km)
-        pack="wso2is-km-5.10.0"
-        updated_roles=("apim-is-as-km")
-        ;;
     *)
         echo "Invalid profile. Please provide one of the following profiles:
             apim
@@ -112,8 +108,7 @@ case "${profile}" in
             apim-devportal
             apim-tm
             apim-analytics-dashboard
-            apim-analytics-worker
-            apim-is-as-km"
+            apim-analytics-worker"
         exit 1
         ;;
 esac
