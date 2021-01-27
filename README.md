@@ -17,14 +17,12 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 ├── dev
 │   ├── group_vars
 │   │   ├── apim-analytics.yml
-│   │   ├── apim-is-as-km.yml
 │   │   └── apim.yml
 │   ├── host_vars
 │   │   ├── apim_1.yml
 │   │   ├── apim-analytics-dashboard_1.yml
 │   │   ├── apim-analytics-worker_1.yml
 │   │   ├── apim-gateway_1.yml
-│   │   ├── apim-is-as-km_1.yml
 │   │   ├── apim-km_1.yml
 │   │   ├── apim-publisher_1.yml
 │   │   ├── apim-devportal_1.yml
@@ -49,7 +47,6 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   └── packs
 │   │   ├── wso2am-3.2.0.zip
 │   │   ├── wso2am-analytics-3.2.0.zip
-│   │   └── wso2is-km-5.10.0.zip
 │   ├── system
 │   │   └── etc
 │   │       ├── security
@@ -71,9 +68,6 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   │   ├── tasks
 │   │   └── templates
 │   ├── apim-gateway
-│   │   ├── tasks
-│   │   └── templates
-│   ├── apim-is-as-km
 │   │   ├── tasks
 │   │   └── templates
 │   ├── apim-km
@@ -107,7 +101,6 @@ Copy the following files to `files/packs` directory.
 
 1. [WSO2 API Manager 3.2.0 package](https://wso2.com/api-management/install/)
 2. [WSO2 API Manager Analytics 3.2.0 package](https://wso2.com/api-management/install/analytics/)
-3. [WSO2 API Manager Identity Server as Key Manager 5.10.0 package](https://wso2.com/api-management/install/key-manager/)
 
 Copy the following files to `files/lib` directory.
 
