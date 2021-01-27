@@ -19,6 +19,5 @@ Any of the following profile names can be provided as arguments:
 * apim-tm
 * apim-analytics-dashboard
 * apim-analytics-worker
-* apim-is-as-km
 
 If any file that is used as a template is updated, a warning will be displayed. Update the relevant template files accordingly before pushing updates to the nodes.
