@@ -163,12 +163,12 @@ echo "Running WSO2 Update tool"
 if [[ ${status} -eq 0 ]] || [[ ${status} -eq 1 ]] || [[ ${status} -eq 2 ]]
 then
   echo "Validating credentials"
-  ./wso2update_darwin --template "Modified: {{.Modified}}, Conflicts: {{.Conflicts}}" 2>&1 | tee ${updates_dir}/output.txt
+  ./wso2update_linux --template "Modified: {{.Modified}}, Conflicts: {{.Conflicts}}" 2>&1 | tee ${updates_dir}/output.txt
   update_status=${PIPESTATUS[0]}
 elif [[ ${status} -eq 3 ]]
 then
   echo "Resolving conflicts"
-  ./wso2update_darwin --continue --template "Modified: {{.Modified}}, Conflicts: {{.Conflicts}}" 2>&1 | tee ${updates_dir}/output.txt
+  ./wso2update_linux --continue --template "Modified: {{.Modified}}, Conflicts: {{.Conflicts}}" 2>&1 | tee ${updates_dir}/output.txt
   update_status=${PIPESTATUS[0]}
 
   # Handle user running update script without resolving conflicts
@@ -188,7 +188,7 @@ fi
 if [[ ${update_status} -eq 2 ]]
 then
     echo "Update tool has been updated. Running update again."
-    ./wso2update_darwin --template "Modified: {{.Modified}}, Conflicts: {{.Conflicts}}" 2>&1 | tee ${updates_dir}/output.txt
+    ./wso2update_linux --template "Modified: {{.Modified}}, Conflicts: {{.Conflicts}}" 2>&1 | tee ${updates_dir}/output.txt
     update_status=${PIPESTATUS[0]}
 fi
 
