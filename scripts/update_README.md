@@ -1,6 +1,6 @@
 # Continuous Update Delivery for WSO2 API Manager
 
-The update script is to be used by WSO2 subscription users such that products packs can be updated. If you do not have a WSO2 subscription, you can still use this script using our three-months [trial] subscription.
+The update script is to be used by WSO2 subscription users such that products packs can be updated.
 
 ### Prequisites
 * Product packs should be provided in the `/files/packs` directory
