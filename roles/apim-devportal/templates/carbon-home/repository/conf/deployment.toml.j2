@@ -113,7 +113,7 @@ name="userPostSelfRegistration"
 subscriptions=["POST_ADD_USER"]
 
 [apim.throttling]
-service_url = "{{ api_devportal_server_url }}"
+service_url = "{{ traffic_manager_host_url }}/services/"
 username = "$ref{super_admin.username}"
 password = "$ref{super_admin.password}"
 enable_unlimited_tier = true
@@ -127,10 +127,6 @@ throttle_decision_endpoints = [{% for endpoint in throttle_decision_endpoints %}
 traffic_manager_urls=[{% for url in url_group['traffic_manager_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 traffic_manager_auth_urls=[{% for url in url_group['traffic_manager_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 {% endfor %}
-
-[[event_handler]]
-name="userPostSelfRegistration"
-subscriptions=["POST_ADD_USER"]
 
 {% if devportal_https_proxy_port is defined %}
 [transport.https.properties]

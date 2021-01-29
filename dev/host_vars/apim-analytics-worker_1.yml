@@ -19,8 +19,8 @@ ports_offset: 1
 
 wso2_carbon_id: wso2-am-analytics
 
-wso2_transport_default_port: 9091
-wso2_transport_msf4j_https_port: 9444
+wso2_transport_default_port: 9090
+wso2_transport_msf4j_https_port: 9443
 
 siddhi_api_default_port: 7071
 siddhi_api_msf4j_https_port: 7444

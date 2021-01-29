@@ -84,7 +84,7 @@ analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}
 {% endfor %}
 
 [apim.throttling]
-service_url = "{{ api_devportal_server_url }}"
+service_url = "{{ throttle_config_policy_deployer_url }}"
 username = "$ref{super_admin.username}"
 password = "$ref{super_admin.password}"
 enable_unlimited_tier = true
@@ -112,6 +112,11 @@ token_endpoint = "{{ workflow_token_endpoint }}"
 client_registration_endpoint = "{{ workflow_client_registration_endpoint }}"
 client_registration_username = "$ref{super_admin.username}"
 client_registration_password = "$ref{super_admin.password}"
+
+[apim.key_manager]
+service_url = "{{ key_manager_server_url }}"
+username= "$ref{super_admin.username}"
+password= "$ref{super_admin.password}"
 
 {% if publisher_https_proxy_port is defined %}
 [transport.https.properties]
