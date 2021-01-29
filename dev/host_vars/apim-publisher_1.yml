@@ -24,7 +24,7 @@ ports_offset: 0
 admin_username: admin
 admin_password: admin
 
-# api-manager.xml configs
+# Configure the throttle policy deployer to point to the TRaffic-Manager e.g: https://[API-Traffic-Manager-LB-Host]/services
 throttle_config_policy_deployer_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
 
 # Heap memory allocation

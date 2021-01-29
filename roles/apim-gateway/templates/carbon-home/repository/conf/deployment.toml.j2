@@ -81,7 +81,7 @@ signing_algorithm = "SHA256withRSA"
 #claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.DefaultClaimsRetriever"
 
 [apim.throttling]
-service_url = "{{ api_devportal_server_url }}"
+service_url = "{{ traffic_manager_host_url }}/services/"
 username = "$ref{super_admin.username}"
 password = "$ref{super_admin.password}"
 enable_unlimited_tier = true
