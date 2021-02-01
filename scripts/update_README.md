@@ -17,6 +17,7 @@ Any of the following profile names can be provided as arguments:
 * apim-publisher
 * apim-devportal
 * apim-tm
+* apim-analytics
 * apim-analytics-dashboard
 * apim-analytics-worker
 
