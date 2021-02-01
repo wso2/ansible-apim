@@ -55,3 +55,12 @@
 #   roles:
 #     - apim
 #     - apim-devportal
+#
+# NOTE : Make sure to configure the APIM-Analytics-Worker node details before the APIM nodes related configurations.
+# NOTE : Make sure to configure the APIM-Analytics-Dashboard node details after the APIM nodes related configurations.
+# NOTE : Please start the APIM nodes as per the below order
+# 1. Key-Manager
+# 2. Traffic-Manager
+# 3. Publisher-Portal
+# 4. Developer-Portal
+# 5. Gateway
