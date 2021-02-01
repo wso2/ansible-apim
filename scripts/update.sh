@@ -107,13 +107,17 @@ case "${profile}" in
         pack="wso2am-"${version}
         updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
         ;;
+    apim-analytics)
+        pack="wso2am-analytics-"${version}
+        updated_roles=("apim-analytics-worker" "apim-analytics-dashboard")
+        ;;
     apim-analytics-dashboard)
         pack="wso2am-analytics-"${version}
-        updated_roles=("apim-analytics-dashboard")
+        updated_roles=("apim-analytics-worker" "apim-analytics-dashboard")
         ;;
     apim-analytics-worker)
         pack="wso2am-analytics-"${version}
-        updated_roles=("apim-analytics-worker")
+        updated_roles=("apim-analytics-worker" "apim-analytics-dashboard")
         ;;
     *)
         echo "Invalid profile. Please provide one of the following profiles:
@@ -123,6 +127,7 @@ case "${profile}" in
             apim-publisher
             apim-devportal
             apim-tm
+            apim-analytics
             apim-analytics-dashboard
             apim-analytics-worker"
         exit 1
