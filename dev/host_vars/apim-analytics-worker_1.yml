@@ -18,6 +18,8 @@ hostname: 0.0.0.0
 ports_offset: 1
 
 wso2_carbon_id: wso2-am-analytics
+#make sure set the 'enable_partitionById' to "true" when the Analytics Workers are configured as Active-Active
+enable_partitionById : "false"
 
 wso2_transport_default_port: 9090
 wso2_transport_msf4j_https_port: 9443
