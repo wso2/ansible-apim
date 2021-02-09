@@ -89,12 +89,18 @@ stream_processor_rest_api_password: ${admin.password}
 analytics_url_group:
   - analytics_urls:
       - tcp://analytics1.local:7612
-    analytics_auth_urls:
-      - ssl://analytics1.local:7712
-  - analytics_urls:
       - tcp://analytics2.local:7612
     analytics_auth_urls:
+      - ssl://analytics1.local:7712
       - ssl://analytics2.local:7712
+    event_publishing_type: loadbalance #possible types "loadbalance" or "failover"
+#  - analytics_urls:
+#      - tcp://analytics1.local:7612
+#      - tcp://analytics2.local:7612
+#    analytics_auth_urls:
+#      - ssl://analytics1.local:7712
+#      - ssl://analytics2.local:7712
+#    event_publishing_type: failover
 
 # Server URL of the Authentication service. Make sure to import the Key Manager's public certificate to WSO2 API-M's
 # client-truststore.jks. For more information, see https://docs.wso2.com/display/ADMIN44x/Creating+New+Keystores

@@ -62,6 +62,7 @@ store_api_password = "{{ stream_processor_rest_api_password }}"
 [[apim.analytics.url_group]]
 analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+type = "{{ url_group.event_publishing_type }}"
 {% endfor %}
 
 [apim.key_manager]
@@ -93,12 +94,6 @@ throttle_decision_endpoints = [{% for endpoint in throttle_decision_endpoints %}
 [[apim.throttling.url_group]]
 traffic_manager_urls=[{% for url in url_group['traffic_manager_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 traffic_manager_auth_urls=[{% for url in url_group['traffic_manager_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
-{% endfor %}
-
-{% for url_group in analytics_url_group %}
-[[apim.analytics.url_group]]
-analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
-analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 {% endfor %}
 
 # Caches

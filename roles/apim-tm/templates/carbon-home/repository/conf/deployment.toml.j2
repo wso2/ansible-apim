@@ -60,6 +60,11 @@ password = "$ref{super_admin.password}"
 event_duplicate_url = ["{{ tm_event_duplicate_url }}"]
 {% endif %}
 
+{% if tm_https_proxy_port is defined %}
+[transport.https.properties]
+proxyPort = {{ tm_https_proxy_port }}
+{% endif %}
+
 {% if secure_vault_enabled|bool %}
 [secrets]
 admin_password = "[{{ admin_password }}]"
