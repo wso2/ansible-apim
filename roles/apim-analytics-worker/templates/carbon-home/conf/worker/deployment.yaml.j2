@@ -429,9 +429,9 @@ wso2.datasources:
 #          validationTimeout: 30000
 
 siddhi:
-  # properties:
-  #  partitionById: true
-  #  shardId: 1
+  properties:
+    partitionById: {{ enable_partitionById }}
+    shardId: {{ wso2_carbon_id }}
   refs:
     - ref:
         name: 'grpcSource'

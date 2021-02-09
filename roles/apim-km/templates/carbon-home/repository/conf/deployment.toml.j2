@@ -81,6 +81,11 @@ username = "${admin.username}"
 password = "${admin.password}"
 'header.X-WSO2-KEY-MANAGER' = "default"
 
+{% if keymanager_https_proxy_port is defined %}
+[transport.https.properties]
+proxyPort = {{ keymanager_https_proxy_port }}
+{% endif %}
+
 {% if secure_vault_enabled|bool %}
 [secrets]
 admin_password = "[{{ admin_password }}]"
