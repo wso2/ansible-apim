@@ -163,6 +163,18 @@ System configurations can be changed through Ansible to optimize OS level perfor
 
 System files that will be updated when performance tuning are enabled is available in `files/system`. Update the configuration values according to the requirements of your deployment.
 
+## Configuration guide
+
+Refer the below documentation on configuring key-stores for APIM and APIM-Analytics
+1. [WSO2 API Manager key-stores configuration guide](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/security/configuring-keystores/configuring-keystores-in-wso2-api-manager/)
+2. [WSO2 API Manager Analytics key-stores configuration guide](https://apim.docs.wso2.com/en/latest/learn/analytics/configuring-keystores-in-apim-analytics/)
+
+Refer the below documentation on configuring persistent artifacts of the servers.
+1. [Persistent artifacts of the servers](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/reference/common-runtime-and-configuration-artifacts/)
+
+Refer the below documentation on configuring Load-Balancers for your deoloyment.
+1. [Load balancer configurations](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/configuring-the-proxy-server-and-the-load-balancer/)
+
 ## Previous versions of Ansible
 
 The master branch of this repository contains the latest product version with the latest Ansible version. The Ansible resources for previous Ansible versions can be found in the branches. The following is an example.
