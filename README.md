@@ -157,6 +157,18 @@ Add the configurations to the `custom.yml`. A sample is given below.
 
 Follow the steps mentioned under `docs` directory to customize/create new Ansible scripts and deploy the recommended patterns.
 
+### 3. Including custom Keystore and Truststore
+If custom keystores and truststores are needed to be added, uncomment the below list in the yml file
+# security_file_list:
+#   - { src: '{{ security_file_location }}/wso2am-analytics/client-truststore.jks',
+#       dest: '{{ carbon_home }}/resources/security/client-truststore.jks' }
+#   - { src: '{{ security_file_location }}/wso2am-analytics/wso2carbon.jks',
+#       dest: '{{ carbon_home }}/resources/security/wso2carbon.jks' }
+
+Then save the changed file and add the required files under `files/security/<product-home>/<path-to-file>`
+
+### 4. Customize the WSO2 Ansible scripts
+
 ## Performance Tuning
 
 System configurations can be changed through Ansible to optimize OS level performance. Performance tuning can be enabled by changing `enable_performance_tuning` in `dev/group_vars/apim.yml` to `true`.
