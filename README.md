@@ -132,6 +132,11 @@ Run the following command to run the scripts.
 
 If you need to alter the configurations given, please change the parameterized values in the yaml files under `group_vars` and `host_vars`.
 
+**NOTE:**
+> If you have mounted the 'persistent artifacts' as guided [below](##Configuration-guide), make sure to unmount the artifacts, prior to running the Ansible playbook as the playbook running process has a step to remove the existing setup. After completing the Ansible playbook running process, make sure to remount the artifacts.
+
+> If the `client-truststore.jks` is monuted among the Gateway nodes, then make sure to copy the `client-truststore.jks` from the mount source to the `<ANSIBLE_HOME>/files/security/wso2am/` directory of the Ansible resources, prior to re-running the playbook.
+
 ### 2. Customize the WSO2 Ansible scripts
 
 The templates that are used by the Ansible scripts are in j2 format in-order to enable parameterization.
