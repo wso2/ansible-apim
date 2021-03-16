@@ -173,7 +173,7 @@ If custom Keystores and Truststores are needed to be added for APIM role, uncomm
 #   - { src: '{{ security_file_location }}/wso2am/wso2carbon.jks',
 #       dest: '{{ carbon_home }}/repository/resources/security/wso2carbon.jks' }
 ```
-Then save the changed file and add the required files in the following locations:`files/security/<role-name>/<path-to-file>`
+Then save the changed file and add the required files in the following locations:`files/security/apim/<path-to-file>`
 
 ##### Adding custom Keystore and Truststore configurations APIM Analytics role
 If custom Keystores and Truststores are needed to be added for APIM Analytics role, uncomment the below list in the apim-analytics.yml file.
@@ -185,7 +185,7 @@ If custom Keystores and Truststores are needed to be added for APIM Analytics ro
 #   - { src: '{{ security_file_location }}/wso2am-analytics/wso2carbon.jks',
 #       dest: '{{ carbon_home }}/resources/security/wso2carbon.jks' }
 ```
-Then save the changed file and add the required files under `files/security/<role-name>/<path-to-file>`
+Then save the changed file and add the required files under `files/security/apim-analytics/<path-to-file>`
 
 ## Performance Tuning
 
