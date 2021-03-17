@@ -202,7 +202,7 @@ Refer the below documentation on configuring key-stores for APIM and APIM-Analyt
 Refer the below documentation on configuring persistent artifacts of the servers.
 1. [Persistent artifacts of the servers](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/reference/common-runtime-and-configuration-artifacts/)
 
-Refer the below documentation on configuring Load-Balancers for your deoloyment.
+Refer the below documentation on configuring Load-Balancers for your deployment.
 1. [Load balancer configurations](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/configuring-the-proxy-server-and-the-load-balancer/)
 
 ## Previous versions of Ansible
