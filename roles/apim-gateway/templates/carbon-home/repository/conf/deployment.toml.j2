@@ -70,16 +70,19 @@ service_url = "{{ key_manager_server_url }}"
 username= "$ref{super_admin.username}"
 password= "$ref{super_admin.password}"
 
+{% if jwt_enable is defined %}
  # JWT Generation
 [apim.jwt]
-enable = true
-encoding = "base64" # base64,base64url
-#generator_impl = "org.wso2.carbon.apimgt.keymgt.token.JWTGenerator"
-claim_dialect = "http://wso2.org/claims"
-header = "X-JWT-Assertion"
-signing_algorithm = "SHA256withRSA"
-#enable_user_claims = true
-#claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.DefaultClaimsRetriever"
+enable = "{{ jwt_enable }}"
+encoding = "{{ jwt_encoding }}"
+generator_impl = "{{ jwt_generator_impl }}"
+claim_dialect = "{{ jwt_claim_dialect }}"
+convert_dialect = "{{ jwt_convert_dialect }}"
+header = "{{ jwt_header }}"
+signing_algorithm = "{{ jwt_signing_algorithm }}"
+enable_user_claims = "{{ jwt_enable_user_claims }}"
+claims_extractor_impl = "{{ jwt_claims_extractor_impl }}"
+{% endif %}
 
 [apim.throttling]
 service_url = "{{ traffic_manager_host_url }}/services/"

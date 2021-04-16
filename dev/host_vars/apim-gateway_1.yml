@@ -33,6 +33,17 @@ gw_memory: -Xms256m -Xmx1024m
 # If you want to add proxy port uncomment the following line
 #gw_https_proxy_port: 443 
 
+# If you want to enable 'Passing Enduser Attributes to the Backend Using JWT' feature, uncomment the following segment
+#jwt_enable: true
+#jwt_encoding: "base64" # base64,base64url
+#jwt_generator_impl: "org.wso2.carbon.apimgt.keymgt.token.JWTGenerator"
+#jwt_claim_dialect: "http://wso2.org/claims"
+#jwt_convert_dialect: false
+#jwt_header: "X-JWT-Assertion"
+#jwt_signing_algorithm: "SHA256withRSA"
+#jwt_enable_user_claims: true
+#jwt_claims_extractor_impl: "org.wso2.carbon.apimgt.impl.token.ExtendedDefaultClaimsRetriever"
+
 # List of configuration file templates, and the paths they should be written to
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',
