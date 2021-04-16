@@ -24,12 +24,6 @@ ports_offset: 0
 admin_username: admin
 admin_password: admin
 
-# JWT Generation
-jwt_enable: "true"
-jwt_encoding: base64
-jwt_claim_dialect: "http://wso2.org/claims"
-jwt_signing_algorithm: SHA256withRSA
-
 # If you want to add proxy port uncomment the following line
 #keymanager_https_proxy_port: 443 
 
