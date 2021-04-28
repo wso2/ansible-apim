@@ -163,7 +163,21 @@ Add the configurations to the `custom.yml`. A sample is given below.
 Follow the steps mentioned under `docs` directory to customize/create new Ansible scripts and deploy the recommended patterns.
 
 #### Including custom Keystore and Truststore
-If custom keystores and truststores are needed to be added, uncomment the below list in the yml file
+##### Adding custom Keystore and Truststore configurations APIM role
+If custom Keystores and Truststores are needed to be added for APIM role, uncomment the below list in the apim.yml file.
+(located at `dev/group_vars/apim.yml`)
+```
+# security_file_list:
+#   - { src: '{{ security_file_location }}/wso2am/client-truststore.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/client-truststore.jks' }
+#   - { src: '{{ security_file_location }}/wso2am/wso2carbon.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/wso2carbon.jks' }
+```
+Then save the changed file and add the required file to the following locations:`files/security/apim/<path-to-file>`
+
+##### Adding custom Keystore and Truststore configurations APIM Analytics role
+If custom Keystores and Truststores are needed to be added for APIM Analytics role, uncomment the below list in the apim-analytics.yml file.
+(located at `dev/group_vars/apim-analytics.yml`)
 ```
 # security_file_list:
 #   - { src: '{{ security_file_location }}/wso2am-analytics/client-truststore.jks',
@@ -171,7 +185,7 @@ If custom keystores and truststores are needed to be added, uncomment the below 
 #   - { src: '{{ security_file_location }}/wso2am-analytics/wso2carbon.jks',
 #       dest: '{{ carbon_home }}/resources/security/wso2carbon.jks' }
 ```
-Then save the changed file and add the required files under `files/security/<product-home>/<path-to-file>`
+Then save the changed file and add the required file to the following locations:`files/security/apim-analytics/<path-to-file>`
 
 ## Performance Tuning
 
@@ -188,7 +202,7 @@ Refer the below documentation on configuring key-stores for APIM and APIM-Analyt
 Refer the below documentation on configuring persistent artifacts of the servers.
 1. [Persistent artifacts of the servers](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/reference/common-runtime-and-configuration-artifacts/)
 
-Refer the below documentation on configuring Load-Balancers for your deoloyment.
+Refer the below documentation on configuring Load-Balancers for your deployment.
 1. [Load balancer configurations](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/configuring-the-proxy-server-and-the-load-balancer/)
 
 ## Previous versions of Ansible
