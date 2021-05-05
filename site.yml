@@ -37,19 +37,19 @@
 #   roles:
 #     - apim-<profile>
 #
-# An example is given below. This will deploy API Manager store profile in apim_1 node.
+# An example is given below. This will deploy API Manager developer portal profile in apim_1 node.
 #
-# - name: Apply API Management store configuration to an apim node
+# - name: Apply API Management developer portal configuration to an apim node
 #   hosts:
 #     - apim_1
 #   roles:
-#     - apim-store
+#     - apim-devportal
 #
 # If you like to start two roles of APIM at a single node, you can achieve that by adding both roles under roles:. An
-# example is give below. This will start both API Manager default profile and API Manager devportal profile in the
+# example is give below. This will start both API Manager default profile and API Manager developer portal profile in the
 # same apim_1 node.
 #
-# - name: Apply API Management store configuration to an apim node
+# - name: Apply API Management developer portal configuration to an apim node
 #   hosts:
 #     - apim_1
 #   roles:
@@ -64,4 +64,3 @@
 # 3. Publisher-Portal
 # 4. Developer-Portal
 # 5. Gateway
-
