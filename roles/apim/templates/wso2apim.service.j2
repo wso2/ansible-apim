@@ -3,9 +3,9 @@ Description=WSO2 API Manager - Default profile
 After=network.target
 
 [Service]
-ExecStart={{ carbon_home }}/bin/wso2server.sh start
-ExecStop={{ carbon_home }}/bin/wso2server.sh stop
-ExecRestart={{ carbon_home }}/bin/wso2server.sh restart
+ExecStart={{ carbon_home }}/bin/api-manager.sh start
+ExecStop={{ carbon_home }}/bin/api-manager.sh stop
+ExecRestart={{ carbon_home }}/bin/api-manager.sh restart
 PIDFile={{ carbon_home }}/wso2carbon.pid
 User={{ wso2_user }}
 Group={{ wso2_group }}
