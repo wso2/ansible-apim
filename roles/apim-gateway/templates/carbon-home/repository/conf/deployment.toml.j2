@@ -68,6 +68,9 @@ enable_user_claims = "{{ jwt_enable_user_claims }}"
 claims_extractor_impl = "{{ jwt_claims_extractor_impl }}"
 {% endif %}
 
+[apim.sync_runtime_artifacts.gateway]
+gateway_labels ={{sync_runtime_gateway_labels}}
+
 [apim.throttling]
 service_url = "{{ traffic_manager_host_url }}/services/"
 username = "$ref{super_admin.username}"
