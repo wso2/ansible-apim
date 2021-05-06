@@ -13,22 +13,17 @@ While executing the update script, provide the profile name. The pack correspond
 Any of the following profile names can be provided as arguments:
 * apim
 * apim-gateway
-* apim-km
-* apim-publisher
-* apim-devportal
+* apim-control-plane
 * apim-tm
-* apim-analytics
-* apim-analytics-dashboard
-* apim-analytics-worker
 
 If any file that is used as a template is updated, a warning will be displayed. Update the relevant template files accordingly before pushing updates to the nodes.
 
-Once the update process completed, it reqires to execute the Ansible-playbook to apply the updated distributions to the deployment.
-1. [Ansible Playbook guide](https://github.com/wso2/ansible-apim/blob/3.2.x/README.md)
+Once the update process completed, it requires to execute the Ansible-playbook to apply the updated distributions to the deployment.
+1. [Ansible Playbook guide](https://github.com/wso2/ansible-apim/blob/4.0.x/README.md)
 
 There are two options to place the product distributions to the nodes,
 1. Keeping the updated product distribution(`<Ansible_Home>/files/packs/`) in the host machine that runs the Ansible Playbook.(Updated packs will be copied from the Ansible host machine to each server during the playbook runtime)
-Please find the sample configurations for `<Ansible_Home>/group_vars/apim.yml` and `<Ansible_Home>/group_vars/apim-analytics.yml`.
+Please find the sample configurations for `<Ansible_Home>/group_vars/apim.yml`.
 ```java
 pack_location: local
 ```
@@ -38,14 +33,8 @@ In the below sample, it uses the remote location as `/mnt/`.
 Please find the sample configurations for `<Ansible_Home>/group_vars/apim.yml`.
 ```java
 pack_location: remote
-remote_jdk: "/mnt/amazon-corretto-8.282.08.1-linux-x64.tar.gz"
-remote_pack: "/mnt/wso2am-3.2.0.zip"
-```
-Please find the sample configurations for `<Ansible_Home>/group_vars/apim-analytics.yml`.
-```java
-pack_location: remote
-remote_jdk: "/mnt/amazon-corretto-8.282.08.1-linux-x64.tar.gz"
-remote_pack: "/mnt/wso2am-analytics-3.2.0.zip"
+remote_jdk: "/mnt/amazon-corretto-8.292.10.1-linux-x64.tar.gz"
+remote_pack: "/mnt/wso2am-4.0.0.zip"
 ```
 
 NOTES:
