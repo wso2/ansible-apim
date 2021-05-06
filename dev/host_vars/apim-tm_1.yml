@@ -36,7 +36,7 @@ tm_memory: -Xms256m -Xmx1024m
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',
       dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
-  - { src: 'carbon-home/bin/wso2server.sh.j2',
-      dest: '{{ carbon_home }}/bin/wso2server.sh' }
+  - { src: 'carbon-home/bin/api-manager.sh.j2',
+      dest: '{{ carbon_home }}/bin/api-manager.sh' }
   - { src: 'carbon-home/repository/conf/carbon.xml.j2',
       dest: '{{ carbon_home }}/repository/conf/carbon.xml' }

@@ -28,7 +28,7 @@
         state: directory
         mode: 0755
 
-    - name: Copy WSO2AM Trafficmanager service file
+    - name: Copy WSO2AM Traffic Manager service file
       template:
         src: wso2apim-tm.service.j2
         dest: /etc/systemd/system/wso2apim-tm.service
