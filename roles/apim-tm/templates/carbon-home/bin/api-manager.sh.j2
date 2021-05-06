@@ -34,7 +34,7 @@
 #ulimit -n 100000
 
 export JAVA_HOME={{ java_symlink }};
-export JVM_MEM_OPTS="{{ km_memory }}"
+export JVM_MEM_OPTS="{{ tm_memory }}"
 cygwin=false;
 darwin=false;
 os400=false;
@@ -205,7 +205,7 @@ elif [ "$CMD" = "start" ]; then
   fi
   export CARBON_HOME="$CARBON_HOME"
 # using nohup sh to avoid erros in solaris OS.TODO
-  nohup sh "$CARBON_HOME"/bin/wso2server.sh $args > /dev/null 2>&1 &
+  nohup sh "$CARBON_HOME"/bin/api-manager.sh $args > /dev/null 2>&1 &
   exit 0
 elif [ "$CMD" = "stop" ]; then
   export CARBON_HOME="$CARBON_HOME"
@@ -224,7 +224,7 @@ elif [ "$CMD" = "restart" ]; then
   done
 
 # using nohup sh to avoid erros in solaris OS.TODO
-  nohup sh "$CARBON_HOME"/bin/wso2server.sh $args > /dev/null 2>&1 &
+  nohup sh "$CARBON_HOME"/bin/api-manager.sh $args > /dev/null 2>&1 &
   exit 0
 elif [ "$CMD" = "test" ]; then
     JAVACMD="exec "$JAVACMD""
@@ -262,6 +262,10 @@ do
     fi
 done
 for t in "$CARBON_HOME"/lib/*.jar
+	do
+	    CARBON_CLASSPATH="$CARBON_CLASSPATH":$t
+	done
+	for t in "$CARBON_HOME"/lib/endorsed/*.jar
 do
     CARBON_CLASSPATH="$CARBON_CLASSPATH":$t
 done
@@ -350,6 +354,7 @@ do
     -DworkerNode=false \
     -DenableCorrelationLogs=false \
     -Dcarbon.new.config.dir.path="$CARBON_HOME/repository/resources/conf" \
+    -Djavax.xml.xpath.XPathFactory:http://java.sun.com/jaxp/xpath/dom=net.sf.saxon.xpath.XPathFactoryImpl \
     org.wso2.carbon.bootstrap.Bootstrap $*
     status=$?
 done
