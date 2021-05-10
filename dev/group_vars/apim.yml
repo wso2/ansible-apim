@@ -123,7 +123,7 @@ throttling_url_group:
 workflow_enable: "false"
 workflow_service_url: https://localhost:9445/bpmn
 workflow_callback_endpoint: https://localhost:9443/api/am/publisher/v0.17/workflows/update-workflow-status
-workflow_token_endpoint: https://localhost:8243/token
+workflow_token_endpoint: https://localhost:9443/oauth2/token
 workflow_client_registration_endpoint: https://localhost:9443/client-registration/v0.17/register
 
 # Datasource configurations

@@ -69,7 +69,7 @@ claims_extractor_impl = "{{ jwt_claims_extractor_impl }}"
 {% endif %}
 
 [apim.sync_runtime_artifacts.gateway]
-gateway_labels ={{sync_runtime_gateway_labels}}
+gateway_labels = [{% for label in sync_runtime_gateway_labels %}"{{ label }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 
 [apim.throttling]
 service_url = "{{ traffic_manager_host_url }}/services/"

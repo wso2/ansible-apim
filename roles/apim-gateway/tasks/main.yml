@@ -33,7 +33,7 @@
         src: wso2apim-gateway.service.j2
         dest: /etc/systemd/system/wso2apim-gateway.service
 
-    - name: Stop wso2apim as a service
+    - name: Stop wso2apim-gateway as a service
       systemd:
         name: wso2apim-gateway
         state: stopped
