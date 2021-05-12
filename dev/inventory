@@ -6,5 +6,5 @@ apim_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 # apim_1 ansible_host=172.28.128.4 ansible_user=vagrant
 
 # Example
-# [apim-analytics]
-# apim-analytics-worker_1 ansible_host=172.28.128.4 ansible_user=vagrant
+# [micro-integrator]
+# micro-integrator_1 ansible_host=172.28.128.4 ansible_user=vagrant

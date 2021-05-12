@@ -17,13 +17,14 @@
 wso2_group: wso2 # OS group to be created
 wso2_user: wso2carbon # OS user for WSO2 services
 product_name: wso2am
-product_version: 3.2.0
+product_version: 4.0.0
 target: /mnt # Product installation directory
 product_package_location: files 
 backup_dir: /tmp # Artifact backup directory in the instance
 misc_file_location: "{{ product_package_location }}/misc"
 misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
+#If you uncomment the below line to set the jdbc driver, change the driver name accordingly
 #jdbc_driver: mysql-connector-java-5.1.47-bin.jar
 
 # Set backup_enabled to true to backup <carbon-home>/repository/deployment/server directory
@@ -74,27 +75,10 @@ pack_location: local
 
 # JDK Distributions
 setup_java_enabled: true #If this is set to false java_home variable below needs to be specified.
-jdk_name: amazon-corretto-8-x64-linux-jdk
+jdk_name: amazon-corretto-8.292.10.1-linux-x64
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
-
-# Enable analytics for API Manager
-analytics_enabled: false
-stream_processor_username: ${admin.username} # Stream processor connection credentials
-stream_processor_password: ${admin.password} # Stream processor connection credentials
-stream_processor_rest_api_url: https://localhost:7444
-stream_processor_rest_api_username: ${admin.username}
-stream_processor_rest_api_password: ${admin.password}
-analytics_url_group:
-  - analytics_urls:
-      - tcp://analytics1.local:7612
-    analytics_auth_urls:
-      - ssl://analytics1.local:7712
-  - analytics_urls:
-      - tcp://analytics2.local:7612
-    analytics_auth_urls:
-      - ssl://analytics2.local:7712
 
 # Server URL of the Authentication service. Make sure to import the Key Manager's public certificate to WSO2 API-M's
 # client-truststore.jks. For more information, see https://docs.wso2.com/display/ADMIN44x/Creating+New+Keystores
@@ -107,13 +91,17 @@ api_devportal_server_url: https://localhost:${mgt.transport.https.port}${carbon.
 # Gateway configurations
 gateway_environments:
   - { type: 'hybrid',
-      name: 'Production and Sandbox',
+      name: 'Default',
       description: 'This is a hybrid gateway that handles both production and sandbox token traffic.',
       service_url: 'https://localhost:${mgt.transport.https.port}/services/',
       ws_endpoint: 'ws://localhost:9099',
       wss_endpoint: 'wss://localhost:8099',
       http_endpoint: 'http://localhost:${http.nio.port}',
-      https_endpoint: 'https://localhost:${https.nio.port}' }
+      https_endpoint: 'https://localhost:${https.nio.port}',
+      websub_event_receiver_http_endpoint: "http://localhost:9021",
+      websub_event_receiver_https_endpoint: "https://localhost:8021"}
+
+sync_runtime_gateway_labels: ["Default"]
 
 # Traffic Manager configurations
 traffic_manager_host_url: https://${carbon.local.ip}:${mgt.transport.https.port}
@@ -135,9 +123,9 @@ throttling_url_group:
 # Workflow configurations
 workflow_enable: "false"
 workflow_service_url: https://localhost:9445/bpmn
-workflow_callback_endpoint: https://localhost:9443/api/am/publisher/v0.15/workflows/update-workflow-status
-workflow_token_endpoint: https://localhost:8243/token
-workflow_client_registration_endpoint: https://localhost:9443/client-registration/v0.15/register
+workflow_callback_endpoint: https://localhost:9443/api/am/publisher/v0.17/workflows/update-workflow-status
+workflow_token_endpoint: https://localhost:9443/oauth2/token
+workflow_client_registration_endpoint: https://localhost:9443/client-registration/v0.17/register
 
 # Datasource configurations
 wso2am_db_type: h2

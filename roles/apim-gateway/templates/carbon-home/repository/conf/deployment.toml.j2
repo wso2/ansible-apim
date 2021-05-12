@@ -1,6 +1,5 @@
 [server]
 hostname = "{{ hostname }}"
-node_ip = "127.0.0.1"
 offset="{{ ports_offset }}"
 server_role = "gateway-worker"
 
@@ -50,35 +49,27 @@ file_name = "{{ trust_store_name }}"
 type = "JKS"
 password = "{% if secure_vault_enabled|bool %}$secret{trust_store_password}{% else %}{{ trust_store_password }}{% endif %}"
 
-[apim.analytics]
-enable = "{{ analytics_enabled }}"
-receiver_username = "{{ stream_processor_username }}"
-receiver_password = "{{ stream_processor_password }}"
-store_api_url = "{{ stream_processor_rest_api_url }}"
-store_api_username = "{{ stream_processor_rest_api_username }}"
-store_api_password = "{{ stream_processor_rest_api_password }}"
-
-{% for url_group in analytics_url_group %}
-[[apim.analytics.url_group]]
-analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
-analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
-{% endfor %}
-
 [apim.key_manager]
 service_url = "{{ key_manager_server_url }}"
 username= "$ref{super_admin.username}"
 password= "$ref{super_admin.password}"
 
+{% if jwt_enable is defined %}
  # JWT Generation
 [apim.jwt]
-enable = true
-encoding = "base64" # base64,base64url
-#generator_impl = "org.wso2.carbon.apimgt.keymgt.token.JWTGenerator"
-claim_dialect = "http://wso2.org/claims"
-header = "X-JWT-Assertion"
-signing_algorithm = "SHA256withRSA"
-#enable_user_claims = true
-#claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.DefaultClaimsRetriever"
+enable = "{{ jwt_enable }}"
+encoding = "{{ jwt_encoding }}"
+generator_impl = "{{ jwt_generator_impl }}"
+claim_dialect = "{{ jwt_claim_dialect }}"
+convert_dialect = "{{ jwt_convert_dialect }}"
+header = "{{ jwt_header }}"
+signing_algorithm = "{{ jwt_signing_algorithm }}"
+enable_user_claims = "{{ jwt_enable_user_claims }}"
+claims_extractor_impl = "{{ jwt_claims_extractor_impl }}"
+{% endif %}
+
+[apim.sync_runtime_artifacts.gateway]
+gateway_labels = [{% for label in sync_runtime_gateway_labels %}"{{ label }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 
 [apim.throttling]
 service_url = "{{ traffic_manager_host_url }}/services/"
@@ -93,12 +84,6 @@ throttle_decision_endpoints = [{% for endpoint in throttle_decision_endpoints %}
 [[apim.throttling.url_group]]
 traffic_manager_urls=[{% for url in url_group['traffic_manager_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 traffic_manager_auth_urls=[{% for url in url_group['traffic_manager_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
-{% endfor %}
-
-{% for url_group in analytics_url_group %}
-[[apim.analytics.url_group]]
-analytics_url =[{% for url in url_group['analytics_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
-analytics_auth_url =[{% for url in url_group['analytics_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 {% endfor %}
 
 # Caches

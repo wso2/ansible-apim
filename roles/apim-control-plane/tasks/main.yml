@@ -18,8 +18,8 @@
     # Set installation directory information
     - name: Installation Information
       set_fact:
-        product_dir: "{{ target }}/apim-gateway"
-        carbon_home: "{{ target }}/apim-gateway/{{ product_name }}-{{ product_version }}"
+        product_dir: "{{ target }}/apim-control-plane"
+        carbon_home: "{{ target }}/apim-control-plane/{{ product_name }}-{{ product_version }}"
 
     # WSO2 Distribution
     - name: Create product directory
@@ -28,14 +28,14 @@
         state: directory
         mode: 0755
 
-    - name: "Copy WSO2AM Gateway service file"
+    - name: Copy WSO2AM Control Plane service file
       template:
-        src: wso2apim-gateway.service.j2
-        dest: /etc/systemd/system/wso2apim-gateway.service
+        src: wso2apim-controlplane.service.j2
+        dest: /etc/systemd/system/wso2apim-controlplane.service
 
-    - name: Stop wso2apim-gateway as a service
+    - name: Stop wso2apim-controlplane as a service
       systemd:
-        name: wso2apim-gateway
+        name: wso2apim-controlplane
         state: stopped
 
     - name: Remove existing setup
@@ -59,7 +59,7 @@
       when: pack_location == "remote"
 
     - name: Optimize for profile
-      command: "sh {{ carbon_home }}/bin/profileSetup.sh -Dprofile=gateway-worker"
+      command: "sh {{ carbon_home }}/bin/profileSetup.sh -Dprofile=control-plane"
 
     - name: Copy JDBC Driver
       copy:
@@ -115,9 +115,9 @@
     - include: common-tasks/secure-vault.yml
       when: secure_vault_enabled|bool
       
-    - name: Start wso2apim-gateway as a service
+    - name: Start wso2apim-controlplane as a service
       systemd:
-        name: wso2apim-gateway
+        name: wso2apim-controlplane
         state: started
         daemon_reload: yes
 

@@ -1,6 +1,5 @@
 [server]
 hostname = "{{ hostname }}"
-node_ip = "127.0.0.1"
 offset="{{ ports_offset }}"
 server_role = "traffic-manager"
 
@@ -58,6 +57,11 @@ password = "$ref{super_admin.password}"
 {% if tm_event_duplicate_url is defined %}
 [apim.throttling]
 event_duplicate_url = ["{{ tm_event_duplicate_url }}"]
+{% endif %}
+
+{% if tm_https_proxy_port is defined %}
+[transport.https.properties]
+proxyPort = {{ tm_https_proxy_port }}
 {% endif %}
 
 {% if secure_vault_enabled|bool %}

@@ -1,7 +1,0 @@
-- name: Run Secure Vault to Encrypt passwords
-  command: "{{ carbon_home }}/bin/ciphertool.sh -runtime {{ analytics_profile }}"
-  environment:
-    JAVA_HOME: "{{ java_home }}"
-  args: 
-    chdir: "{{ carbon_home }}" 
-  when: analytics_secure_vault_enabled|bool

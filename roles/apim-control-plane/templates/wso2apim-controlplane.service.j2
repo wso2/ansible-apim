@@ -1,11 +1,11 @@
 [Unit]
-Description=WSO2 API Manager - Default profile
+Description=WSO2 API Manager - Control Plane profile
 After=network.target
 
 [Service]
-ExecStart={{ carbon_home }}/bin/api-manager.sh start
+ExecStart={{ carbon_home }}/bin/api-manager.sh -Dprofile=control-plane start
 ExecStop={{ carbon_home }}/bin/api-manager.sh stop
-ExecRestart={{ carbon_home }}/bin/api-manager.sh restart
+ExecReload={{ carbon_home }}/bin/api-manager.sh restart
 PIDFile={{ carbon_home }}/wso2carbon.pid
 User={{ wso2_user }}
 Group={{ wso2_group }}

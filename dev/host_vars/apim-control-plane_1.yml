@@ -1,4 +1,4 @@
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 #  Copyright (c) 2018 WSO2, Inc. http://www.wso2.org
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +12,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
-#----------------------------------------------------------------------------
-
+# ----------------------------------------------------------------------------
 ---
 # NOTE: The parameterized values has the default values from the original pack. Please change them according to your
 # requirements. If you need to add additional configurations, please use the custom.yml under each role.
@@ -25,13 +24,15 @@ ports_offset: 0
 admin_username: admin
 admin_password: admin
 
-# api-manager.xml configs
+# Configure the throttle policy deployer to point to the TRaffic-Manager e.g: https://[API-Traffic-Manager-LB-Host]/services
+throttle_config_policy_deployer_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
+
+# Configure the Token Revoke endpoint to point to the Key Manager e.g: https://[API-Key-Manager-LB-Host]/oauth2/revoke
 oauth_configs_revoke_api_url: https://localhost:${https.nio.port}/revoke
 
 # Heap memory allocation
-apim_memory: -Xms256m -Xmx1024m
+control_plane_memory: -Xms256m -Xmx1024m
 
-# List of configuration file templates, and the paths they should be written to
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',
       dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
