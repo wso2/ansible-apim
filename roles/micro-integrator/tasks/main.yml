@@ -46,7 +46,7 @@
 
     - name: Pause "{{ wait_till_apim }}" minutes till APIM ready
       pause:
-        minutes: {{ wait_till_apim }}
+        minutes: "{{ wait_till_apim }}"
 
     - name: Unzip WSO2 Micro Integrator from local source
       unarchive:
