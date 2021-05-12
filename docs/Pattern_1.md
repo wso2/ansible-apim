@@ -2,22 +2,38 @@
 
 This document provides instructions to customize the WSO2 API Manager Ansible resources in order to deploy API Manager Pattern 1.
 
-![API Manager Pattern 1](images/P-S-1.png "API Manager Pattern 1")
+![API Manager Pattern 1](images/Pattern-1.png "API Manager Pattern 1")
+
+## Setting up Java
+The Ansible scripts are capable of installing java from a given JDK installer from the local file system or from the remote location. Java installation can be disabled if necessary from the `group_vars`.
+
+Copy the following files to `files/lib` directory.
+
+1. [Amazon Corretto for Linux x64 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
+
+## Adding miscellaneous files
+If additional files needs to be added to the VMs, copy the miscellaneous files to `files/misc` directory. To enable file copying,  uncomment the `misc_file_list` in the yaml files under `group_vars` and add the miscellaneous files to the list.
 
 ## Packs to be Copied
 
-Copy the following files to `files` directory.
+Copy the following files to `files/packs` directory.
 
-1. [WSO2 API Manager package](https://wso2.com/api-management/install/)
-2. [WSO2 API Manager Analytics package](https://wso2.com/api-management/install/analytics/)
-3. [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
+1. [WSO2 API Manager 4.0.0 package](https://wso2.com/api-management/install/)
+2. [WSO2 Micro Integrator](https://github.com/wso2/micro-integrator/releases/tag/v4.0.0)
+
+## Database configurations
+
+In a production environment we recommend using an external database to store WSO2 application data. Follow the below steps to configure the database.
+
+1. Copy the relevant JDBC driver needed into `files/lib` directory.
+   e.g : [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/5.1.html)
+2. Update the database configurations in all the files under [group_vars](../dev/group_vars). In the files update `Datasource configurations section` and the `jdbc_driver` parameter.
 
 ## Customize the WSO2 Ansible scripts
 
 The followings are the roles needed to deploy API Manager pattern 1.
-
 - apim
-- apim-analytics-worker
+- micro-integrator
 
 ### 1. Customize the [inventory](../dev/inventory) file
 
@@ -28,9 +44,9 @@ The followings are the roles needed to deploy API Manager pattern 1.
 apim_1 ansible_host=[ip_address] ansible_user=[ssh_user]
 apim_2 ansible_host=[ip_address] ansible_user=[ssh_user]
 
-[apim-analytics]
-apim-analytics-worker_1 ansible_host=[ip_address] ansible_user=[ssh_user]
-apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
+[micro-integrator]
+micro-integrator_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+micro-integrator_2 ansible_host=[ip_address] ansible_user=[ssh_user]
 ```
 > NOTE: Replace `[ip_address]` and `[ssh_user]` appropriately.
 
@@ -45,19 +61,19 @@ apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
   roles:
     - common
 
-- name: Apply API Manager Analytics worker configuration to apim-analytics-worker nodes
-  hosts:
-    - apim-analytics-worker_1
-    - apim-analytics-worker_2
-  roles:
-    - apim-analytics-worker
-
 - name: Apply API Manager configuration to apim nodes
   hosts:
     - apim_1
     - apim_2
   roles:
     - apim
+    
+- name: Apply Micro Integrator configuration to MI nodes
+  hosts:
+    - micro-integrator_1
+    - micro-integrator_2
+  roles:
+    - micro-integrator
 ```
 
 ### 3. Customize the roles for API Manager pattern 1
@@ -66,13 +82,13 @@ apim-analytics-worker_2 ansible_host=[ip_address] ansible_user=[ssh_user]
 .
 └── dev
     ├── group_vars
-    │   ├── apim-analytics.yml
-    │   └── apim.yml
+    │   ├── apim.yml
+    │   ├── micro-integrator.yml
     ├── host_vars
     │   ├── apim_1.yml
     │   ├── apim_2.yml
-    │   ├── apim-analytics-worker_1.yml
-    │   └── apim-analytics-worker_2.yml
+    │   ├── micro-integrator_1.yml
+    │   ├── micro-integrator_2.yml
     └── inventory
 
 ```
@@ -85,11 +101,10 @@ Most commonly changed values are parameterized in the above files. If further ch
 Navigate to [carbon-home](../roles/apim/templates/carbon-home) of the `apim` role. All the files required to deploy the API Manager active-active combination are here. Follow the instructions in the following document to modify the files.
 - [Configuring an active-active deployment](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/single-node/configuring-an-active-active-deployment/)
 
-#### ii. Customize `apim-analytics-worker` role
+#### ii. Customize `micro-integrator` role
 
-Navigate to [carbon-home](../roles/apim-analytics-worker/templates/carbon-home) of the `apim-analytics-worker` role. All the files required to deploy the API Manager analytics are here. Follow the instructions in the following files to modify the files.
-- [Configure Analytics](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/distributed-deployment/configure-apim-analytics/active-active/)
-- [Minimum HA deployment](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/single-node/configuring-an-active-active-deployment/)
+Navigate to [carbon-home](../roles/micro-integrator/templates/carbon-home) of the `micro-integrator` role. All the files required to deploy the Micro Integrator are here. Follow the instructions in the following document to modify the files.
+- [Configuring Micro Integrator deployment](https://apim.docs.wso2.com/en/latest/reference/config-catalog-mi/)
 
 ### 4. Further customization
 

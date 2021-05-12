@@ -108,7 +108,7 @@ apim_host: https://localhost:9443
 service_username: admin
 service_password: admin
 
-# Wait time in minutes till the APIM is ready
+# Wait time in minutes till the APIM is ready before starting MI (You can customize this parameter based on the APIM startup time in your environment)
 wait_till_apim: 7
 
 # Change congiguration values accordingly
