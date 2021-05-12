@@ -49,7 +49,7 @@
 #   hosts:
 #     - apim_1
 #   roles:
-#     - apim-devportal
+#     - apim-control-plane
 #
 # If you like to start two roles of APIM at a single node, you can achieve that by adding both roles under roles:. An
 # example is give below. This will start both API Manager default profile and API Manager developer portal profile in the
@@ -59,14 +59,10 @@
 #   hosts:
 #     - apim_1
 #   roles:
-#     - apim
-#     - apim-devportal
+#     - apim-control-plane
+#     - apim-gateway
 #
-# NOTE : Make sure to configure the APIM-Analytics-Worker node details before the APIM nodes related configurations.
-# NOTE : Make sure to configure the APIM-Analytics-Dashboard node details after the APIM nodes related configurations.
-# NOTE : Please start the APIM nodes as per the below order
-# 1. Key-Manager
-# 2. Traffic-Manager
-# 3. Publisher-Portal
-# 4. Developer-Portal
-# 5. Gateway
+# NOTE : Please start the APIM/MI nodes as per the below order
+# 1. Control-Plane
+# 2. Gateway
+# 3. Micro-Integrator
