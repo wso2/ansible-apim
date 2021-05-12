@@ -1,0 +1,152 @@
+# ----------------------------------------------------------------------------
+#  Copyright (c) 2021 WSO2, Inc. http://www.wso2.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+# ----------------------------------------------------------------------------
+
+wso2_group: wso2 # OS group to be created
+wso2_user: wso2carbon # OS user for WSO2 services
+product_name: wso2mi
+product_version: 4.0.0
+target: /mnt # Product installation directory
+product_package_location: files
+backup_dir: /tmp # Artifact backup directory in the instance
+misc_file_location: "{{ product_package_location }}/misc"
+misc_file_copy_location: "{{ target }}/misc"
+security_file_location: "{{ product_package_location }}/security"
+carbonapps_file_location: "{{ product_package_location }}/carbonapps"
+
+#If you uncomment the below line to set the jdbc driver, change the driver name accordingly
+#jdbc_driver: mysql-connector-java-5.1.47-bin.jar
+
+# Performance tuning configurations
+enable_performance_tuning: false
+performance_tuning_file_list:
+  - { src: '{{ product_package_location }}/system/etc/sysctl.conf',
+      dest: '/etc/sysctl.conf' }
+  - { src: '{{ product_package_location }}/system/etc/security/limits.conf',
+      dest: '/etc/security/limits.conf' }
+
+# If custom primary keystores and trsustrores are need to be added, uncomment the below list
+# Add the required files under files/security/<product-home>/<path-to-file>
+# A sample is given below
+# security_file_list:
+#   - { src: '{{ security_file_location }}/wso2mi/client-truststore.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/client-truststore.jks' }
+#   - { src: '{{ security_file_location }}/wso2mi/wso2carbon.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/wso2carbon.jks' }
+
+# If custom tls keystore needs to be added, uncomment the below list
+# Add the required files under files/security/<product-home>/<path-to-file>
+# A sample is given below
+# security_file_list:
+#   - { src: '{{ security_file_location }}/wso2mi/tls.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/tls.jks' }
+
+# If custom internal keystore needs to be added, uncomment the below list
+# Add the required files under files/security/<product-home>/<path-to-file>
+# A sample is given below
+# security_file_list:
+#   - { src: '{{ security_file_location }}/wso2mi/internal.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/internal.jks' }
+
+# Uncomment and add any miscellaneous files you need to copy
+# A sample is given below
+# misc_file_list:
+#   - { src: '{{ misc_file_location }}/apimcli.zip',
+#       dest: '{{ misc_file_copy_location }}/apimcli.zip' }
+
+# Uncomment and add any carbon apps to be deployed in Micro Integrator and you need to copy
+# A sample is given below
+# carbonapps_file_list:
+#   - { src: '{{ carbonapps_file_location }}/HealthcareCompositeExporter_1.0.0.car',
+#       dest: '{{ carbon_home }}/repository/deployment/server/carbonapps/HealthcareCompositeExporter_1.0.0.car' }
+
+# Set the location the product packages should reside in (eg: "local" in the /files directory, "remote" in a remote location)
+pack_location: local
+#pack_location: remote
+#remote_jdk: "<URL_TO_JDK_FILE>"
+#remote_pack: "<URL_TO_APIM_PACK>"
+
+# JDK Distributions
+setup_java_enabled: true #If this is set to false java_home variable below needs to be specified.
+jdk_name: amazon-corretto-8.292.10.1-linux-x64
+java_dir: /opt
+java_symlink: "{{ java_dir }}/java"
+java_home: "{{ java_dir }}/{{ jdk_name }}"
+
+# Key Store and Trust Store configuration
+primary_key_store_name: repository/resources/security/wso2carbon.jks
+primary_key_store_password: wso2carbon
+primary_key_store_key_password: wso2carbon
+primary_key_store_key_alias: wso2carbon
+
+# Client trustore configurations
+trust_store_name: repository/resources/security/client-truststore.jks
+trust_store_password: wso2carbon
+trust_store_alias: symmetric.key.value
+trust_store_algorithm: AES
+
+# Transport http configurations
+http_socket_timeout: 180000
+disabled_connection_alive: false
+http_connection_timeout: 90000
+
+# Service catalog configurations
+apim_host: https://localhost:9443
+#service_enabled: true  #set this parameter manually in deployment.toml.j2
+service_username: admin
+service_password: admin
+
+# Wait time in minutes till the APIM is ready before starting MI (You can customize this parameter based on the APIM startup time in your environment)
+wait_till_apim: 7
+
+# Change congiguration values accordingly
+# User store datasource configurations
+user_store_db_id: WSO2CarbonDB
+user_store_db_url: jdbc:mysql://localhost:3306/userdb
+user_store_db_username: root
+user_store_db_password: root
+user_store_db_driver: com.mysql.jdbc.Driver
+user_store_db_pool_options_maxActive: 50
+user_store_db_pool_options_maxWait: 60000
+user_store_db_pool_options_testOnBorrow: true
+
+# Change congiguration values accordingly
+# Cluster coordination datasource configurations
+cluster_db_id: WSO2_COORDINATION_DB
+cluster_db_url: jdbc:mysql://localhost:3306/clusterdb
+cluster_db_username: root
+cluster_db_password: root
+cluster_db_driver: com.mysql.jdbc.Driver
+cluster_db_pool_options_maxActive: 50
+cluster_db_pool_options_maxWait: 60000
+cluster_db_pool_options_testOnBorrow: true
+
+# Change congiguration values accordingly
+# Transaction count datasource configurations
+transaction_db_id: WSO2_TRANSACTION_DB
+transaction_db_url: jdbc:mysql://localhost:3306/transactiondb
+transaction_db_username: root
+transaction_db_password: root
+transaction_db_driver: com.mysql.jdbc.Driver
+transaction_db_pool_options_maxActive: 50
+transaction_db_pool_options_maxWait: 60000
+transaction_db_pool_options_testOnBorrow: true
+
+transaction_enabled: true
+transaction_data_source: WSO2_TRANSACTION_DB
+transaction_update_interval: 2
+
+# If following is enabled all the sensitive information in server configurations will be encrypted.
+mi_secure_vault_enabled: false

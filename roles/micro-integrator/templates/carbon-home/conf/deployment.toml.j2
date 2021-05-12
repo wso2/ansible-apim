@@ -1,0 +1,141 @@
+[server]
+hostname = "{{hostname}}"
+# offset  = {{ports_offset}}
+
+[user_store]
+type = "read_only_ldap"
+
+[keystore.primary]
+file_name = "{{primary_key_store_name}}"
+password = "{{primary_key_store_password}}"
+alias = "{{primary_key_store_key_alias}}"
+key_password = "{{primary_key_store_key_password}}"
+
+[truststore]
+file_name = "{{trust_store_name}}"
+password = "{{trust_store_password}}"
+alias = "{{trust_store_alias}}"
+algorithm = "{{trust_store_algorithm}}"
+
+## Following are set of example configs. Please refer docs for complete set of configurations.
+
+# [transport.http]
+# socket_timeout = {{http_socket_timeout}}   # timeout in milliseconds
+# disable_connection_keepalive = {{disabled_connection_alive}}
+# connection_timeout = {{http_connection_timeout}} # in milliseconds
+
+# [transport.jms]
+# sender_enable = true
+# listener_enable = true
+
+# [[transport.jms.sender]]
+# name = "myQueueSender"
+# parameter.initial_naming_factory = "org.apache.activemq.jndi.ActiveMQInitialContextFactory"
+# parameter.provider_url = "tcp://localhost:61616"
+# parameter.connection_factory_name = "QueueConnectionFactory"
+# parameter.connection_factory_type = "queue"
+# parameter.cache_level = "producer"
+
+#[[transport.jms.listener]]
+# name = "myQueueConnectionFactory"
+# parameter.initial_naming_factory = "org.apache.activemq.jndi.ActiveMQInitialContextFactory"
+# parameter.provider_url = "tcp://localhost:61616"
+# parameter.connection_factory_name = "QueueConnectionFactory"
+# parameter.connection_factory_type = "queue"
+
+# [transport.jndi.connection_factories]
+# 'connectionfactory.QueueConnectionFactory' = "amqp://admin:admin@clientID/carbon?brokerlist='tcp://localhost:5675'"
+# 'connectionfactory.TopicConnectionFactory' = "amqp://admin:admin@clientID/carbon?brokerlist='tcp://localhost:5675'"
+
+# [transport.jndi.queue]
+# jndiNameOfQueue = "physicalNameOfQueue"
+
+# [transport.jndi.topic]
+# jndiNameOfTopic = "physicalNameOfTopic"
+
+# [transport.rabbitmq]
+# sender_enable = true
+# listener_enable = true
+
+# [[transport.rabbitmq.sender]]
+# name = "AMQPConnectionFactory"
+# parameter.hostname = "localhost"
+# parameter.port = 5672
+# parameter.username = "guest"
+# parameter.password = "guest"
+
+# [[transport.rabbitmq.listener]]
+# name = "AMQPConnectionFactory"
+# parameter.hostname = "localhost"
+# parameter.port = 5672
+# parameter.username = "guest"
+# parameter.password = "guest"
+
+# [system.parameter]
+# 'key' = "value"
+
+#Uncomment below section if you want to configure datasource for user store
+#User store datasource
+# [[datasource]]
+# id = "{{user_store_db_id}}"
+# url = "{{user_store_db_url}}"
+# username = "{{user_store_db_username}}"
+# password = "{{user_store_db_password}}"
+# driver = "{{user_store_db_driver}}"
+#pool_options.maxActive: {{user_store_db_pool_options_maxActive}}
+#pool_options.maxWait: {{user_store_db_pool_options_maxWait}}
+#pool_options.testOnBorrow: {{user_store_db_pool_options_testOnBorrow}}
+
+#Uncomment below section if you want to configure datasource for cluster coordination
+#Cluster coordination datasource
+# [[datasource]]
+# id = "{{cluster_db_id}}"
+# url = "{{cluster_db_url}}"
+# username = "{{cluster_db_username}}"
+# password = "{{cluster_db_password}}"
+# driver = "{{cluster_db_driver}}"
+#pool_options.maxActive: {{cluster_db_pool_options_maxActive}}
+#pool_options.maxWait: {{cluster_db_pool_options_maxWait}}
+#pool_options.testOnBorrow: {{cluster_db_pool_options_testOnBorrow}}
+
+#Uncomment below section if you want to configure datasource for transaction counter
+#Transaction counter datasource
+# [[datasource]]
+# id = "{{transaction_db_id}}"
+# url = "{{transaction_db_url}}"
+# username = "{{transaction_db_username}}"
+# password = "{{transaction_db_password}}"
+# driver = "{{transaction_db_driver}}"
+#pool_options.maxActive: {{transaction_db_pool_options_maxActive}}
+#pool_options.maxWait: {{transaction_db_pool_options_maxWait}}
+#pool_options.testOnBorrow: {{transaction_db_pool_options_testOnBorrow}}
+#[transaction_counter]
+#enable = {{transaction_enabled}}
+#data_source = "{{transaction_data_source}}"
+#update_interval = {{transaction_update_interval}}
+
+# [management_api]
+# protocols = "http"
+
+# [[internal_apis.users]]
+# user.name = "user-1"
+# user.password = "pwd-1"
+
+# [transaction_counter]
+# enable = true
+# data_source = "WSO2CarbonDB"
+# update_interval = 2
+
+# [mediation]
+# synapse.global_timeout_interval = "120000"  # interval in milliseconds
+
+# [secrets]
+# secret_key = "[secret value]"
+
+[[service_catalog]]
+apim_host = "{{apim_host}}"
+enable = true
+username = "{{service_password}}"
+password = "{{service_password}}"
+
+#https://apim.docs.wso2.com/en/latest/reference/config-catalog-mi/
