@@ -1,7 +1,7 @@
 #!/bin/bash
 # ----------------------------------------------------------------------------
 #
-# Copyright (c) 2019, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+# Copyright (c) 2021, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 #
 # WSO2 Inc. licenses this file to you under the Apache License,
 # Version 2.0 (the "License"); you may not use this file except
@@ -22,7 +22,7 @@
 set -e
 
 # Build artifacts and versions
-: ${version:="3.2.0"}
+: ${version:="4.0.0"}
 : ${packs_dir:=$(pwd)/../files/packs}
 
 usage() { echo "Usage: $0 -p <profile_name>" 1>&2; exit 1; }
@@ -85,51 +85,26 @@ fi
 case "${profile}" in
     apim)
         pack="wso2am-"${version}
-        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
+        updated_roles=("apim" "apim-gateway" "apim-control-plane" "apim-tm")
         ;;
     apim-gateway)
         pack="wso2am-"${version}
-        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
+        updated_roles=("apim" "apim-gateway" "apim-control-plane" "apim-tm")
         ;;
-    apim-km)
+    apim-control-plane)
         pack="wso2am-"${version}
-        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
-        ;;
-    apim-publisher)
-        pack="wso2am-"${version}
-        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
-        ;;
-    apim-devportal)
-        pack="wso2am-"${version}
-        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
+        updated_roles=("apim" "apim-gateway" "apim-control-plane" "apim-tm")
         ;;
     apim-tm)
         pack="wso2am-"${version}
-        updated_roles=("apim" "apim-gateway" "apim-km" "apim-publisher" "apim-devportal" "apim-tm")
-        ;;
-    apim-analytics)
-        pack="wso2am-analytics-"${version}
-        updated_roles=("apim-analytics-worker" "apim-analytics-dashboard")
-        ;;
-    apim-analytics-dashboard)
-        pack="wso2am-analytics-"${version}
-        updated_roles=("apim-analytics-worker" "apim-analytics-dashboard")
-        ;;
-    apim-analytics-worker)
-        pack="wso2am-analytics-"${version}
-        updated_roles=("apim-analytics-worker" "apim-analytics-dashboard")
+        updated_roles=("apim" "apim-gateway" "apim-control-plane" "apim-tm")
         ;;
     *)
         echo "Invalid profile. Please provide one of the following profiles:
             apim
             apim-gateway
-            apim-km
-            apim-publisher
-            apim-devportal
-            apim-tm
-            apim-analytics
-            apim-analytics-dashboard
-            apim-analytics-worker"
+            apim-control-plane
+            apim-tm"
         exit 1
         ;;
 esac

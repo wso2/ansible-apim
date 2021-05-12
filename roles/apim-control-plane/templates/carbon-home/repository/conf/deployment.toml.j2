@@ -3,7 +3,7 @@ hostname = "{{ hostname }}"
 offset="{{ ports_offset }}"
 base_path = "${carbon.protocol}://${carbon.host}:${carbon.management.port}"
 #discard_empty_caches = false
-server_role = "default"
+server_role = "control-plane"
 
 [super_admin]
 username = "{% if secure_vault_enabled|bool %}$secret{admin_username}{% else %}{{ admin_username }}{% endif %}"
@@ -51,7 +51,6 @@ file_name = "{{ trust_store_name }}"
 type = "JKS"
 password = "{% if secure_vault_enabled|bool %}$secret{trust_store_password}{% else %}{{ trust_store_password }}{% endif %}"
 
-
 {% for environment in gateway_environments %}
     [[apim.gateway.environment]]
     name = "{{ environment.name }}"
@@ -70,8 +69,8 @@ password = "{% if secure_vault_enabled|bool %}$secret{trust_store_password}{% el
     websub_event_receiver_https_endpoint = "{{environment.websub_event_receiver_https_endpoint}}"
 {% endfor %}
 
-[apim.sync_runtime_artifacts.gateway]
-gateway_labels = [{% for label in sync_runtime_gateway_labels %}"{{ label }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+#[apim.sync_runtime_artifacts.gateway]
+#gateway_labels = [{% for label in sync_runtime_gateway_labels %}"{{ label }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 
 #[apim.cache.gateway_token]
 #enable = true
@@ -110,12 +109,6 @@ password = "$ref{super_admin.password}"
 #key_validation_handler_type = "default"
 #key_validation_handler_type = "custom"
 #key_validation_handler_impl = "org.wso2.carbon.apimgt.keymgt.handlers.DefaultKeyValidationHandler"
-
-#[apim.idp]
-#server_url = "https://localhost:${mgt.transport.https.port}"
-#authorize_endpoint = "https://localhost:${mgt.transport.https.port}/oauth2/authorize"
-#oidc_logout_endpoint = "https://localhost:${mgt.transport.https.port}/oidc/logout"
-#oidc_check_session_endpoint = "https://localhost:${mgt.transport.https.port}/oidc/checksession"
 
 #[apim.jwt]
 #enable = true

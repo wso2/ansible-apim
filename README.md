@@ -16,17 +16,12 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 .
 ├── dev
 │   ├── group_vars
-│   │   ├── apim-analytics.yml
 │   │   └── apim.yml
 │   ├── host_vars
-│   │   ├── apim_1.yml
-│   │   ├── apim-analytics-dashboard_1.yml
-│   │   ├── apim-analytics-worker_1.yml
+│   │   ├── apim-control-plane_1.yml
 │   │   ├── apim-gateway_1.yml
-│   │   ├── apim-km_1.yml
-│   │   ├── apim-publisher_1.yml
-│   │   ├── apim-devportal_1.yml
-│   │   └── apim-tm_1.yml
+│   │   ├── apim-tm_1.yml
+│   │   ├── apim_1.yml
 │   └── inventory
 ├── docs
 │   ├── images
@@ -43,10 +38,9 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   └── Pattern_5.md
 ├── files
 │   ├── lib
-│   │   ├── amazon-corretto-8-x64-linux-jdk.tar.gz
+│   │   ├── amazon-corretto-8.292.10.1-linux-x64.tar.gz
 │   └── packs
-│   │   ├── wso2am-3.2.0.zip
-│   │   ├── wso2am-analytics-3.2.0.zip
+│   │   ├── wso2am-4.0.0.zip
 │   ├── system
 │   │   └── etc
 │   │       ├── security
@@ -61,22 +55,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   ├── apim
 │   │   ├── tasks
 │   │   └── templates
-│   ├── apim-analytics-dashboard
-│   │   ├── tasks
-│   │   └── templates
-│   ├── apim-analytics-worker
-│   │   ├── tasks
-│   │   └── templates
-│   ├── apim-gateway
-│   │   ├── tasks
-│   │   └── templates
-│   ├── apim-km
-│   │   ├── tasks
-│   │   └── templates
-│   ├── apim-publisher
-│   │   ├── tasks
-│   │   └── templates
-│   ├── apim-devportal
+│   ├── apim-control-plane
 │   │   ├── tasks
 │   │   └── templates
 │   ├── apim-tm
@@ -99,8 +78,7 @@ Packs could be either copied to a local directory, or downloaded from a remote l
 
 Copy the following files to `files/packs` directory.
 
-1. [WSO2 API Manager 3.2.0 package](https://wso2.com/api-management/install/)
-2. [WSO2 API Manager Analytics 3.2.0 package](https://wso2.com/api-management/install/analytics/)
+1. [WSO2 API Manager 4.0.0 package](https://wso2.com/api-management/install/)
 
 Copy the following files to `files/lib` directory.
 
@@ -124,7 +102,7 @@ The existing Ansible scripts contain the configurations to set-up a single node 
 apim_1 ansible_host=172.28.128.4 ansible_user=vagrant
 ```
 
-Update the hostname in dev/host_vars/apim_1.yml with ansible_host, 172.28.128.4
+Then, update the hostname in dev/host_vars/apim_1.yml with ansible_host, 172.28.128.4
 
 Run the following command to run the scripts.
 
@@ -133,7 +111,7 @@ Run the following command to run the scripts.
 If you need to alter the configurations given, please change the parameterized values in the yaml files under `group_vars` and `host_vars`.
 
 **NOTE:**
-> If you have mounted the 'persistent artifacts' as guided [below](##Configuration-guide), make sure to unmount the artifacts, prior to running the Ansible playbook as the playbook running process has a step to remove the existing setup. After completing the Ansible playbook running process, make sure to remount the artifacts.
+> If you have mounted the 'persistent artifacts' as guided [below](##configuration-guide), make sure to unmount the artifacts, prior to running the Ansible playbook as the playbook running process has a step to remove the existing setup. After completing the Ansible playbook running process, make sure to remount the artifacts.
 
 > If the `client-truststore.jks` is monuted among the Gateway nodes, then make sure to copy the `client-truststore.jks` from the mount source to the `<ANSIBLE_HOME>/files/security/wso2am/` directory of the Ansible resources, prior to re-running the playbook.
 
@@ -179,11 +157,10 @@ System configurations can be changed through Ansible to optimize OS level perfor
 
 System files that will be updated when performance tuning are enabled is available in `files/system`. Update the configuration values according to the requirements of your deployment.
 
-## Configuration guide
+## Configuration Guide
 
 Refer the below documentation on configuring key-stores for APIM and APIM-Analytics
 1. [WSO2 API Manager key-stores configuration guide](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/security/configuring-keystores/configuring-keystores-in-wso2-api-manager/)
-2. [WSO2 API Manager Analytics key-stores configuration guide](https://apim.docs.wso2.com/en/latest/learn/analytics/configuring-keystores-in-apim-analytics/)
 
 Refer the below documentation on configuring persistent artifacts of the servers.
 1. [Persistent artifacts of the servers](https://apim.docs.wso2.com/en/latest/install-and-setup/setup/reference/common-runtime-and-configuration-artifacts/)
@@ -195,6 +172,6 @@ Refer the below documentation on configuring Load-Balancers for your deoloyment.
 
 The master branch of this repository contains the latest product version with the latest Ansible version. The Ansible resources for previous Ansible versions can be found in the branches. The following is an example.
 
-#### Ansible resources for API Manager 3.1.0
+#### Ansible resources for API Manager 3.2.0
 
-Branch name: 3.1.x
+Branch name: 3.2.x
