@@ -1,3 +1,4 @@
+
 #----------------------------------------------------------------------------
 #  Copyright (c) 2018 WSO2, Inc. http://www.wso2.org
 #
@@ -18,8 +19,8 @@
     # Set installation directory information
     - name: Installation Information
       set_fact:
-        product_dir: "{{ target }}/apim-gateway"
-        carbon_home: "{{ target }}/apim-gateway/{{ product_name }}-{{ product_version }}"
+        product_dir: "{{ target }}/micro-integrator"
+        carbon_home: "{{ target }}/micro-integrator/{{ product_name }}-{{ product_version }}"
 
     # WSO2 Distribution
     - name: Create product directory
@@ -28,14 +29,14 @@
         state: directory
         mode: 0755
 
-    - name: "Copy WSO2AM Gateway service file"
+    - name: Copy wso2mi service file
       template:
-        src: wso2apim-gateway.service.j2
-        dest: /etc/systemd/system/wso2apim-gateway.service
+        src: "wso2mi.service.j2"
+        dest: /etc/systemd/system/wso2mi.service
 
-    - name: Stop wso2apim-gateway as a service
+    - name: Stop wso2mi as a service
       systemd:
-        name: wso2apim-gateway
+        name: wso2mi
         state: stopped
 
     - name: Remove existing setup
@@ -43,14 +44,18 @@
         path: "{{ carbon_home }}"
         state: absent
 
-    - name: Unzip WSO2 API Manager Package from local source
+    - name: Pause "{{ wait_till_apim }}" minutes till APIM ready
+      pause:
+        minutes: {{ wait_till_apim }}
+
+    - name: Unzip WSO2 Micro Integrator from local source
       unarchive:
         src: "{{ product_package_location }}/packs/{{ product_name }}-{{ product_version }}.zip"
         dest: "{{ product_dir }}"
         mode: u=rw,g=r,o=r
       when: pack_location == "local"
 
-    - name: Unzip WSO2 API Manager Package from remote source
+    - name: Unzip WSO2 Micro Integrator Package from remote source
       unarchive:
         src: "{{ remote_pack }}"
         dest: "{{ product_dir }}"
@@ -58,13 +63,10 @@
         remote_src: yes
       when: pack_location == "remote"
 
-    - name: Optimize for profile
-      command: "sh {{ carbon_home }}/bin/profileSetup.sh -Dprofile=gateway-worker"
-
     - name: Copy JDBC Driver
       copy:
         src: "{{ product_package_location }}/lib/{{ jdbc_driver }}"
-        dest: "{{ carbon_home }}/repository/components/lib"
+        dest: "{{ carbon_home }}/lib"
       when: jdbc_driver is defined
 
     - name: Copy configuration templates
@@ -73,7 +75,7 @@
         dest: "{{ item.dest }}"
       loop: "{{ config_files }}"
 
-    - name: Copy security file list for WSO2AM
+    - name: Copy security file list for WSO2MI
       copy:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
@@ -94,6 +96,13 @@
       loop: "{{ misc_file_list }}"
       when: misc_file_list is defined
 
+    - name: Copy carbonapps file list for WSO2MI
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop: "{{ carbonapps_file_list }}"
+      when: carbonapps_file_list is defined
+
 # Enable customization by uncommenting the following and adding the changes to the custom.yml
     # - import_tasks: custom.yml
 
@@ -106,18 +115,18 @@
         group: "{{ wso2_group }}"
         mode: 0755
 
-    when: "(inventory_hostname in groups['apim'])"
+    when: "(inventory_hostname in groups['micro-integrator'])"
     become: true
     become_method: sudo
     become_user: root
 
   - block:
-    - include: common-tasks/secure-vault.yml
-      when: secure_vault_enabled|bool
-      
-    - name: Start wso2apim-gateway as a service
+    - include: common-tasks/mi-secure-vault.yml
+      when: mi_secure_vault_enabled|bool
+
+    - name: Start wso2mi as a service
       systemd:
-        name: wso2apim-gateway
+        name: wso2mi
         state: started
         daemon_reload: yes
 
