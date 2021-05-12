@@ -28,6 +28,12 @@
   roles:
     - apim
 
+- name: Apply Micro Integrator default configuration to a micro-integrator node
+  hosts:
+    - micro-integrator_1
+  roles:
+    - micro-integrator
+
 # NOTE: There are multiple profiles for API Management. You can deploy any profile you prefer by deploying the role in
 # any host as follows.
 #
