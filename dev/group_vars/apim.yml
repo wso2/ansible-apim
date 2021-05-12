@@ -24,6 +24,7 @@ backup_dir: /tmp # Artifact backup directory in the instance
 misc_file_location: "{{ product_package_location }}/misc"
 misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
+#If you uncomment the below line to set the jdbc driver, change the driver name accordingly
 #jdbc_driver: mysql-connector-java-5.1.47-bin.jar
 
 # Set backup_enabled to true to backup <carbon-home>/repository/deployment/server directory
