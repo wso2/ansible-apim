@@ -45,13 +45,13 @@
         extra_opts: [--strip-components=1]
       when: pack_location == "local" and setup_java_enabled|bool
 
-    - name: Unarchive JDK distribution from remote source
-      unarchive:
-        src: "{{ remote_jdk }}"
-        dest: "{{ java_home }}"
-        extra_opts: [--strip-components=1]
-        remote_src: yes
-      when: pack_location == "remote" and setup_java_enabled|bool
+#    - name: Unarchive JDK distribution from remote source
+#      unarchive:
+#        src: "{{ remote_jdk }}"
+#        dest: "{{ java_home }}"
+#        extra_opts: [--strip-components=1]
+#        remote_src: yes
+#      when: pack_location == "remote" and setup_java_enabled|bool
 
     - name: Create Java symbolic link
       file:
@@ -59,10 +59,10 @@
         dest: "{{ java_symlink }}"
         state: link
 
-    - name: Install unzip package
-      package:
-        name: unzip
-        state: present
+#    - name: Install unzip package
+#      package:
+#        name: unzip
+#        state: present
 
     become: true
     become_user: root

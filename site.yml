@@ -22,17 +22,35 @@
   roles:
     - common
 
-- name: Apply API Manager default configuration to an apim node
+- name: Apply API Manager default configuration to an APIs node (KeyManager, Publisher and Dev Portal)
   hosts:
-    - apim_1
+    - apim-control-plane_1
   roles:
-    - apim
+    - apim-control-plane
 
-- name: Apply Micro Integrator default configuration to a micro-integrator node
+- name: Apply API Manager default configuration to a TM node
   hosts:
-    - micro-integrator_1
+    - apim-tm_1
   roles:
-    - micro-integrator
+    - apim-tm
+
+- name: Apply API Manager default configuration to Gateway node
+  hosts:
+    - apim-gateway_1
+  roles:
+    - apim-gateway
+
+#- name: Apply API Manager default configuration to an apim node
+#  hosts:
+#    - apim_1
+#  roles:
+#    - apim
+
+#- name: Apply Micro Integrator default configuration to a micro-integrator node
+#  hosts:
+#    - micro-integrator_1
+#  roles:
+#    - micro-integrator
 
 # NOTE: There are multiple profiles for API Management. You can deploy any profile you prefer by deploying the role in
 # any host as follows.

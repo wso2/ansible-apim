@@ -54,7 +54,7 @@
       unarchive:
         src: "{{ remote_pack }}"
         dest: "{{ product_dir }}"
-        mode: u=rw,g=r,o=r
+        mode: u=rwx,g=rwx,o=rwx
         remote_src: yes
       when: pack_location == "remote"
 
