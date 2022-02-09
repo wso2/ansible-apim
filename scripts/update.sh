@@ -194,7 +194,8 @@ fi
 if [[ ${update_status} -ne 1 ]] # If update is successful
 then
   modified_files=$(sed -n '/^Modified/p' ${updates_dir}/output.txt | sed -e 's/.*Modified: \[\(.*\)], Conflicts.*/\1/')
-fi
+fihostname: localhost
+ports_offset: 0
 
 if [[ ! -z "$modified_files" ]]
 then

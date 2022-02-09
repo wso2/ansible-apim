@@ -17,12 +17,12 @@
 # NOTE: The parameterized values has the default values from the original pack. Please change them according to your
 # requirements. If you need to add additional configurations, please use the custom.yml under each role.
 
-hostname: localhost
-ports_offset: 0
+hostname: gwlb.apim.com
+ports_offset: 10
 
 # User manager configurations
-admin_username: admin
-admin_password: admin
+admin_username: wso2apim
+admin_password: wso2apim
 
 # Throttling configurations
 jms_conn_factory: amqp://${admin.username}:${admin.password}@clientid/carbon?brokerlist='tcp://${carbon.local.ip}:${jms.port}'

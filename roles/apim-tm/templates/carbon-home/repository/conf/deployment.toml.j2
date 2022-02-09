@@ -54,6 +54,17 @@ service_url = "{{ key_manager_server_url }}"
 username = "$ref{super_admin.username}"
 password = "$ref{super_admin.password}"
 
+[apim.event_hub]
+enable = true
+username = "$ref{super_admin.username}"
+password = "$ref{super_admin.password}"
+service_url = "https://cp.apim.com:9455/services/"
+event_listening_endpoints = ["tcp://cp.apim.com:5685"]
+
+[[apim.event_hub.publish.url_group]]
+urls = ["tcp://cp.apim.com:9623"]
+auth_urls = ["ssl://cp.apim.com:9723"]
+
 {% if tm_event_duplicate_url is defined %}
 [apim.throttling]
 event_duplicate_url = ["{{ tm_event_duplicate_url }}"]

@@ -17,12 +17,12 @@
 # NOTE: The parameterized values has the default values from the original pack. Please change them according to your
 # requirements. If you need to add additional configurations, please use the custom.yml under each role.
 
-hostname: localhost
-ports_offset: 0
+hostname: cplb.apim.com
+ports_offset: 12
 
 # User manager configurations
-admin_username: admin
-admin_password: admin
+admin_username: wso2apim
+admin_password: wso2apim
 
 # Configure the throttle policy deployer to point to the TRaffic-Manager e.g: https://[API-Traffic-Manager-LB-Host]/services
 throttle_config_policy_deployer_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
