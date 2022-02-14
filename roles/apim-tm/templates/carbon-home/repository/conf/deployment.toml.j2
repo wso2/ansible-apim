@@ -63,7 +63,7 @@ event_listening_endpoints = ["tcp://cp.apim.com:5685"]
 
 [[apim.event_hub.publish.url_group]]
 urls = ["tcp://cp.apim.com:9623"]
-auth_urls = ["ssl://cp.apim.com:9723"]
+auth_urls = ["ssl://cp.apim.com:9623"]
 
 {% if tm_event_duplicate_url is defined %}
 [apim.throttling]
