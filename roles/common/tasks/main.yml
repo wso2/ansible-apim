@@ -38,6 +38,13 @@
         state: directory
       when: setup_java_enabled|bool
 
+    - name: Install unzip
+      package:
+        name: unzip
+        state: present
+      become: true
+      become_method: sudo
+
     - name: Unarchive JDK distribution from local source
       unarchive:
         src: "{{ product_package_location }}/lib/{{ jdk_name }}.tar.gz"
