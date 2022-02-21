@@ -17,14 +17,14 @@
 wso2_group: wso2 # OS group to be created
 wso2_user: wso2carbon # OS user for WSO2 services
 product_name: wso2am
-product_version: 4.1.0-SNAPSHOT
+product_version: 4.0.0
 target: /mnt # Product installation directory
-product_package_location: files 
+product_package_location: files
 backup_dir: /tmp # Artifact backup directory in the instance
 misc_file_location: "{{ product_package_location }}/misc"
 misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
-jdbc_driver: mysql-connector-java-8.0.21.jar
+jdbc_driver: mysql-connector-java-8.0.28.jar
 
 # Set backup_enabled to true to backup <carbon-home>/repository/deployment/server directory
 backup_enabled: false
@@ -67,12 +67,12 @@ misc_file_list:
        dest: '{{ misc_file_copy_location }}/apictl-3.2.6-linux-x64.tar.gz' }
 
 # Set the location the product packages should reside in (eg: "local" in the /files directory, "remote" in a remote location)
-pack_location: remote
-remote_pack: "https://wso2.org/jenkins/view/products/job/products/job/product-apim/lastStableBuild/org.wso2.am$wso2am/artifact/org.wso2.am/wso2am/4.1.0-SNAPSHOT/wso2am-4.1.0-SNAPSHOT.zip"
+pack_location: local
+# remote_pack: "https://wso2.org/jenkins/view/products/job/products/job/product-apim/lastStableBuild/org.wso2.am$wso2am/artifact/org.wso2.am/wso2am/4.1.0-SNAPSHOT/wso2am-4.1.0-SNAPSHOT.zip"
 
 # JDK Distributions
-setup_java_enabled: false #If this is set to false java_home variable below needs to be specified.
-jdk_name: amazon-corretto-8.292.10.1-linux-x64
+setup_java_enabled: true #If this is set to false java_home variable below needs to be specified.
+jdk_name: amazon-corretto-8.322.06.2-linux-x64
 java_dir: /usr
 java_symlink: "{{ java_dir }}/bin/java"
 java_home: "/usr/lib/jvm/java-8-openjdk-amd64/"
@@ -161,7 +161,7 @@ tls_key_store_key_password: wso2carbon
 tls_key_store_password: wso2carbon
 tls_key_store_key_alias: wso2carbon
 
-# If following is enabled all the sensitive information in server configurations will be encrypted. 
+# If following is enabled all the sensitive information in server configurations will be encrypted.
 secure_vault_enabled: false
 
 # Add any new changes you want to add for the group/profile below.
