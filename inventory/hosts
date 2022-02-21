@@ -1,0 +1,29 @@
+[apim]
+apim_1 ansible_host=centos7.192.168.56.7.nip.io ansible_user=vagrant
+apim-control-plane_1  ansible_host=centos7.192.168.56.7.nip.io ansible_user=vagrant
+apim-tm_1 ansible_host=centos7.192.168.56.7.nip.io ansible_user=vagrant
+apim-gateway_1 ansible_host=centos7.192.168.56.7.nip.io ansible_user=vagrant
+
+[apim:vars]
+ansible_user=vagrant
+ansible_private_key_file = ~/.vagrant.d/insecure_private_key
+
+#[apim]
+#apim_1 ansible_host=[ip_address] ansible_user=[ssh_user]
+
+# Example
+# [apim]
+# apim_1 ansible_host=172.28.128.4 ansible_user=vagrant
+
+# Example
+# [micro-integrator]
+# micro-integrator_1 ansible_host=172.28.128.4 ansible_user=vagrant
+
+;[apim]
+;apim-tm_1              ansible_host=tm.apim.com    ansible_user=ubuntu   ansible_ssh_private_key_file=files/keys/sarangan-apim.pem
+;apim-gateway_1         ansible_host=gw.apim.com    ansible_user=ubuntu   ansible_ssh_private_key_file=files/keys/sarangan-apim.pem
+;apim-control-plane_1   ansible_host=apis.apim.com  ansible_user=ubuntu   ansible_ssh_private_key_file=files/keys/sarangan-apim.pem
+
+;server_1           ansible_host=server1.apim.com    ansible_user=ubuntu   ansible_ssh_private_key_file=files/keys/sarangan-apim.pem
+;server_2           ansible_host=server2.apim.com    ansible_user=ubuntu   ansible_ssh_private_key_file=files/keys/sarangan-apim.pem
+;server_3           ansible_host=server3.apim.com    ansible_user=ubuntu   ansible_ssh_private_key_file=files/keys/sarangan-apim.pem

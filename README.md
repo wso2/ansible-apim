@@ -70,7 +70,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 
 ```
 
-Following instructions can be followed to deploy a all-in-one standard APIM deployment to tryout the product and for demonstrations purposes. If you want to deploy a production ready deployment pattern refer the documentation in the `docs` directory. 
+Following instructions can be followed to deploy a all-in-one standard APIM deployment to tryout the product and for demonstrations purposes. If you want to deploy a production ready deployment pattern refer the documentation in the `docs` directory.
 
 
 ## Copying packs locally
@@ -99,10 +99,10 @@ In **group_vars**, change the values of the following variables in all groups:
 The existing Ansible scripts contain the configurations to set-up a single node WSO2 API Manager pattern. In order to deploy the pattern, you need to replace the `[ip_address]` and `[ssh_user]` given in the `inventory` file under `dev` folder by the IP of the location where you need to host the API Manager. An example is given below.
 ```
 [apim]
-apim_1 ansible_host=172.28.128.4 ansible_user=vagrant
+apim_1 ansible_host=192.168.56.7 ansible_user=vagrant
 ```
 
-Then, update the hostname in dev/host_vars/apim_1.yml with ansible_host, 172.28.128.4
+Then, update the hostname in dev/host_vars/apim_1.yml with ansible_host, 192.168.56.7
 
 Run the following command to run the scripts.
 
