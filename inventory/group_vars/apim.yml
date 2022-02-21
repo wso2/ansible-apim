@@ -71,7 +71,7 @@ pack_location: local
 # remote_pack: "https://wso2.org/jenkins/view/products/job/products/job/product-apim/lastStableBuild/org.wso2.am$wso2am/artifact/org.wso2.am/wso2am/4.1.0-SNAPSHOT/wso2am-4.1.0-SNAPSHOT.zip"
 
 # JDK Distributions
-setup_java_enabled: true #If this is set to false java_home variable below needs to be specified.
+setup_java_enabled: false #If this is set to false java_home variable below needs to be specified.
 jdk_name: amazon-corretto-8.322.06.2-linux-x64
 java_dir: /usr
 java_symlink: "{{ java_dir }}/bin/java"
