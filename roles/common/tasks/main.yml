@@ -36,6 +36,20 @@
         state: directory
       when: setup_java_enabled|bool
 
+    - name: Install unzip for unarchive
+      package:
+        name: unzip
+        state: present
+      become: true
+      become_method: sudo
+
+    - name: Install unzip for unarchive
+      package:
+        name: unzip
+        state: present
+      become: true
+      become_method: sudo
+
     - name: Unarchive JDK distribution from local source
       unarchive:
         src: "{{ product_package_location }}/lib/{{ jdk_name }}.tar.gz"
@@ -56,11 +70,3 @@
         src: "{{ java_home }}"
         dest: "{{ java_symlink }}"
         state: link
-
-    - name: Install unzip package
-      package:
-        name: unzip
-        state: present
-
-    become: true
-    become_user: root
