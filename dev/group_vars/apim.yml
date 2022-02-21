@@ -25,7 +25,7 @@ misc_file_location: "{{ product_package_location }}/misc"
 misc_file_copy_location: "{{ target }}/misc"
 security_file_location: "{{ product_package_location }}/security"
 #If you uncomment the below line to set the jdbc driver, change the driver name accordingly
-#jdbc_driver: mysql-connector-java-5.1.47-bin.jar
+#jdbc_driver: mysql-connector-java-8.0.28.jar
 
 # Set backup_enabled to true to backup <carbon-home>/repository/deployment/server directory
 backup_enabled: false
@@ -70,15 +70,15 @@ performance_tuning_file_list:
 # Set the location the product packages should reside in (eg: "local" in the /files directory, "remote" in a remote location)
 pack_location: local
 #pack_location: remote
+# remote_pack: "https://wso2.org/jenkins/view/products/job/products/job/product-apim/lastStableBuild/org.wso2.am$wso2am/artifact/org.wso2.am/wso2am/4.1.0-SNAPSHOT/wso2am-4.1.0-SNAPSHOT.zip"
 #remote_jdk: "<URL_TO_JDK_FILE>"
-#remote_pack: "<URL_TO_APIM_PACK>"
 
 # JDK Distributions
 setup_java_enabled: true #If this is set to false java_home variable below needs to be specified.
-jdk_name: amazon-corretto-8.292.10.1-linux-x64
+jdk_name: amazon-corretto-8.322.06.2-linux-x64
 java_dir: /opt
-java_symlink: "{{ java_dir }}/java"
-java_home: "{{ java_dir }}/{{ jdk_name }}"
+java_symlink: "{{ java_dir }}/bin/java"
+java_home: "/usr/lib/jvm/java-8-openjdk-amd64/"
 
 # Server URL of the Authentication service. Make sure to import the Key Manager's public certificate to WSO2 API-M's
 # client-truststore.jks. For more information, see https://docs.wso2.com/display/ADMIN44x/Creating+New+Keystores
