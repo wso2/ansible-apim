@@ -135,7 +135,6 @@
 
     when: "(inventory_hostname in groups['apim'])"
     become: true
-    become_method: sudo
     become_user: root
 
   - block:
