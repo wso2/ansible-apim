@@ -37,7 +37,7 @@ performance_tuning_file_list:
   - { src: '{{ product_package_location }}/system/etc/security/limits.conf',
       dest: '/etc/security/limits.conf' }
 
-# If custom primary keystores and trsustrores are need to be added, uncomment the below list
+# If custom primary keystores and truststores are need to be added, uncomment the below list
 # Add the required files under files/security/<product-home>/<path-to-file>
 # A sample is given below
 # security_file_list:
