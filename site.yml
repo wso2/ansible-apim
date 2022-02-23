@@ -20,6 +20,7 @@
 
 - name: Apply common configuration to all nodes
   hosts: all
+  serial: 1
   roles:
     - common
 
