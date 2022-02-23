@@ -70,7 +70,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 
 ```
 
-Following instructions can be followed to deploy a all-in-one standard APIM deployment to tryout the product and for demonstrations purposes. If you want to deploy a production ready deployment pattern refer the documentation in the `docs` directory. 
+Following instructions can be followed to deploy a all-in-one standard APIM deployment to tryout the product and for demonstrations purposes. If you want to deploy a production ready deployment pattern refer the documentation in the `docs` directory.
 
 
 ## Copying packs locally
@@ -104,9 +104,10 @@ apim_1 ansible_host=172.28.128.4 ansible_user=vagrant
 
 Then, update the hostname in dev/host_vars/apim_1.yml with ansible_host, 172.28.128.4
 
-Run the following command to run the scripts.
+Run the following command to run the scripts. Use `-K` to provide a password to become root. Configure `become_method:` in `ansible.cfg` when using an alternative to
+`sudo`. If your host allows passwordless `sudo`, then omit the `-K` argument.
 
-`ansible-playbook -i dev site.yml`
+`ansible-playbook -K -i dev site.yml`
 
 If you need to alter the configurations given, please change the parameterized values in the yaml files under `group_vars` and `host_vars`.
 
