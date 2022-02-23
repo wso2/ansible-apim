@@ -1,5 +1,5 @@
 [server]
-hostname = "{{ hostname }}"
+hostname = "{{ ansible_fqdn }}"
 offset="{{ ports_offset }}"
 base_path = "${carbon.protocol}://${carbon.host}:${carbon.management.port}"
 #discard_empty_caches = false
