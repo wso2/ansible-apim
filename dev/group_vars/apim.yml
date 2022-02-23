@@ -19,7 +19,7 @@ wso2_user: wso2carbon # OS user for WSO2 services
 product_name: wso2am
 product_version: 4.0.0
 target: /mnt # Product installation directory
-product_package_location: files 
+product_package_location: files
 backup_dir: /tmp # Artifact backup directory in the instance
 misc_file_location: "{{ product_package_location }}/misc"
 misc_file_copy_location: "{{ target }}/misc"
@@ -38,7 +38,7 @@ performance_tuning_file_list:
   - { src: '{{ product_package_location }}/system/etc/security/limits.conf',
       dest: '/etc/security/limits.conf' }
 
-# If custom primary keystores and trsustrores are need to be added, uncomment the below list
+# If custom primary keystores and truststores are need to be added, uncomment the below list
 # Add the required files under files/security/<product-home>/<path-to-file>
 # A sample is given below
 # security_file_list:
@@ -160,7 +160,7 @@ tls_key_store_key_password: wso2carbon
 tls_key_store_password: wso2carbon
 tls_key_store_key_alias: wso2carbon
 
-# If following is enabled all the sensitive information in server configurations will be encrypted. 
+# If following is enabled all the sensitive information in server configurations will be encrypted.
 secure_vault_enabled: false
 
 # Add any new changes you want to add for the group/profile below.
