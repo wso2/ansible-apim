@@ -1,0 +1,3 @@
+---
+# https://apim.docs.wso2.com/en/latest/design/endpoints/certificates/
+certificate_loading_time: 60000 #ms

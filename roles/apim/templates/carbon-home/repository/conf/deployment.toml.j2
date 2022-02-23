@@ -27,6 +27,9 @@ url = "{{ wso2shared_db_url }}"
 username = "{% if secure_vault_enabled|bool %}$secret{wso2shared_db_username}{% else %}{{ wso2shared_db_username }}{% endif %}"
 password = "{% if secure_vault_enabled|bool %}$secret{wso2shared_db_password}{% else %}{{ wso2shared_db_password }}{% endif %}"
 
+[transport.passthru_https.sender.ssl_profile]
+interval = "{{ certificate_loading_time }}"
+
 [keystore.tls]
 file_name =  "{{ tls_key_store_name }}"
 type =  "JKS"
