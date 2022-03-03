@@ -95,7 +95,9 @@ In **group_vars**, change the values of the following variables in all groups:
 
 ## Running WSO2 API Management Ansible scripts
 
-### 1. Run the existing scripts without customization
+If you have VirtualBox, Vagrant and the vagrant-hostmanager plugin installed, then `vagrant up` is all you need. Open https://wso2vagrant:9443/ to login.
+
+### 1. Run the existing scripts to deploy on your own machine.
 The existing Ansible scripts contain the configurations to set-up a single node WSO2 API Manager pattern. In order to deploy the pattern, you need to replace the `[ip_address]` and `[ssh_user]` given in the `inventory` file under `dev` folder by the IP of the location where you need to host the API Manager. An example is given below.
 ```
 [apim]
