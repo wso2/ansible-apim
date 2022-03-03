@@ -18,7 +18,7 @@
 # NOTE: The parameterized values has the default values from the original pack. Please change them according to your
 # requirements. If you need to add additional configurations, please use the custom.yml under each role.
 
-hostname: localhost
+hostname: "{{ ansible_fqdn }}"
 ports_offset: 0
 
 # User manager configurations
@@ -26,7 +26,7 @@ admin_username: admin
 admin_password: admin
 
 # api-manager.xml configs
-oauth_configs_revoke_api_url: https://localhost:${https.nio.port}/revoke
+oauth_configs_revoke_api_url: "https://{{ ansible_fqdn }}:${https.nio.port}/revoke"
 
 # Heap memory allocation
 apim_memory: -Xms256m -Xmx1024m

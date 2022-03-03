@@ -103,7 +103,7 @@ disabled_connection_alive: false
 http_connection_timeout: 90000
 
 # Service catalog configurations
-apim_host: https://localhost:9443
+apim_host: "https://{{ ansible_fqdn }}:9443"
 #service_enabled: true  #set this parameter manually in deployment.toml.j2
 service_username: admin
 service_password: admin

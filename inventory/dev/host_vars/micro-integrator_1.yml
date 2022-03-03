@@ -18,7 +18,7 @@
 # NOTE: The parameterized values has the default values from the original pack. Please change them according to your
 # requirements. If you need to add additional configurations, please use the custom.yml under each role.
 
-hostname: localhost
+hostname: "{{ ansible_fqdn }}"
 ports_offset: 3
 
 # Heap memory allocation
