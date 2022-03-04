@@ -80,18 +80,13 @@ Copy the following files to `files/packs` directory.
 
 1. [WSO2 API Manager 4.0.0 package](https://wso2.com/api-management/install/)
 
-Copy the following files to `files/lib` directory.
-
-1. [Amazon Corretto for Linux x64 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
-
 Copy the miscellaneous files to `files/misc` directory. To enable file copying,  uncomment the `misc_file_list` in the yaml files under `group_vars` and add the miscellaneous files to the list.
 
 ## Downloading from remote location
 
 In **group_vars**, change the values of the following variables in all groups:
 1. The value of `pack_location` should be changed from "local" to "remote"
-2. The value of `remote_jdk` should be changed to the URL in which the JDK should be downloaded from, and remove it as a comment.
-3. The value of `remote_pack` should be changed to the URL in which the package should be downloaded from, and remove it as a comment.
+2. The value of `remote_pack` should be changed to the URL in which the package should be downloaded from, and remove it as a comment.
 
 ## Running WSO2 API Management Ansible scripts
 
