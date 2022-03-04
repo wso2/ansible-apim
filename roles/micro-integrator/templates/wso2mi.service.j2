@@ -3,10 +3,12 @@ Description=WSO2 Micro Integrator
 After=network.target
 
 [Service]
+{% if ansible_env.JAVA_HOME is defined %}
+Environment=JAVA_HOME="{{ ansible_env.JAVA_HOME }}"
+{% endif %}
 {% if mi_memory %}
 Environment=JVM_MEM_OPTS="{{ mi_memory }}"
 {% endif %}
-EnvironmentFile=/etc/profile.d/java_home.sh
 ExecStart={{ carbon_home }}/bin/micro-integrator.sh start
 ExecStop={{ carbon_home }}/bin/micro-integrator.sh stop
 ExecRestart={{ carbon_home }}/bin/micro-integrator.sh restart

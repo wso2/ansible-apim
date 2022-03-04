@@ -3,10 +3,12 @@ Description=WSO2 API Manager - Traffic Manager profile
 After=network.target
 
 [Service]
+{% if ansible_env.JAVA_HOME is defined %}
+Environment=JAVA_HOME="{{ ansible_env.JAVA_HOME }}"
+{% endif %}
 {% if tm_memory %}
 Environment=JVM_MEM_OPTS="{{ tm_memory }}"
 {% endif %}
-EnvironmentFile=/etc/profile.d/java_home.sh
 ExecStart={{ carbon_home }}/bin/api-manager.sh -Dprofile=traffic-manager start
 ExecStop={{ carbon_home }}/bin/api-manager.sh stop
 ExecReload={{ carbon_home }}/bin/api-manager.sh restart

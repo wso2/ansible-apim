@@ -3,10 +3,10 @@ Description=WSO2 API Manager - Default profile
 After=network.target
 
 [Service]
+Environment=JAVA_HOME={{ ansible_env.JAVA_HOME }}
 {% if apim_memory %}
 Environment=JVM_MEM_OPTS="{{ apim_memory }}"
 {% endif %}
-EnvironmentFile=/etc/profile.d/java_home.sh
 ExecStart={{ carbon_home }}/bin/api-manager.sh start
 ExecStop={{ carbon_home }}/bin/api-manager.sh stop
 ExecRestart={{ carbon_home }}/bin/api-manager.sh restart
