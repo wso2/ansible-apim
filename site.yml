@@ -17,10 +17,36 @@
 ---
 # This playbook deploys the whole application stack in this site.
 
+- name: Install galaxy roles
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: false
+  tasks:
+    - name: ansible-galaxy install
+      command: ansible-galaxy install -p roles -r roles/requirements.yml
+
 - name: Apply common configuration to all nodes
   hosts: all
+  gather_facts: true
   roles:
-    - common
+    - role: java
+      when: ansible_os_family == 'RedHat'
+      become: true
+      java_home: /usr/lib/jvm/jre-1.8.0
+      java_packages:
+        - java-1.8.0-openjdk
+      tags:
+        - java
+    - role: java
+      become: true
+      when: ansible_os_family == 'Debian'
+      java_home: /usr/lib/jvm/java-8-openjdk-amd64
+      java_packages:
+        - openjdk-8-jdk
+      tags:
+        - java
+    - role: common
 
 - name: Apply API Manager default configuration to an apim node
   hosts:
