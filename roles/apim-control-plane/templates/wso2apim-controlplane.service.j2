@@ -3,6 +3,9 @@ Description=WSO2 API Manager - Control Plane profile
 After=network.target
 
 [Service]
+{% if control_plane_memory %}
+Environment=JVM_MEM_OPTS={{ control_plane_memory }}
+{% endif %}
 ExecStart={{ carbon_home }}/bin/api-manager.sh -Dprofile=control-plane start
 ExecStop={{ carbon_home }}/bin/api-manager.sh stop
 ExecReload={{ carbon_home }}/bin/api-manager.sh restart

@@ -3,6 +3,9 @@ Description=WSO2 API Manager - Traffic Manager profile
 After=network.target
 
 [Service]
+{% if tm_memory %}
+Environment=JVM_MEM_OPTS={{ tm_memory }}
+{% endif %}
 ExecStart={{ carbon_home }}/bin/api-manager.sh -Dprofile=traffic-manager start
 ExecStop={{ carbon_home }}/bin/api-manager.sh stop
 ExecReload={{ carbon_home }}/bin/api-manager.sh restart
