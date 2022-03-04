@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 {% if apim_memory %}
-Environment=JVM_MEM_OPTS={{ apim_memory }}
+Environment=JVM_MEM_OPTS="{{ apim_memory }}"
 {% endif %}
 EnvironmentFile=/etc/profile.d/java_home.sh
 ExecStart={{ carbon_home }}/bin/api-manager.sh start

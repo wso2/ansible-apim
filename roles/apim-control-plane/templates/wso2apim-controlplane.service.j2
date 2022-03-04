@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 {% if control_plane_memory %}
-Environment=JVM_MEM_OPTS={{ control_plane_memory }}
+Environment=JVM_MEM_OPTS="{{ control_plane_memory }}"
 {% endif %}
 EnvironmentFile=/etc/profile.d/java_home.sh
 ExecStart={{ carbon_home }}/bin/api-manager.sh -Dprofile=control-plane start

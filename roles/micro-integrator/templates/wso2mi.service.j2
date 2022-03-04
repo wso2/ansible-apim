@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 {% if mi_memory %}
-Environment=JVM_MEM_OPTS={{ mi_memory }}
+Environment=JVM_MEM_OPTS="{{ mi_memory }}"
 {% endif %}
 EnvironmentFile=/etc/profile.d/java_home.sh
 ExecStart={{ carbon_home }}/bin/micro-integrator.sh start
