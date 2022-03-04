@@ -3,7 +3,9 @@ Description=WSO2 API Manager - Default profile
 After=network.target
 
 [Service]
+{% if ansible_env.JAVA_HOME is defined %}
 Environment=JAVA_HOME={{ ansible_env.JAVA_HOME }}
+{% endif %}
 {% if apim_memory %}
 Environment=JVM_MEM_OPTS="{{ apim_memory }}"
 {% endif %}
