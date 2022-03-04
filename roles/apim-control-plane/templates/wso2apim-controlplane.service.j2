@@ -6,6 +6,7 @@ After=network.target
 {% if control_plane_memory %}
 Environment=JVM_MEM_OPTS={{ control_plane_memory }}
 {% endif %}
+EnvironmentFile=/etc/profile.d/java_home.sh
 ExecStart={{ carbon_home }}/bin/api-manager.sh -Dprofile=control-plane start
 ExecStop={{ carbon_home }}/bin/api-manager.sh stop
 ExecReload={{ carbon_home }}/bin/api-manager.sh restart
