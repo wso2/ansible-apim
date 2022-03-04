@@ -33,9 +33,9 @@
     - role: java
       when: ansible_os_family == 'RedHat'
       become: true
-      java_home: /usr/lib/jvm/jre-1.8.0
+      java_home: /usr/lib/jvm/java
       java_packages:
-        - java-1.8.0-openjdk
+        - java-1.8.0-openjdk-devel
       tags:
         - java
     - role: java
