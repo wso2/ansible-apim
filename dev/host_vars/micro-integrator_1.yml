@@ -28,5 +28,3 @@ mi_memory: -Xms256m -Xmx1024m
 config_files:
   - { src: 'carbon-home/conf/deployment.toml.j2',
       dest: '{{ carbon_home }}/conf/deployment.toml' }
-  - { src: 'carbon-home/bin/micro-integrator.sh.j2',
-      dest: '{{ carbon_home }}/bin/micro-integrator.sh' }
