@@ -18,6 +18,16 @@
 ---
 # This playbook deploys the whole application stack in this site.
 
+- name: Ping to see which hosts are up
+  hosts: all
+  become: false
+  gather_facts: false
+
+  tasks:
+    - name: Ping to see which hosts are up
+      ping:
+      ignore_errors: true
+
 - name: Apply common configuration to all nodes
   hosts: all
   serial: 1

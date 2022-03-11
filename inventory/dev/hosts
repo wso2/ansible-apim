@@ -4,6 +4,31 @@ apim-control-plane_1 ansible_host=192.168.56.7
 apim-tm_1 ansible_host=192.168.56.7
 apim-gateway_1 ansible_host=192.168.56.7
 
+apim_2 ansible_host=192.168.56.8
+apim-control-plane_1 ansible_host=192.168.56.8
+apim-tm_2 ansible_host=192.168.56.8
+apim-gateway_2 ansible_host=192.168.56.8
+
+apim_3 ansible_host=192.168.56.14
+apim-control-plane_3 ansible_host=192.168.56.14
+apim-tm_3 ansible_host=192.168.56.14
+apim-gateway_3 ansible_host=192.168.56.14
+
+apim_4 ansible_host=192.168.56.16
+apim-control-plane_4 ansible_host=192.168.56.16
+apim-tm_4 ansible_host=192.168.56.16
+apim-gateway_4 ansible_host=192.168.56.16
+
+apim_5 ansible_host=192.168.56.18
+apim-control-plane_5 ansible_host=192.168.56.18
+apim-tm_5 ansible_host=192.168.56.18
+apim-gateway_5 ansible_host=192.168.56.18
+
+apim_6 ansible_host=192.168.56.20
+apim-control-plane_6 ansible_host=192.168.56.20
+apim-tm_6 ansible_host=192.168.56.20
+apim-gateway_6 ansible_host=192.168.56.20
+
 [apim:vars]
 ansible_user=vagrant
 ansible_private_key_file = ~/.vagrant.d/insecure_private_key

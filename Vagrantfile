@@ -4,8 +4,14 @@
 # vagrant up
 
 Vagrant.require_version ">= 2.0.0"
-
-
+# Select the config file from the STAGE environment variable
+$Stage = ENV['STAGE'] || "dev"
+# Require JSON module
+require 'json'
+# Read JSON file with config details
+guests = JSON.parse(File.read(File.join(File.dirname(__FILE__), $Stage + ".json")))
+# Local PATH_SRC for mounting
+$PathSrc = ENV['PATH_SRC'] || "."
 Vagrant.configure(2) do |config|
 
   # check for updates of the base image
@@ -25,36 +31,40 @@ Vagrant.configure(2) do |config|
     config.hostmanager.ignore_private_ip = false
     config.hostmanager.include_offline = true
   end
+
   # enable ssh agent forwarding
   config.ssh.forward_agent = true
 
   # use the standard vagrant ssh key
   config.ssh.insert_key = false
 
-  # disable guest additions
-  config.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: true
+  # Iterate through entries in JSON file
+  guests.each do |guest|
+    config.vm.define guest['name'], autostart: guest['autostart'] do |srv|
+      srv.vm.box = guest['box']
+      srv.vm.hostname = guest['name']
+      srv.vm.network 'private_network', ip: guest['ip_addr']
+      srv.vm.network :forwarded_port, host: guest['forwarded_port'], guest: guest['app_port']
 
-  config.vm.define "wso2vagrant" do |srv|
-    srv.vm.box = "centos/7"
-    srv.vm.hostname = "wso2vagrant"
-    srv.vm.network 'private_network', ip: "192.168.56.7"
-    srv.vm.provider :virtualbox do |virtualbox|
-      virtualbox.customize ["modifyvm", :id,
-         "--audio", "none",
-         "--cpus", 2,
-         "--memory", 4096,
-         "--graphicscontroller", "VMSVGA",
-         "--vram", "64"
-      ]
-      virtualbox.gui = false
-      virtualbox.name = "wso2vagrant"
+      # set no_share to false to enable file sharing
+      srv.vm.synced_folder ".", "/vagrant", id: "vagrant-root", disabled: guest['no_share']
+      srv.vm.provider :virtualbox do |virtualbox|
+        virtualbox.customize ["modifyvm", :id,
+           "--audio", "none",
+           "--cpus", guest['cpus'],
+           "--memory", guest['memory'],
+           "--graphicscontroller", "VMSVGA",
+           "--vram", "64"
+        ]
+        virtualbox.gui = guest['gui']
+        virtualbox.name = guest['name']
+      end
     end
   end
-
   config.vm.provision "ansible" do |ansible|
     ansible.compatibility_mode = "2.0"
     ansible.playbook = "site.yml"
-    ansible.inventory_path = "inventory/dev/hosts"
+    ansible.inventory_path = "inventory/$Stage/hosts"
     ansible.limit = "apim"
     ansible.verbose = "v"
   end
