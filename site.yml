@@ -31,19 +31,11 @@
   gather_facts: true
   roles:
     - role: java
-      when: ansible_os_family == 'RedHat'
-      become: true
-      java_home: /usr/lib/jvm/java
-      java_packages:
-        - java-1.8.0-openjdk-devel
-      tags:
-        - java
-    - role: java
-      become: true
-      when: ansible_os_family == 'Debian'
-      java_home: /usr/lib/jvm/java-8-openjdk-amd64
-      java_packages:
-        - openjdk-8-jdk
+      java_distribution: corretto
+      transport: fallback
+      java_tarball_install: true
+      java_major_version: 8
+      java_unlimited_policy_enabled: true
       tags:
         - java
     - role: common
