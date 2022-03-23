@@ -149,6 +149,11 @@ allow_methods = ["GET","PUT","POST","DELETE","PATCH","OPTIONS"]
 allow_headers = ["authorization","Access-Control-Allow-Origin","Content-Type","SOAPAction","apikey","Internal-Key"]
 allow_credentials = false
 
+{% if cp_https_proxy_port is defined %}
+[transport.https.properties]
+proxyPort = {{ cp_https_proxy_port }}
+{% endif %}
+
 [apim.throttling]
 enable_data_publishing = true
 service_url = "{{ traffic_manager_host_url }}/services/"
