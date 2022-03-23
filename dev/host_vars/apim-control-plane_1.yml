@@ -33,6 +33,9 @@ oauth_configs_revoke_api_url: https://localhost:${https.nio.port}/revoke
 # Heap memory allocation
 control_plane_memory: -Xms256m -Xmx1024m
 
+# If you want to add proxy port uncomment the following line
+#cp_https_proxy_port: 443 
+
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',
       dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
