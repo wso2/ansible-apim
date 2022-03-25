@@ -17,11 +17,9 @@
   - block:
     - name: Create group
       group: name=wso2 state=present gid=802
-      become: true
 
     - name: Add wso2carbon user
       user: name=wso2carbon shell=/bin/bash group=wso2 uid=802 non_unique=yes
-      become: true
 
     - name: System performance tuning
       copy:
@@ -36,4 +34,3 @@
         state: present
 
     become: true
-    become_user: root
