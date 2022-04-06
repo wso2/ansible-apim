@@ -38,9 +38,9 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 │   └── Pattern_5.md
 ├── files
 │   ├── lib
-│   │   ├── amazon-corretto-8.292.10.1-linux-x64.tar.gz
+│   │   ├── amazon-corretto-11.0.14.1-linux-x64.tar.gz
 │   └── packs
-│   │   ├── wso2am-4.0.0.zip
+│   │   ├── wso2am-4.1.0.zip
 │   ├── system
 │   │   └── etc
 │   │       ├── security
@@ -78,11 +78,11 @@ Packs could be either copied to a local directory, or downloaded from a remote l
 
 Copy the following files to `files/packs` directory.
 
-1. [WSO2 API Manager 4.0.0 package](https://wso2.com/api-management/install/)
+1. [WSO2 API Manager 4.1.0 package (.zipß)](https://github.com/wso2/product-apim/releases/tag/v4.1.0)
 
 Copy the following files to `files/lib` directory.
 
-1. [Amazon Corretto for Linux x64 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
+1. [Amazon Corretto for Linux x64 JDK 11 (.tar.gz)](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html)
 
 Copy the miscellaneous files to `files/misc` directory. To enable file copying,  uncomment the `misc_file_list` in the yaml files under `group_vars` and add the miscellaneous files to the list.
 
@@ -173,6 +173,6 @@ Refer the below documentation on configuring Load-Balancers for your deoloyment.
 
 The master branch of this repository contains the latest product version with the latest Ansible version. The Ansible resources for previous Ansible versions can be found in the branches. The following is an example.
 
-#### Ansible resources for API Manager 3.2.0
+#### Ansible resources for API Manager 4.0.0
 
-Branch name: 3.2.x
+Branch name: 4.0.x
