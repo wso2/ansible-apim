@@ -32,6 +32,9 @@ password =  "{% if secure_vault_enabled|bool %}$secret{tls_key_store_password}{%
 alias =  "{{ tls_key_store_key_alias }}"
 key_password =  "{% if secure_vault_enabled|bool %}$secret{tls_key_store_key_password}{% else %}{{ tls_key_store_key_password }}{% endif %}"
 
+[keystore.listener_profile]
+bind_address = "{{ listner_profile_key_store_bind_address }}"
+
 [keystore.primary]
 file_name =  "{{ primary_key_store_name }}"
 type =  "JKS"
@@ -100,6 +103,10 @@ gateway_labels = [{% for label in sync_runtime_gateway_labels %}"{{ label }}"{%-
 
 #[apim.cache.tags]
 #expiry_time = "2m"
+
+[apim.analytics]
+enable = {{analytics_apim_enabled}}
+auth_token = "{{analytics_apim_auth_token}}"
 
 [apim.key_manager]
 service_url = "{{ key_manager_server_url }}"
@@ -252,6 +259,11 @@ notification_endpoint = "https://localhost:${mgt.transport.https.port}/internal/
 username = "${admin.username}"
 password = "${admin.password}"
 'header.X-WSO2-KEY-MANAGER' = "default"
+
+[oauth.grant_type.token_exchange]
+enable = true
+allow_refresh_tokens = true
+iat_validity_period = "1h"
 
 {% if secure_vault_enabled|bool %}
 [secrets]

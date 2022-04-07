@@ -155,6 +155,9 @@ internal_key_store_password: wso2carbon
 internal_key_store_key_alias: wso2carbon
 
 # The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
+listner_profile_key_store_bind_address: 0.0.0.0
+
+# The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
 tls_key_store_name: wso2carbon.jks
 tls_key_store_key_password: wso2carbon
 tls_key_store_password: wso2carbon
@@ -162,6 +165,10 @@ tls_key_store_key_alias: wso2carbon
 
 # If following is enabled all the sensitive information in server configurations will be encrypted.
 secure_vault_enabled: false
+
+# Make true and set auth_token to enable APIM choreo analytics
+analytics_apim_enabled: false
+analytics_apim_auth_token: auth_token
 
 # Add any new changes you want to add for the group/profile below.
 # If you add a new file under templates and parameterized the file, the values for those parameters should be added
