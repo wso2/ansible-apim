@@ -78,7 +78,7 @@ Packs could be either copied to a local directory, or downloaded from a remote l
 
 Copy the following files to `files/packs` directory.
 
-1. [WSO2 API Manager 4.1.0 package (.zipß)](https://github.com/wso2/product-apim/releases/tag/v4.1.0)
+1. [WSO2 API Manager 4.1.0 package (.zip)](https://wso2.com/api-management/install/)
 
 Copy the following files to `files/lib` directory.
 

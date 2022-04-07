@@ -18,7 +18,7 @@ If additional files needs to be added to the VMs, copy the miscellaneous files t
 
 Copy the following files to `files/packs` directory.
 
-1. [WSO2 API Manager 4.1.0 package (.zip)](https://github.com/wso2/product-apim/releases/tag/v4.1.0)
+1. [WSO2 API Manager 4.1.0 package (.zip)](https://wso2.com/api-management/install/)
 2. [WSO2 Micro Integrator 4.1.0 package (.zip)](https://github.com/wso2/micro-integrator/releases/tag/v4.1.0)
 
 ## Database configurations
