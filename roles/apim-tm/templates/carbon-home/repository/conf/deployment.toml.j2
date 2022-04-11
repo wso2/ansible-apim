@@ -13,13 +13,17 @@ type = "database_unique_id"
 
 [database.apim_db]
 type = "{{ wso2am_db_type }}"
-url = "{{ wso2am_db_url }}"
+hostname = "{{ wso2am_db_url }}"
+name = "{{ wso2am_db_name }}"
+port = "{{ wso2am_db_port }}"
 username = "{% if secure_vault_enabled|bool %}$secret{wso2am_db_username}{% else %}{{ wso2am_db_username }}{% endif %}"
 password = "{% if secure_vault_enabled|bool %}$secret{wso2am_db_password}{% else %}{{ wso2am_db_password }}{% endif %}"
 
 [database.shared_db]
 type = "{{ wso2shared_db_type }}"
-url = "{{ wso2shared_db_url }}"
+hostname = "{{ wso2shared_db_url }}"
+name = "{{ wso2shared_db_name }}"
+port = "{{ wso2shared_db_port }}"
 username = "{% if secure_vault_enabled|bool %}$secret{wso2shared_db_username}{% else %}{{ wso2shared_db_username }}{% endif %}"
 password = "{% if secure_vault_enabled|bool %}$secret{wso2shared_db_password}{% else %}{{ wso2shared_db_password }}{% endif %}"
 
@@ -30,31 +34,10 @@ password =  "{% if secure_vault_enabled|bool %}$secret{tls_key_store_password}{%
 alias =  "{{ tls_key_store_key_alias }}"
 key_password =  "{% if secure_vault_enabled|bool %}$secret{tls_key_store_key_password}{% else %}{{ tls_key_store_key_password }}{% endif %}"
 
-[keystore.listener_profile]
-bind_address = "{{ listner_profile_key_store_bind_address }}"
-
-[keystore.primary]
-file_name =  "{{ primary_key_store_name }}"
-type =  "JKS"
-password =  "{% if secure_vault_enabled|bool %}$secret{primary_key_store_password}{% else %}{{ primary_key_store_password }}{% endif %}"
-alias =  "{{ primary_key_store_key_alias }}"
-key_password =  "{% if secure_vault_enabled|bool %}$secret{primary_key_store_key_password}{% else %}{{ primary_key_store_key_password }}{% endif %}"
-
-[keystore.internal]
-file_name =  "{{ internal_key_store_name }}"
-type =  "JKS"
-password =  "{% if secure_vault_enabled|bool %}$secret{internal_key_store_password}{% else %}{{ internal_key_store_password }}{% endif %}"
-alias =  "{{ internal_key_store_key_alias }}"
-key_password =  "{% if secure_vault_enabled|bool %}$secret{internal_key_store_key_password}{% else %}{{ internal_key_store_key_password }}{% endif %}"
-
 [truststore]
 file_name = "{{ trust_store_name }}"
 type = "JKS"
 password = "{% if secure_vault_enabled|bool %}$secret{trust_store_password}{% else %}{{ trust_store_password }}{% endif %}"
-
-[apim.analytics]
-enable = {{analytics_apim_enabled}}
-auth_token = "{{analytics_apim_auth_token}}"
 
 [apim.key_manager]
 service_url = "{{ key_manager_server_url }}"
@@ -70,11 +53,6 @@ event_duplicate_url = ["{{ tm_event_duplicate_url }}"]
 [transport.https.properties]
 proxyPort = {{ tm_https_proxy_port }}
 {% endif %}
-
-[oauth.grant_type.token_exchange]
-enable = true
-allow_refresh_tokens = true
-iat_validity_period = "1h"
 
 {% if secure_vault_enabled|bool %}
 [secrets]
