@@ -1,25 +1,20 @@
 [server]
-hostname = "{{ hostname }}"
-offset="{{ ports_offset }}"
+#hostname = "gw.wso2.com"
 server_role = "gateway-worker"
+
+[user_store]
+type = "database_unique_id"
 
 [super_admin]
 username = "{% if secure_vault_enabled|bool %}$secret{admin_username}{% else %}{{ admin_username }}{% endif %}"
 password = "{% if secure_vault_enabled|bool %}$secret{admin_password}{% else %}{{ admin_password }}{% endif %}"
 create_admin_account = true
 
-[user_store]
-type = "database_unique_id"
-
-[database.apim_db]
-type = "{{ wso2am_db_type }}"
-url = "{{ wso2am_db_url }}"
-username = "{% if secure_vault_enabled|bool %}$secret{wso2am_db_username}{% else %}{{ wso2am_db_username }}{% endif %}"
-password = "{% if secure_vault_enabled|bool %}$secret{wso2am_db_password}{% else %}{{ wso2am_db_password }}{% endif %}"
-
 [database.shared_db]
 type = "{{ wso2shared_db_type }}"
-url = "{{ wso2shared_db_url }}"
+hostname = "{{ wso2shared_db_url }}"
+name = "{{ wso2shared_db_name }}"
+port = "{{ wso2shared_db_port }}"
 username = "{% if secure_vault_enabled|bool %}$secret{wso2shared_db_username}{% else %}{{ wso2shared_db_username }}{% endif %}"
 password = "{% if secure_vault_enabled|bool %}$secret{wso2shared_db_password}{% else %}{{ wso2shared_db_password }}{% endif %}"
 
@@ -29,23 +24,6 @@ type =  "JKS"
 password =  "{% if secure_vault_enabled|bool %}$secret{tls_key_store_password}{% else %}{{ tls_key_store_password }}{% endif %}"
 alias =  "{{ tls_key_store_key_alias }}"
 key_password =  "{% if secure_vault_enabled|bool %}$secret{tls_key_store_key_password}{% else %}{{ tls_key_store_key_password }}{% endif %}"
-
-[keystore.listener_profile]
-bind_address = "{{ listner_profile_key_store_bind_address }}"
-
-[keystore.primary]
-file_name =  "{{ primary_key_store_name }}"
-type =  "JKS"
-password =  "{% if secure_vault_enabled|bool %}$secret{primary_key_store_password}{% else %}{{ primary_key_store_password }}{% endif %}"
-alias =  "{{ primary_key_store_key_alias }}"
-key_password =  "{% if secure_vault_enabled|bool %}$secret{primary_key_store_key_password}{% else %}{{ primary_key_store_key_password }}{% endif %}"
-
-[keystore.internal]
-file_name =  "{{ internal_key_store_name }}"
-type =  "JKS"
-password =  "{% if secure_vault_enabled|bool %}$secret{internal_key_store_password}{% else %}{{ internal_key_store_password }}{% endif %}"
-alias =  "{{ internal_key_store_key_alias }}"
-key_password =  "{% if secure_vault_enabled|bool %}$secret{internal_key_store_key_password}{% else %}{{ internal_key_store_key_password }}{% endif %}"
 
 [truststore]
 file_name = "{{ trust_store_name }}"
@@ -60,14 +38,13 @@ password= "$ref{super_admin.password}"
 {% if jwt_enable is defined %}
  # JWT Generation
 [apim.jwt]
-enable = "{{ jwt_enable }}"
+enable = "{{ jwt_enable | bool | lower }}"
 encoding = "{{ jwt_encoding }}"
 generator_impl = "{{ jwt_generator_impl }}"
 claim_dialect = "{{ jwt_claim_dialect }}"
-convert_dialect = "{{ jwt_convert_dialect }}"
 header = "{{ jwt_header }}"
 signing_algorithm = "{{ jwt_signing_algorithm }}"
-enable_user_claims = "{{ jwt_enable_user_claims }}"
+enable_user_claims = "{{ jwt_enable_user_claims | bool | lower }}"
 claims_extractor_impl = "{{ jwt_claims_extractor_impl }}"
 {% endif %}
 
@@ -75,39 +52,39 @@ claims_extractor_impl = "{{ jwt_claims_extractor_impl }}"
 gateway_labels = [{% for label in sync_runtime_gateway_labels %}"{{ label }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 
 [apim.throttling]
-service_url = "{{ traffic_manager_host_url }}/services/"
 username = "$ref{super_admin.username}"
 password = "$ref{super_admin.password}"
+service_url = "{{ traffic_manager_host_url }}/services/"
+throttle_decision_endpoints = [{% for endpoint in throttle_decision_endpoints %}"{{ endpoint }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 enable_unlimited_tier = true
 enable_header_based_throttling = false
 enable_jwt_claim_based_throttling = false
 enable_query_param_based_throttling = false
-throttle_decision_endpoints = [{% for endpoint in throttle_decision_endpoints %}"{{ endpoint }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
+
 {% for url_group in throttling_url_group %}
 [[apim.throttling.url_group]]
 traffic_manager_urls=[{% for url in url_group['traffic_manager_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 traffic_manager_auth_urls=[{% for url in url_group['traffic_manager_auth_urls'] %}"{{ url }}"{%- if not loop.last -%},{% endif %}{% endfor %}]
 {% endfor %}
 
+[apim.analytics]
+enable = {{ analytics_apim_enabled | bool | lower }}
+auth_token = "{{ analytics_apim_auth_token }}"
+
 # Caches
+[apim.cache.gateway_token]
+enable = true
+expiry_time = 15
+
+[apim.cache.resource]
+enable = true
+
 [apim.cache.jwt_claim]
 enable = true
 expiry_time = 900
 
-[apim.cache.gateway_token]
-enable = true
-expiry_time = "900s"
-
-[apim.cache.resource]
-enable = true
-expiry_time = "900s"
-
-[apim.analytics]
-enable = {{analytics_apim_enabled}}
-auth_token = "{{analytics_apim_auth_token}}"
-
 [apim.oauth_config]
-remove_outbound_auth_header = true
+enable_outbound_auth_header = true
 auth_header = "Authorization"
 
 [apim.cors]
@@ -120,14 +97,6 @@ allow_credentials = false
 [transport.https.properties]
 proxyPort = {{ gw_https_proxy_port }}
 {% endif %}
-
-[transport.passthru_https.sender.parameters]
-HostnameVerifier = "AllowAll"
-
-[oauth.grant_type.token_exchange]
-enable = true
-allow_refresh_tokens = true
-iat_validity_period = "1h"
 
 {% if secure_vault_enabled|bool %}
 [secrets]
