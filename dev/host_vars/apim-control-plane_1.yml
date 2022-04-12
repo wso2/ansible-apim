@@ -25,7 +25,7 @@ admin_username: admin
 admin_password: admin
 
 # Configure the throttle policy deployer to point to the TRaffic-Manager e.g: https://[API-Traffic-Manager-LB-Host]/services
-throttle_config_policy_deployer_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
+throttle_config_policy_deployer_url: https://localhost:${mgt.transport.https.port}/services/
 
 # Configure the Token Revoke endpoint to point to the Key Manager e.g: https://[API-Key-Manager-LB-Host]/oauth2/revoke
 oauth_configs_revoke_api_url: https://localhost:${https.nio.port}/revoke

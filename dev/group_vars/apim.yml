@@ -17,7 +17,7 @@
 wso2_group: wso2 # OS group to be created
 wso2_user: wso2carbon # OS user for WSO2 services
 product_name: wso2am
-product_version: 4.0.0
+product_version: 4.1.0
 target: /mnt # Product installation directory
 product_package_location: files
 backup_dir: /tmp # Artifact backup directory in the instance
@@ -70,34 +70,35 @@ performance_tuning_file_list:
 # Set the location the product packages should reside in (eg: "local" in the /files directory, "remote" in a remote location)
 pack_location: local
 #pack_location: remote
-#remote_jdk: "<URL_TO_JDK_FILE>"
-#remote_pack: "<URL_TO_APIM_PACK>"
+#remote_jdk: "<URL_TO_JDK_FILE>" Ex:- "https://corretto.aws/downloads/latest/amazon-corretto-11-x64-linux-jdk.tar.gz"
+#remote_pack: "<URL_TO_APIM_PACK>" Ex:- "https://github.com/wso2/product-apim/releases/download/v4.1.0/wso2am-4.1.0.zip"
 
 # JDK Distributions
 setup_java_enabled: true #If this is set to false java_home variable below needs to be specified.
-jdk_name: amazon-corretto-8.292.10.1-linux-x64
+jdk_name: amazon-corretto-11.0.14.1-linux-x64 # Update this as per jdk version you use
 java_dir: /opt
 java_symlink: "{{ java_dir }}/java"
 java_home: "{{ java_dir }}/{{ jdk_name }}"
 
 # Server URL of the Authentication service. Make sure to import the Key Manager's public certificate to WSO2 API-M's
 # client-truststore.jks. For more information, see https://docs.wso2.com/display/ADMIN44x/Creating+New+Keystores
-key_manager_server_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
+key_manager_server_url: https://localhost:${mgt.transport.https.port}/services/
 
 # API Store related configurations
 api_devportal_url: https://localhost:${mgt.transport.https.port}/devportal
-api_devportal_server_url: https://localhost:${mgt.transport.https.port}${carbon.context}services/
+api_devportal_server_url: https://localhost:${mgt.transport.https.port}/services/
 
 # Gateway configurations
 gateway_environments:
   - { type: 'hybrid',
       name: 'Default',
+      provider: 'wso2',
       description: 'This is a hybrid gateway that handles both production and sandbox token traffic.',
       service_url: 'https://localhost:${mgt.transport.https.port}/services/',
       ws_endpoint: 'ws://localhost:9099',
       wss_endpoint: 'wss://localhost:8099',
-      http_endpoint: 'http://localhost:${http.nio.port}',
-      https_endpoint: 'https://localhost:${https.nio.port}',
+      http_endpoint: 'http://localhost:8280',
+      https_endpoint: 'https://localhost:8243',
       websub_event_receiver_http_endpoint: "http://localhost:9021",
       websub_event_receiver_https_endpoint: "https://localhost:8021"}
 
@@ -155,6 +156,9 @@ internal_key_store_password: wso2carbon
 internal_key_store_key_alias: wso2carbon
 
 # The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
+listner_profile_key_store_bind_address: 0.0.0.0
+
+# The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
 tls_key_store_name: wso2carbon.jks
 tls_key_store_key_password: wso2carbon
 tls_key_store_password: wso2carbon
@@ -162,6 +166,10 @@ tls_key_store_key_alias: wso2carbon
 
 # If following is enabled all the sensitive information in server configurations will be encrypted.
 secure_vault_enabled: false
+
+# Make true and set auth_token to enable APIM choreo analytics
+analytics_apim_enabled: false
+analytics_apim_auth_token: auth_token
 
 # Add any new changes you want to add for the group/profile below.
 # If you add a new file under templates and parameterized the file, the values for those parameters should be added
