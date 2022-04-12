@@ -9,17 +9,17 @@ The Ansible scripts are capable of installing java from a given JDK installer fr
 
 Copy the following files to `files/lib` directory.
 
-1. [Amazon Corretto for Linux x64 JDK](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
+1. [Amazon Corretto JDK 11 for Linux x64 (.tar.gz)](https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/downloads-list.html)
 
 ## Adding miscellaneous files
 If additional files needs to be added to the VMs, copy the miscellaneous files to `files/misc` directory. To enable file copying,  uncomment the `misc_file_list` in the yaml files under `group_vars` and add the miscellaneous files to the list.
 
 ## Packs to be Copied
 
-Copy the following files to `files` directory. (Packs must be copied as per the required components). You need to add the ZIP Archive of the WSO2 distributions.
+Copy the following files to `files/packs` directory. (Packs must be copied as per the required components). You need to add the ZIP Archive of the WSO2 distributions.
 
-1. [WSO2 API Manager package](https://wso2.com/api-management/install/) to files/packs
-2. [WSO2 Micro Integrator](https://github.com/wso2/micro-integrator/releases/tag/v4.0.0)
+1. [WSO2 API Manager 4.1.0 package (.zip)](https://wso2.com/api-management/install/)
+2. [WSO2 Micro Integrator 4.1.0 package (.zip)](https://github.com/wso2/micro-integrator/releases/tag/v4.1.0)
 
 ## Database configurations
 

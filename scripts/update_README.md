@@ -33,8 +33,8 @@ In the below sample, it uses the remote location as `/mnt/`.
 Please find the sample configurations for `<Ansible_Home>/group_vars/apim.yml`.
 ```java
 pack_location: remote
-remote_jdk: "/mnt/amazon-corretto-8.292.10.1-linux-x64.tar.gz"
-remote_pack: "/mnt/wso2am-4.0.0.zip"
+remote_jdk: "/mnt/amazon-corretto-11.0.14.1-linux-x64.tar.gz"
+remote_pack: "/mnt/wso2am-4.1.0.zip"
 ```
 
 NOTES:

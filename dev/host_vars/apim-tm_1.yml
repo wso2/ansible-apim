@@ -33,6 +33,22 @@ admin_password: admin
 # Heap memory allocation
 tm_memory: -Xms256m -Xmx1024m
 
+# Shared db configurations
+wso2shared_db_type: mysql
+wso2shared_db_hostname: shared_db.mysql
+wso2shared_db_name: shared_db
+wso2shared_db_port: 3306
+wso2shared_db_username: shareduser
+wso2shared_db_password: shareduser
+
+# APIM db configurations
+wso2am_db_type: mysql
+wso2am_db_hostname: shared_db.mysql
+wso2am_db_name: shared_db
+wso2am_db_port: 3306
+wso2am_db_username: apimuser
+wso2am_db_password: apimuser
+
 config_files:
   - { src: 'carbon-home/repository/conf/deployment.toml.j2',
       dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
