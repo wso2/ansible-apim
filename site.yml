@@ -39,7 +39,7 @@
 #
 # - name: Apply API Management <profile> configuration to an apim node
 #   hosts:
-#     - apim_1
+#     - apim-<profile>_1
 #   roles:
 #     - apim-<profile>
 #
@@ -47,7 +47,7 @@
 #
 # - name: Apply API Management developer portal configuration to an apim node
 #   hosts:
-#     - apim_1
+#     - apim-control-plane_1
 #   roles:
 #     - apim-control-plane
 #

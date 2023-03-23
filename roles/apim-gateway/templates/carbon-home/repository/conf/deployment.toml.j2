@@ -1,5 +1,7 @@
 [server]
-#hostname = "gw.wso2.com"
+hostname = "{{ hostname }}"
+offset="{{ ports_offset }}"
+base_path = "${carbon.protocol}://${carbon.host}:${carbon.management.port}"
 server_role = "gateway-worker"
 
 [user_store]
