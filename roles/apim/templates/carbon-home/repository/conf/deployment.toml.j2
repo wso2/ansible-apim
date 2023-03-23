@@ -109,6 +109,7 @@ enable = {{ analytics_apim_enabled | bool | lower }}
 auth_token = "{{ analytics_apim_auth_token }}"
 
 [apim.key_manager]
+enable_apikey_subscription_validation = true
 service_url = "{{ key_manager_server_url }}"
 username = "$ref{super_admin.username}"
 password = "$ref{super_admin.password}"
