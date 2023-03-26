@@ -1,0 +1,40 @@
+# ----------------------------------------------------------------------------
+#  Copyright (c) 2023 WSO2, LLC. http://www.wso2.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+# ----------------------------------------------------------------------------
+---
+# NOTE: The parameterized values has the default values from the original pack. Please change them according to your
+# requirements. If you need to add additional configurations, please use the custom.yml under each role.
+ports_offset: 0
+
+# User manager configurations
+admin_username: admin
+admin_password: admin
+
+#Following needs to be uncommented if TM is deployed in HA mode, If the TM is not HA keep the following commented.
+#tm_event_duplicate_url: tcp://tm_host:5672
+
+# If you want to add proxy port uncomment the following line
+#tm_https_proxy_port: 443
+
+# Heap memory allocation
+tm_memory: -Xms256m -Xmx1024m
+
+config_files:
+  - { src: 'carbon-home/repository/conf/deployment.toml.j2',
+      dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
+  - { src: 'carbon-home/bin/api-manager.sh.j2',
+      dest: '{{ carbon_home }}/bin/api-manager.sh' }
+  - { src: 'carbon-home/repository/conf/carbon.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/carbon.xml' }

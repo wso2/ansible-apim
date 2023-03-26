@@ -1,0 +1,21 @@
+
+- name: Run Secure Vault to Encrypt passwords
+  command: "{{ carbon_home }}/bin/ciphertool.sh -Dconfigure -Dpassword={{ internal_key_store_password }}"
+  environment:
+    JAVA_HOME: "{{ java_home }}"
+  args: 
+    chdir: "{{ carbon_home }}" 
+  when: secure_vault_enabled|bool
+
+- name: Creating a file with content
+  copy:
+    dest: "{{ carbon_home }}/password-tmp"
+    content: |
+      {{ internal_key_store_password }}
+
+- name: Change the owner of WSO2 directory
+  file:
+    path: "{{ carbon_home }}/password-tmp"
+    owner: "{{ wso2_user }}"
+    group: "{{ wso2_group }}"
+    mode: 0755

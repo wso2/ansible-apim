@@ -1,0 +1,19 @@
+[Unit]
+Description=WSO2 API Manager - Traffic Manager profile
+After=network.target
+
+[Service]
+ExecStart={{ carbon_home }}/bin/api-manager.sh -Dprofile=traffic-manager start
+ExecStop={{ carbon_home }}/bin/api-manager.sh stop
+ExecReload={{ carbon_home }}/bin/api-manager.sh restart
+PIDFile={{ carbon_home }}/wso2carbon.pid
+User={{ wso2_user }}
+Group={{ wso2_group }}
+Type=forking
+Restart=on-failure
+RestartSec=5
+StartLimitInterval=60s
+StartLimitBurst=3
+
+[Install]
+WantedBy=multi-user.target

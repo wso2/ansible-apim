@@ -1,0 +1,41 @@
+#----------------------------------------------------------------------------
+#  Copyright (c) 2023 WSO2, LLC. http://www.wso2.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#----------------------------------------------------------------------------
+
+---
+# This playbook deploys the whole application stack in this site.
+
+- name: Apply common configuration to all nodes
+  hosts: all
+  roles:
+    - common
+
+- name: Apply API Manager default configuration to an APIs node (KeyManager, Publisher and Dev Portal)
+  hosts:
+    - apim-control-plane_1
+  roles:
+    - apim-control-plane
+
+- name: Apply API Manager default configuration to a TM node
+  hosts:
+    - apim-tm_1
+  roles:
+    - apim-tm
+
+- name: Apply API Manager default configuration to Gateway node
+  hosts:
+    - apim-gateway_1
+  roles:
+    - apim-gateway
