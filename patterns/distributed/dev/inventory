@@ -1,0 +1,8 @@
+[apim]
+apim-tm_1               ansible_host=tm.apim.com     ansible_user=ubuntu
+apim-gateway_1          ansible_host=gw.apim.com     ansible_user=ubuntu
+apim-control-plane_1    ansible_host=cp.apim.com     ansible_user=ubuntu
+
+#server_1           ansible_host=server1.apim.com   ansible_user=ubuntu
+#server_2           ansible_host=server2.apim.com   ansible_user=ubuntu
+#server_3           ansible_host=server3.apim.com   ansible_user=ubuntu

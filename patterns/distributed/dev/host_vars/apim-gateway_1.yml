@@ -1,0 +1,53 @@
+#----------------------------------------------------------------------------
+#  Copyright (c) 2023 WSO2, LLC. http://www.wso2.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#----------------------------------------------------------------------------
+---
+# NOTE: The parameterized values has the default values from the original pack. Please change them according to your
+# requirements. If you need to add additional configurations, please use the custom.yml under each role.
+
+ports_offset: 0
+
+# User manager configurations
+admin_username: admin
+admin_password: admin
+
+# Throttling configurations
+jms_conn_factory: amqp://${admin.username}:${admin.password}@clientid/carbon?brokerlist='tcp://${carbon.local.ip}:${jms.port}'
+
+# Heap memory allocation
+gw_memory: -Xms256m -Xmx1024m
+
+# If you want to add proxy port uncomment the following line
+#gw_https_proxy_port: 443
+
+# If you want to enable 'Passing Enduser Attributes to the Backend Using JWT' feature, uncomment the following segment
+#jwt_enable: true
+#jwt_encoding: "base64" # base64,base64url
+#jwt_generator_impl: "org.wso2.carbon.apimgt.keymgt.token.JWTGenerator"
+#jwt_claim_dialect: "http://wso2.org/claims"
+#jwt_convert_dialect: false
+#jwt_header: "X-JWT-Assertion"
+#jwt_signing_algorithm: "SHA256withRSA"
+#jwt_enable_user_claims: true
+#jwt_claims_extractor_impl: "org.wso2.carbon.apimgt.impl.token.ExtendedDefaultClaimsRetriever"
+
+# List of configuration file templates, and the paths they should be written to
+config_files:
+  - { src: 'carbon-home/repository/conf/deployment.toml.j2',
+      dest: '{{ carbon_home }}/repository/conf/deployment.toml' }
+  - { src: 'carbon-home/bin/api-manager.sh.j2',
+      dest: '{{ carbon_home }}/bin/api-manager.sh' }
+  - { src: 'carbon-home/repository/conf/carbon.xml.j2',
+      dest: '{{ carbon_home }}/repository/conf/carbon.xml' }

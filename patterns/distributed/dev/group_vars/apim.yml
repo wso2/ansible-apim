@@ -1,0 +1,173 @@
+# ----------------------------------------------------------------------------
+#  Copyright (c) 2023 WSO2, LLC. http://www.wso2.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+# ----------------------------------------------------------------------------
+
+cp_hostname: cp.apim.com
+gw_hostname: gw.apim.com
+tm_hostname: tm.apim.com
+
+wso2_group: wso2 # OS group to be created
+wso2_user: wso2carbon # OS user for WSO2 services
+product_name: wso2am
+product_version: 4.2.0
+target: /mnt # Product installation directory
+product_package_location: files 
+backup_dir: /tmp # Artifact backup directory in the instance
+misc_file_location: "{{ product_package_location }}/misc"
+misc_file_copy_location: "{{ target }}/misc"
+security_file_location: "{{ product_package_location }}/security"
+#If you uncomment the below line to set the jdbc driver, change the driver name accordingly
+jdbc_driver: mysql-connector-j-8.0.31.jar
+
+# Set backup_enabled to true to backup <carbon-home>/repository/deployment/server directory
+backup_enabled: false
+
+# Performance tuning configurations for the operating system
+enable_performance_tuning: false
+performance_tuning_file_list:
+  - { src: '{{ product_package_location }}/system/etc/sysctl.conf',
+      dest: '/etc/sysctl.conf' }
+  - { src: '{{ product_package_location }}/system/etc/security/limits.conf',
+      dest: '/etc/security/limits.conf' }
+
+# If custom primary keystores and trsustrores are need to be added, uncomment the below list
+# Add the required files under files/security/<product-home>/<path-to-file>
+# A sample is given below
+# security_file_list:
+#   - { src: '{{ security_file_location }}/wso2am/client-truststore.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/client-truststore.jks' }
+#   - { src: '{{ security_file_location }}/wso2am/wso2carbon.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/wso2carbon.jks' }
+
+# If custom tls keystore needs to be added, uncomment the below list
+# Add the required files under files/security/<product-home>/<path-to-file>
+# A sample is given below
+# security_file_list:
+#   - { src: '{{ security_file_location }}/wso2am/tls.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/tls.jks' }
+
+# If custom internal keystore needs to be added, uncomment the below list
+# Add the required files under files/security/<product-home>/<path-to-file>
+# A sample is given below
+# security_file_list:
+#   - { src: '{{ security_file_location }}/wso2am/internal.jks',
+#       dest: '{{ carbon_home }}/repository/resources/security/internal.jks' }
+
+# Uncomment and add any miscellaneous files you need to copy
+# A sample is given below
+# misc_file_list:
+#   - { src: '{{ misc_file_location }}/apictl-4.2.0-linux-amd64.tar.gz',
+#       dest: '{{ misc_file_copy_location }}/apictl-4.2.0-linux-amd64.tar.gz' }
+
+# Set the location the product packages should reside in (eg: "local" in the /files directory, "remote" in a remote location)
+pack_location: local
+#pack_location: remote
+#remote_jdk: "<URL_TO_JDK_FILE>"
+#remote_pack: "<URL_TO_APIM_PACK>"
+
+# JDK Distributions
+setup_java_enabled: true #If this is set to false java_home variable below needs to be specified.
+jdk_name: amazon-corretto-17.0.6.10.1-linux-x64 # Update this as per jdk version you use
+java_dir: /opt
+java_symlink: "{{ java_dir }}/java"
+java_home: "{{ java_dir }}/{{ jdk_name }}"
+
+# Server URL of the Authentication service. Make sure to import the Key Manager's public certificate to WSO2 API-M's
+# client-truststore.jks. For more information, see https://docs.wso2.com/display/ADMIN44x/Creating+New+Keystores
+key_manager_server_url: https://{{ cp_hostname }}:9443/services/
+
+# API Store related configurations
+api_devportal_url: https://{{ cp_hostname }}:9443/devportal
+api_devportal_server_url: https://{{ cp_hostname }}:9443/services/
+
+# Gateway configurations
+gateway_environments:
+  - { type: 'hybrid',
+      name: 'Default',
+      description: 'This is a hybrid gateway that handles both production and sandbox token traffic.',
+      service_url: 'https://{{ gw_hostname }}:9443/services/',
+      ws_endpoint: 'ws://{{ gw_hostname }}:9099',
+      wss_endpoint: 'wss://{{ gw_hostname }}:8099',
+      http_endpoint: 'http://{{ gw_hostname }}:8280',
+      https_endpoint: 'https://{{ gw_hostname }}:8243',
+      websub_event_receiver_http_endpoint: "http://{{ gw_hostname }}:9021",
+      websub_event_receiver_https_endpoint: "https://{{ gw_hostname }}:8021"}
+
+sync_runtime_gateway_labels: ["Default"]
+
+# Traffic Manager configurations
+traffic_manager_host_url: https://{{ tm_hostname }}:9443
+traffic_manager_receiver_url: tcp://{{ tm_hostname }}:${receiver.url.port}
+traffic_manager_auth_url: ssl://{{ tm_hostname }}:${auth.url.port}
+throttle_config_policy_deployer_url: https://{{ tm_hostname }}:9443/services/
+notification_endpoint_url: https://{{ tm_hostname }}:9443
+throttle_decision_endpoints:
+  - tcp://{{ tm_hostname }}:5672
+throttling_url_group:
+  - traffic_manager_urls:
+      - tcp://{{ tm_hostname }}:9611
+    traffic_manager_auth_urls:
+      - ssl://{{ tm_hostname }}:9711
+
+# Workflow configurations
+workflow_enable: "false"
+workflow_service_url: https://{{ cp_hostname }}:9445/bpmn
+workflow_callback_endpoint: https://{{ cp_hostname }}:9443/api/am/publisher/v0.17/workflows/update-workflow-status
+workflow_token_endpoint: https://{{ cp_hostname }}:9443/oauth2/token
+workflow_client_registration_endpoint: https://{{ cp_hostname }}:9443/client-registration/v0.17/register
+workflow_server_url: https://apis.apim.com:9443/services/  #Developer Portal Service URL
+
+# Datasource configurations
+wso2shared_db_type: mysql
+wso2shared_db_url: jdbc:mysql://localhost:3306/shared_db?ssl-mode=REQUIRED
+wso2shared_db_username: root
+wso2shared_db_password: root
+wso2shared_db_driver: com.mysql.cj.jdbc.Driver
+
+wso2am_db_type: mysql
+wso2am_db_url: jdbc:mysql://localhost:3306/apim_db?ssl-mode=REQUIRED
+wso2am_db_username: root
+wso2am_db_password: root
+wso2am_db_driver: com.mysql.cj.jdbc.Driver
+
+# Key Store and Trust Store configuration
+primary_key_store_name: wso2carbon.jks
+primary_key_store_password: wso2carbon
+primary_key_store_key_password: wso2carbon
+primary_key_store_key_alias: wso2carbon
+
+# Client trustore configurations
+trust_store_name: client-truststore.jks
+trust_store_password: wso2carbon
+
+# The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
+internal_key_store_name: wso2carbon.jks
+internal_key_store_key_password: wso2carbon
+internal_key_store_password: wso2carbon
+internal_key_store_key_alias: wso2carbon
+
+# The KeyStore which is used for encrypting/decrypting internal data. This block is read by Carbon Crypto Service
+tls_key_store_name: wso2carbon.jks
+tls_key_store_key_password: wso2carbon
+tls_key_store_password: wso2carbon
+tls_key_store_key_alias: wso2carbon
+
+# If following is enabled all the sensitive information in server configurations will be encrypted. 
+secure_vault_enabled: false
+
+# Add any new changes you want to add for the group/profile below.
+# If you add a new file under templates and parameterized the file, the values for those parameters should be added
+# below. An example is provided below.
+# clustering_enable: false

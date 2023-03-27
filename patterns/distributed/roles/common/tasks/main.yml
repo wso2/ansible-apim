@@ -1,0 +1,68 @@
+#----------------------------------------------------------------------------
+#  Copyright (c) 2023 WSO2, LLC. http://www.wso2.org
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#----------------------------------------------------------------------------
+---
+  - block:
+    - name: Create group
+      group: name=wso2 state=present gid=802
+      become: true
+      become_method: sudo
+
+    - name: Add wso2carbon user
+      user: name=wso2carbon shell=/bin/bash group=wso2 uid=802 non_unique=yes
+      become: true
+      become_method: sudo
+
+    - name: System performance tuning
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop: "{{ performance_tuning_file_list }}"
+      when: enable_performance_tuning|bool
+
+    - name: Create Java directory
+      file:
+        path: "{{ java_home }}"
+        state: directory
+      when: setup_java_enabled|bool
+
+    - name: Unarchive JDK distribution from local source
+      unarchive:
+        src: "{{ product_package_location }}/lib/{{ jdk_name }}.tar.gz"
+        dest: "{{ java_home }}"
+        extra_opts: [--strip-components=1]
+      when: pack_location == "local" and setup_java_enabled|bool
+
+    - name: Unarchive JDK distribution from remote source
+      unarchive:
+        src: "{{ remote_jdk }}"
+        dest: "{{ java_home }}"
+        extra_opts: [--strip-components=1]
+        remote_src: yes
+      when: pack_location == "remote" and setup_java_enabled|bool
+
+    - name: Create Java symbolic link
+      file:
+        src: "{{ java_home }}"
+        dest: "{{ java_symlink }}"
+        state: link
+
+    - name: Install unzip package
+      package:
+        name: unzip
+        state: present
+
+    become: true
+    become_user: root
