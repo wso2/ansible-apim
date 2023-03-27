@@ -70,7 +70,7 @@ This repository contains the Ansible scripts for installing and configuring WSO2
 
 ```
 
-Following instructions can be followed to deploy a all-in-one standard APIM deployment to tryout the product and for demonstrations purposes. If you want to deploy a production ready deployment pattern refer the documentation in the `docs` directory.
+Below instructions can be followed to deploy a all-in-one standard APIM deployment to tryout the product and for demonstrations purposes. If you want to deploy a production ready deployment pattern refer the documentation in the `docs` directory.
 
 
 ## Copying packs locally

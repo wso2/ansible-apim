@@ -131,13 +131,13 @@ workflow_server_url: https://apis.apim.com:9443/services/  #Developer Portal Ser
 
 # Datasource configurations
 wso2shared_db_type: mysql
-wso2shared_db_url: jdbc:mysql://localhost:3306/shared_db?ssl-mode=REQUIRED
+wso2shared_db_url: jdbc:mysql://localhost:3306/shared_db?useSSL=false
 wso2shared_db_username: root
 wso2shared_db_password: root
 wso2shared_db_driver: com.mysql.cj.jdbc.Driver
 
 wso2am_db_type: mysql
-wso2am_db_url: jdbc:mysql://localhost:3306/apim_db?ssl-mode=REQUIRED
+wso2am_db_url: jdbc:mysql://localhost:3306/apim_db?useSSL=false
 wso2am_db_username: root
 wso2am_db_password: root
 wso2am_db_driver: com.mysql.cj.jdbc.Driver

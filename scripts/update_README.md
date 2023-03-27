@@ -19,7 +19,7 @@ Any of the following profile names can be provided as arguments:
 If any file that is used as a template is updated, a warning will be displayed. Update the relevant template files accordingly before pushing updates to the nodes.
 
 Once the update process completed, it requires to execute the Ansible-playbook to apply the updated distributions to the deployment.
-1. [Ansible Playbook guide](https://github.com/wso2/ansible-apim/blob/4.0.x/README.md)
+1. [Ansible Playbook guide](https://github.com/wso2/ansible-apim/blob/4.2.x/README.md)
 
 There are two options to place the product distributions to the nodes,
 1. Keeping the updated product distribution(`<Ansible_Home>/files/packs/`) in the host machine that runs the Ansible Playbook.(Updated packs will be copied from the Ansible host machine to each server during the playbook runtime)
