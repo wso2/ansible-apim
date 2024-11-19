@@ -5,7 +5,7 @@ offset= "{{ ports_offset }}"
 server_role = "api-key-manager"
 
 [super_admin]
-username = "{% if secure_vault_enabled|bool %}$secret{admin_username}{% else %}{{ admin_username }}{% endif %}"
+username = "{{ admin_username }}"
 password = "{% if secure_vault_enabled|bool %}$secret{admin_password}{% else %}{{ admin_password }}{% endif %}"
 create_admin_account = true
 
